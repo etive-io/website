@@ -24,57 +24,35 @@ title: "Releases"
           <strong>Note:</strong> Release information is automatically tracked through GitHub. Visit each package's repository to view the latest releases and changelogs.
         </div>
         
+        {% for project in site.data.projects.core_projects %}
         <div class="card mb-4 release-card">
           <div class="card-body">
-            <h3 class="h5 fw-bold">asimov</h3>
-            <p class="text-muted mb-3">Main framework for managing gravitational-wave parameter estimation analyses.</p>
+            <h3 class="h5 fw-bold">{{ project.name }}</h3>
+            <p class="text-muted mb-3">{{ project.description | truncatewords: 12 }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <a href="https://github.com/etive-io/asimov/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
-                <a href="https://github.com/etive-io/asimov/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
+                <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
+                <a href="{{ project.github_url }}/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
               </div>
             </div>
           </div>
         </div>
+        {% endfor %}
         
+        {% for project in site.data.projects.pipeline_interfaces %}
         <div class="card mb-4 release-card">
           <div class="card-body">
-            <h3 class="h5 fw-bold">asimov-gwdata</h3>
-            <p class="text-muted mb-3">Data handling utilities for gravitational-wave analysis.</p>
+            <h3 class="h5 fw-bold">{{ project.name }}</h3>
+            <p class="text-muted mb-3">{{ project.description | truncatewords: 12 }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <a href="https://github.com/etive-io/asimov-gwdata/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
-                <a href="https://github.com/etive-io/asimov-gwdata/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
+                <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
+                <a href="{{ project.github_url }}/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="card mb-4 release-card">
-          <div class="card-body">
-            <h3 class="h5 fw-bold">asimov-pycbc</h3>
-            <p class="text-muted mb-3">Interface between asimov and PyCBC.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <a href="https://github.com/etive-io/asimov-pycbc/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
-                <a href="https://github.com/etive-io/asimov-pycbc/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card mb-4 release-card">
-          <div class="card-body">
-            <h3 class="h5 fw-bold">asimov-cogwheel</h3>
-            <p class="text-muted mb-3">Interface between asimov and cogwheel.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <a href="https://github.com/etive-io/asimov-cogwheel/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
-                <a href="https://github.com/etive-io/asimov-cogwheel/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>

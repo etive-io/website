@@ -38,77 +38,35 @@ title: "Home"
     <p class="section-subtitle text-center">Integrations with leading gravitational-wave analysis pipelines</p>
     
     <div class="row g-4">
+      {% for pipeline in site.data.projects.supported_pipelines %}
       <div class="col-md-6 col-lg-4">
         <div class="card h-100 package-card">
           <div class="card-body">
-            <h4>bilby</h4>
-            <p class="package-description">A Bayesian inference library for gravitational-wave astronomy</p>
+            <h4>{{ pipeline.name }}</h4>
+            <p class="package-description">{{ pipeline.short_description }}</p>
             <div class="package-links">
-              <a href="https://github.com/bilby-dev/bilby" target="_blank">GitHub →</a>
+              <a href="{{ pipeline.github_url }}" target="_blank">{% if pipeline.git_label %}{{ pipeline.git_label }}{% else %}GitHub{% endif %} →</a>
             </div>
           </div>
         </div>
       </div>
+      {% endfor %}
       
+      {% for project in site.data.projects.core_projects %}
+      {% if project.name == 'asimov-gwdata' %}
       <div class="col-md-6 col-lg-4">
         <div class="card h-100 package-card">
           <div class="card-body">
-            <h4>cogwheel</h4>
-            <p class="package-description">Efficient likelihood calculations for gravitational-wave signals</p>
+            <h4>{{ project.name }}</h4>
+            <p class="package-description">{{ project.description | truncatewords: 8 }}</p>
             <div class="package-links">
-              <a href="https://github.com/jroulet/cogwheel" target="_blank">GitHub →</a>
+              <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 package-card">
-          <div class="card-body">
-            <h4>LALInference</h4>
-            <p class="package-description">LIGO Algorithm Library inference package</p>
-            <div class="package-links">
-              <a href="https://github.com/lscsoft/lalsuite" target="_blank">GitHub →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 package-card">
-          <div class="card-body">
-            <h4>PyCBC</h4>
-            <p class="package-description">Python toolkit for analysis of gravitational-wave data</p>
-            <div class="package-links">
-              <a href="https://github.com/gwastro/pycbc" target="_blank">GitHub →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 package-card">
-          <div class="card-body">
-            <h4>BayesWave</h4>
-            <p class="package-description">Bayesian algorithm for detecting and characterizing gravitational-wave signals</p>
-            <div class="package-links">
-              <a href="https://git.ligo.org/lscsoft/bayeswave" target="_blank">LIGO Git →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 package-card">
-          <div class="card-body">
-            <h4>asimov-gwdata</h4>
-            <p class="package-description">Data handling utilities for gravitational-wave analysis</p>
-            <div class="package-links">
-              <a href="https://github.com/etive-io/asimov-gwdata" target="_blank">GitHub →</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% endif %}
+      {% endfor %}
     </div>
     
     <div class="row mt-4">
@@ -116,8 +74,9 @@ title: "Home"
         <h3 class="h4 fw-bold mt-4 mb-3">Pipeline Interfaces</h3>
         <p>asimov provides specialized interfaces to connect with different analysis pipelines:</p>
         <ul>
-          <li><strong>asimov-pycbc</strong>: Interface between asimov and PyCBC (<a href="https://github.com/etive-io/asimov-pycbc" target="_blank">GitHub</a>)</li>
-          <li><strong>asimov-cogwheel</strong>: Interface between asimov and cogwheel (<a href="https://github.com/etive-io/asimov-cogwheel" target="_blank">GitHub</a>)</li>
+          {% for project in site.data.projects.pipeline_interfaces %}
+          <li><strong>{{ project.name }}</strong>: {{ project.description | truncatewords: 8 }} (<a href="{{ project.github_url }}" target="_blank">GitHub</a>)</li>
+          {% endfor %}
         </ul>
         <p class="mt-3">Explore more packages and tools in the <a href="https://github.com/etive-io" target="_blank">etive-io organization on GitHub</a>.</p>
       </div>

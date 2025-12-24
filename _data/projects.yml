@@ -1,0 +1,60 @@
+# Core asimov ecosystem projects
+core_projects:
+  - name: asimov
+    description: The main framework for managing gravitational-wave parameter estimation analyses across multiple pipelines.
+    github_url: https://github.com/etive-io/asimov
+    docs_url: https://asimov.docs.ligo.org/asimov/
+    category: core
+    
+  - name: asimov-gwdata
+    description: Data handling utilities for gravitational-wave analysis, including data discovery, download, and quality checks.
+    github_url: https://github.com/etive-io/asimov-gwdata
+    docs_url: https://github.com/etive-io/asimov-gwdata#readme
+    category: core
+
+# Pipeline interface projects
+pipeline_interfaces:
+  - name: asimov-pycbc
+    description: Interface between asimov and PyCBC for running parameter estimation with PyCBC inference.
+    github_url: https://github.com/etive-io/asimov-pycbc
+    docs_url: https://github.com/etive-io/asimov-pycbc#readme
+    category: interface
+    
+  - name: asimov-cogwheel
+    description: Interface between asimov and cogwheel for efficient likelihood calculations using relative binning.
+    github_url: https://github.com/etive-io/asimov-cogwheel
+    docs_url: https://github.com/etive-io/asimov-cogwheel#readme
+    category: interface
+
+# Supported analysis pipelines
+supported_pipelines:
+  - name: bilby
+    description: A Bayesian inference library for gravitational-wave astronomy and beyond.
+    github_url: https://github.com/bilby-dev/bilby
+    docs_url: https://lscsoft.docs.ligo.org/bilby/
+    short_description: A Bayesian inference library for gravitational-wave astronomy
+    
+  - name: PyCBC
+    description: Python toolkit for analysis of data from gravitational-wave laser interferometer detectors.
+    github_url: https://github.com/gwastro/pycbc
+    docs_url: https://pycbc.org/
+    short_description: Python toolkit for analysis of gravitational-wave data
+    
+  - name: cogwheel
+    description: Efficient likelihood calculations using relative binning for gravitational-wave parameter estimation.
+    github_url: https://github.com/jroulet/cogwheel
+    docs_url: https://cogwheel.readthedocs.io/
+    short_description: Efficient likelihood calculations for gravitational-wave signals
+    
+  - name: LALInference
+    description: LIGO Algorithm Library inference package for Bayesian parameter estimation.
+    github_url: https://github.com/lscsoft/lalsuite
+    docs_url: https://lscsoft.docs.ligo.org/lalsuite/
+    short_description: LIGO Algorithm Library inference package
+    
+  - name: BayesWave
+    description: Bayesian algorithm for detecting and characterizing gravitational-wave signals in noisy data.
+    github_url: https://git.ligo.org/lscsoft/bayeswave
+    docs_url: https://git.ligo.org/lscsoft/bayeswave/-/blob/master/README.md
+    short_description: Bayesian algorithm for detecting and characterizing gravitational-wave signals
+    git_label: LIGO Git

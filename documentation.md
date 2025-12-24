@@ -20,27 +20,18 @@ title: "Documentation"
       <div class="col-lg-10 mx-auto">
         <h2 class="h3 fw-bold mb-4">Core Projects</h2>
         
+        {% for project in site.data.projects.core_projects %}
         <div class="card mb-4 package-card">
           <div class="card-body">
-            <h4>asimov</h4>
-            <p class="package-description">The main framework for managing gravitational-wave parameter estimation analyses across multiple pipelines.</p>
+            <h4>{{ project.name }}</h4>
+            <p class="package-description">{{ project.description }}</p>
             <div class="package-links">
-              <a href="https://github.com/etive-io/asimov" target="_blank">GitHub →</a>
-              <a href="https://asimov.docs.ligo.org/asimov/" target="_blank">Documentation →</a>
+              <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
+              <a href="{{ project.docs_url }}" target="_blank">Documentation →</a>
             </div>
           </div>
         </div>
-        
-        <div class="card mb-4 package-card">
-          <div class="card-body">
-            <h4>asimov-gwdata</h4>
-            <p class="package-description">Data handling utilities for gravitational-wave analysis, including data discovery, download, and quality checks.</p>
-            <div class="package-links">
-              <a href="https://github.com/etive-io/asimov-gwdata" target="_blank">GitHub →</a>
-              <a href="https://github.com/etive-io/asimov-gwdata#readme" target="_blank">Documentation →</a>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -52,27 +43,18 @@ title: "Documentation"
       <div class="col-lg-10 mx-auto">
         <h2 class="h3 fw-bold mb-4">Pipeline Interfaces</h2>
         
+        {% for project in site.data.projects.pipeline_interfaces %}
         <div class="card mb-4 package-card">
           <div class="card-body">
-            <h4>asimov-pycbc</h4>
-            <p class="package-description">Interface between asimov and PyCBC for running parameter estimation with PyCBC inference.</p>
+            <h4>{{ project.name }}</h4>
+            <p class="package-description">{{ project.description }}</p>
             <div class="package-links">
-              <a href="https://github.com/etive-io/asimov-pycbc" target="_blank">GitHub →</a>
-              <a href="https://github.com/etive-io/asimov-pycbc#readme" target="_blank">Documentation →</a>
+              <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
+              <a href="{{ project.docs_url }}" target="_blank">Documentation →</a>
             </div>
           </div>
         </div>
-        
-        <div class="card mb-4 package-card">
-          <div class="card-body">
-            <h4>asimov-cogwheel</h4>
-            <p class="package-description">Interface between asimov and cogwheel for efficient likelihood calculations using relative binning.</p>
-            <div class="package-links">
-              <a href="https://github.com/etive-io/asimov-cogwheel" target="_blank">GitHub →</a>
-              <a href="https://github.com/etive-io/asimov-cogwheel#readme" target="_blank">Documentation →</a>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -86,70 +68,20 @@ title: "Documentation"
         <p class="text-muted mb-4">asimov integrates with several leading gravitational-wave analysis pipelines. Each pipeline has its own comprehensive documentation:</p>
         
         <div class="row g-4">
+          {% for pipeline in site.data.projects.supported_pipelines %}
           <div class="col-md-6">
             <div class="card h-100 package-card">
               <div class="card-body">
-                <h4>bilby</h4>
-                <p class="package-description">A Bayesian inference library for gravitational-wave astronomy and beyond.</p>
+                <h4>{{ pipeline.name }}</h4>
+                <p class="package-description">{{ pipeline.description }}</p>
                 <div class="package-links">
-                  <a href="https://github.com/bilby-dev/bilby" target="_blank">GitHub →</a>
-                  <a href="https://lscsoft.docs.ligo.org/bilby/" target="_blank">Documentation →</a>
+                  <a href="{{ pipeline.github_url }}" target="_blank">{% if pipeline.git_label %}{{ pipeline.git_label }}{% else %}GitHub{% endif %} →</a>
+                  <a href="{{ pipeline.docs_url }}" target="_blank">Documentation →</a>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div class="col-md-6">
-            <div class="card h-100 package-card">
-              <div class="card-body">
-                <h4>PyCBC</h4>
-                <p class="package-description">Python toolkit for analysis of data from gravitational-wave laser interferometer detectors.</p>
-                <div class="package-links">
-                  <a href="https://github.com/gwastro/pycbc" target="_blank">GitHub →</a>
-                  <a href="https://pycbc.org/" target="_blank">Documentation →</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6">
-            <div class="card h-100 package-card">
-              <div class="card-body">
-                <h4>cogwheel</h4>
-                <p class="package-description">Efficient likelihood calculations using relative binning for gravitational-wave parameter estimation.</p>
-                <div class="package-links">
-                  <a href="https://github.com/jroulet/cogwheel" target="_blank">GitHub →</a>
-                  <a href="https://cogwheel.readthedocs.io/" target="_blank">Documentation →</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6">
-            <div class="card h-100 package-card">
-              <div class="card-body">
-                <h4>LALInference</h4>
-                <p class="package-description">LIGO Algorithm Library inference package for Bayesian parameter estimation.</p>
-                <div class="package-links">
-                  <a href="https://github.com/lscsoft/lalsuite" target="_blank">GitHub →</a>
-                  <a href="https://lscsoft.docs.ligo.org/lalsuite/" target="_blank">Documentation →</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6">
-            <div class="card h-100 package-card">
-              <div class="card-body">
-                <h4>BayesWave</h4>
-                <p class="package-description">Bayesian algorithm for detecting and characterizing gravitational-wave signals in noisy data.</p>
-                <div class="package-links">
-                  <a href="https://git.ligo.org/lscsoft/bayeswave" target="_blank">LIGO Git →</a>
-                  <a href="https://git.ligo.org/lscsoft/bayeswave/-/blob/master/README.md" target="_blank">Documentation →</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
