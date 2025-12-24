@@ -34,6 +34,7 @@ jobs:
           import yaml
           from github import Github
           from datetime import datetime
+          from urllib.parse import urlparse
 
           # Initialize GitHub API
           g = Github(os.environ['GITHUB_TOKEN'])
@@ -50,13 +51,14 @@ jobs:
           # Function to extract owner and repo from GitHub URL
           def parse_github_url(url):
               # Only handle github.com URLs (not git.ligo.org)
-              if 'github.com' in url:
-                  try:
-                      parts = url.rstrip('/').split('/')
+              try:
+                  parsed = urlparse(url)
+                  if 'github.com' in parsed.netloc:
+                      parts = parsed.path.strip('/').split('/')
                       if len(parts) >= 2:
-                          return parts[-2], parts[-1]
-                  except Exception:
-                      pass
+                          return parts[0], parts[1]
+              except Exception:
+                  pass
               return None, None
 
           # Fetch releases for core projects and pipeline interfaces
@@ -101,7 +103,7 @@ jobs:
                           except Exception as e:
                               print(f"✗ Error fetching releases for {project_name}: {e}")
                       else:
-                          print(f"⊘ Skipping {project_name} (not a GitHub repository)")
+                          print(f"⊗ Skipping {project_name} (not a GitHub repository)")
 
           # Write releases data to file
           with open('_data/releases.yml', 'w') as f:
