@@ -1,3 +1,24 @@
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://etive.io" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
-title: "" # the name of your site, e.g. ACME Corp.
+title: "etive.io" # the name of your site
+description: "Making gravitational-wave analysis fun, easy, and reproducible"
+email: contact@etive.io
+
+# Build settings
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - README.md
