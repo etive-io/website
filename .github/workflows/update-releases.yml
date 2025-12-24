@@ -49,16 +49,21 @@ jobs:
 
           # Function to extract owner and repo from GitHub URL
           def parse_github_url(url):
-              # Handle both github.com and git.ligo.org
+              # Only handle github.com URLs (not git.ligo.org)
               if 'github.com' in url:
-                  parts = url.rstrip('/').split('/')
-                  return parts[-2], parts[-1]
+                  try:
+                      parts = url.rstrip('/').split('/')
+                      if len(parts) >= 2:
+                          return parts[-2], parts[-1]
+                  except Exception:
+                      pass
               return None, None
 
           # Fetch releases for core projects and pipeline interfaces
           for category in ['core_projects', 'pipeline_interfaces']:
               if category in data:
                   for project in data[category]:
+                      project_name = project.get('name', 'Unknown')
                       owner, repo = parse_github_url(project.get('github_url', ''))
                       
                       if owner and repo:
@@ -67,7 +72,7 @@ jobs:
                               releases = list(gh_repo.get_releases())
                               
                               project_releases = {
-                                  'name': project['name'],
+                                  'name': project_name,
                                   'latest_release': None,
                                   'recent_releases': []
                               }
@@ -91,10 +96,12 @@ jobs:
                                       })
                               
                               releases_data['projects'].append(project_releases)
-                              print(f"✓ Fetched releases for {project['name']}")
+                              print(f"✓ Fetched releases for {project_name}")
                               
                           except Exception as e:
-                              print(f"✗ Error fetching releases for {project['name']}: {e}")
+                              print(f"✗ Error fetching releases for {project_name}: {e}")
+                      else:
+                          print(f"⊘ Skipping {project_name} (not a GitHub repository)")
 
           # Write releases data to file
           with open('_data/releases.yml', 'w') as f:

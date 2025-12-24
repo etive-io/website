@@ -67,7 +67,7 @@ title: "Releases"
               
               <div>
                 <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">All Releases</a>
-                <a href="{{ project.github_url }}/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
+                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">Repository</a>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ title: "Releases"
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
-                <a href="{{ project.github_url }}/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
+                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">Repository</a>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ title: "Releases"
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
-                <a href="{{ project.github_url }}/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
+                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">Repository</a>
               </div>
             </div>
           </div>
