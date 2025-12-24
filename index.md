@@ -45,7 +45,7 @@ title: "Home"
             <h4>{{ pipeline.name }}</h4>
             <p class="package-description">{{ pipeline.short_description }}</p>
             <div class="package-links">
-              <a href="{{ pipeline.github_url }}" target="_blank">{% if pipeline.git_label %}{{ pipeline.git_label }}{% else %}GitHub{% endif %} →</a>
+              <a href="{{ pipeline.github_url }}" target="_blank">{{ pipeline.git_label | default: 'GitHub' }} →</a>
             </div>
           </div>
         </div>
