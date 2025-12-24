@@ -28,7 +28,7 @@ title: "Releases"
         <div class="card mb-4 release-card">
           <div class="card-body">
             <h3 class="h5 fw-bold">{{ project.name }}</h3>
-            <p class="text-muted mb-3">{{ project.description | truncatewords: 12 }}</p>
+            <p class="text-muted mb-3">{{ project.short_description }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>
@@ -43,7 +43,7 @@ title: "Releases"
         <div class="card mb-4 release-card">
           <div class="card-body">
             <h3 class="h5 fw-bold">{{ project.name }}</h3>
-            <p class="text-muted mb-3">{{ project.description | truncatewords: 12 }}</p>
+            <p class="text-muted mb-3">{{ project.short_description }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">View Releases</a>

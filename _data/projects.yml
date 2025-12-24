@@ -2,26 +2,31 @@
 core_projects:
   - name: asimov
     description: The main framework for managing gravitational-wave parameter estimation analyses across multiple pipelines.
+    short_description: Main framework for managing gravitational-wave parameter estimation analyses
     github_url: https://github.com/etive-io/asimov
     docs_url: https://asimov.docs.ligo.org/asimov/
     category: core
     
   - name: asimov-gwdata
     description: Data handling utilities for gravitational-wave analysis, including data discovery, download, and quality checks.
+    short_description: Data handling utilities for gravitational-wave analysis
     github_url: https://github.com/etive-io/asimov-gwdata
     docs_url: https://github.com/etive-io/asimov-gwdata#readme
     category: core
+    featured_on_homepage: true
 
 # Pipeline interface projects
 pipeline_interfaces:
   - name: asimov-pycbc
     description: Interface between asimov and PyCBC for running parameter estimation with PyCBC inference.
+    short_description: Interface between asimov and PyCBC
     github_url: https://github.com/etive-io/asimov-pycbc
     docs_url: https://github.com/etive-io/asimov-pycbc#readme
     category: interface
     
   - name: asimov-cogwheel
     description: Interface between asimov and cogwheel for efficient likelihood calculations using relative binning.
+    short_description: Interface between asimov and cogwheel
     github_url: https://github.com/etive-io/asimov-cogwheel
     docs_url: https://github.com/etive-io/asimov-cogwheel#readme
     category: interface

@@ -53,12 +53,12 @@ title: "Home"
       {% endfor %}
       
       {% for project in site.data.projects.core_projects %}
-      {% if project.name == 'asimov-gwdata' %}
+      {% if project.featured_on_homepage %}
       <div class="col-md-6 col-lg-4">
         <div class="card h-100 package-card">
           <div class="card-body">
             <h4>{{ project.name }}</h4>
-            <p class="package-description">{{ project.description | truncatewords: 8 }}</p>
+            <p class="package-description">{{ project.short_description }}</p>
             <div class="package-links">
               <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
             </div>
@@ -75,7 +75,7 @@ title: "Home"
         <p>asimov provides specialized interfaces to connect with different analysis pipelines:</p>
         <ul>
           {% for project in site.data.projects.pipeline_interfaces %}
-          <li><strong>{{ project.name }}</strong>: {{ project.description | truncatewords: 8 }} (<a href="{{ project.github_url }}" target="_blank">GitHub</a>)</li>
+          <li><strong>{{ project.name }}</strong>: {{ project.short_description }} (<a href="{{ project.github_url }}" target="_blank">GitHub</a>)</li>
           {% endfor %}
         </ul>
         <p class="mt-3">Explore more packages and tools in the <a href="https://github.com/etive-io" target="_blank">etive-io organization on GitHub</a>.</p>
