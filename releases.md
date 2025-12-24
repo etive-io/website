@@ -20,6 +20,62 @@ title: "Releases"
       <div class="col-lg-8 mx-auto">
         <h2 class="h3 fw-bold mb-4">Recent Releases</h2>
         
+        {% if site.data.releases %}
+        <div class="alert alert-success">
+          <strong>Last Updated:</strong> {{ site.data.releases.last_updated }}
+        </div>
+        
+        {% for release_info in site.data.releases.projects %}
+          {% assign project = site.data.projects.core_projects | concat: site.data.projects.pipeline_interfaces | where: "name", release_info.name | first %}
+          {% if project %}
+          <div class="card mb-4 release-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h3 class="h5 fw-bold mb-1">{{ project.name }}</h3>
+                  <p class="text-muted mb-0">{{ project.short_description }}</p>
+                </div>
+                {% if release_info.latest_release %}
+                <div class="text-end">
+                  <span class="release-tag">{{ release_info.latest_release.version }}</span>
+                  <div class="release-date">{{ release_info.latest_release.published_at }}</div>
+                </div>
+                {% endif %}
+              </div>
+              
+              {% if release_info.latest_release %}
+              <div class="mb-3">
+                <strong>Latest Release:</strong> 
+                <a href="{{ release_info.latest_release.url }}" target="_blank">{{ release_info.latest_release.name }}</a>
+              </div>
+              {% endif %}
+              
+              {% if release_info.recent_releases.size > 1 %}
+              <details class="mb-3">
+                <summary class="fw-bold" style="cursor: pointer;">Recent Releases ({{ release_info.recent_releases.size }})</summary>
+                <ul class="mt-2 mb-0">
+                  {% for release in release_info.recent_releases %}
+                  <li>
+                    <a href="{{ release.url }}" target="_blank">{{ release.version }}</a>
+                    {% if release.name != release.version %}- {{ release.name }}{% endif %}
+                    <span class="text-muted">({{ release.published_at }})</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </details>
+              {% endif %}
+              
+              <div>
+                <a href="{{ project.github_url }}/releases" target="_blank" class="btn btn-primary btn-sm">All Releases</a>
+                <a href="{{ project.github_url }}/blob/master/CHANGELOG.md" target="_blank" class="btn btn-outline-secondary btn-sm">Changelog</a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+        
+        {% else %}
+        
         <div class="alert alert-info">
           <strong>Note:</strong> Release information is automatically tracked through GitHub. Visit each package's repository to view the latest releases and changelogs.
         </div>
@@ -53,6 +109,8 @@ title: "Releases"
           </div>
         </div>
         {% endfor %}
+        
+        {% endif %}
       </div>
     </div>
   </div>

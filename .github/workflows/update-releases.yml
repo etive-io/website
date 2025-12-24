@@ -1,0 +1,119 @@
+name: Update Release Data
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  update-releases:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install PyGithub PyYAML
+          
+      - name: Fetch release data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import os
+          import yaml
+          from github import Github
+          from datetime import datetime
+
+          # Initialize GitHub API
+          g = Github(os.environ['GITHUB_TOKEN'])
+
+          # Load projects from the data file
+          with open('_data/projects.yml', 'r') as f:
+              data = yaml.safe_load(f)
+
+          releases_data = {
+              'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC'),
+              'projects': []
+          }
+
+          # Function to extract owner and repo from GitHub URL
+          def parse_github_url(url):
+              # Handle both github.com and git.ligo.org
+              if 'github.com' in url:
+                  parts = url.rstrip('/').split('/')
+                  return parts[-2], parts[-1]
+              return None, None
+
+          # Fetch releases for core projects and pipeline interfaces
+          for category in ['core_projects', 'pipeline_interfaces']:
+              if category in data:
+                  for project in data[category]:
+                      owner, repo = parse_github_url(project.get('github_url', ''))
+                      
+                      if owner and repo:
+                          try:
+                              gh_repo = g.get_repo(f"{owner}/{repo}")
+                              releases = list(gh_repo.get_releases())
+                              
+                              project_releases = {
+                                  'name': project['name'],
+                                  'latest_release': None,
+                                  'recent_releases': []
+                              }
+                              
+                              if releases:
+                                  latest = releases[0]
+                                  project_releases['latest_release'] = {
+                                      'version': latest.tag_name,
+                                      'name': latest.title or latest.tag_name,
+                                      'published_at': latest.published_at.strftime('%Y-%m-%d') if latest.published_at else None,
+                                      'url': latest.html_url
+                                  }
+                                  
+                                  # Store up to 5 recent releases
+                                  for release in releases[:5]:
+                                      project_releases['recent_releases'].append({
+                                          'version': release.tag_name,
+                                          'name': release.title or release.tag_name,
+                                          'published_at': release.published_at.strftime('%Y-%m-%d') if release.published_at else None,
+                                          'url': release.html_url
+                                      })
+                              
+                              releases_data['projects'].append(project_releases)
+                              print(f"✓ Fetched releases for {project['name']}")
+                              
+                          except Exception as e:
+                              print(f"✗ Error fetching releases for {project['name']}: {e}")
+
+          # Write releases data to file
+          with open('_data/releases.yml', 'w') as f:
+              yaml.dump(releases_data, f, default_flow_style=False, sort_keys=False)
+
+          print(f"\n✓ Release data updated successfully at {releases_data['last_updated']}")
+          EOF
+          
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add _data/releases.yml
+          
+          # Only commit if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "Update release data [automated]"
+            git push
+            echo "✓ Changes committed and pushed"
+          else
+            echo "✓ No changes to commit"
+          fi
