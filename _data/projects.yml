@@ -1,3 +1,15 @@
+# Project data for etive.io website
+# This file contains information about all projects in the asimov ecosystem
+#
+# Fields:
+#   name: Project name (required)
+#   description: Full description for documentation pages (required)
+#   short_description: Concise description for releases page and homepage (required)
+#   github_url: GitHub repository URL (required)
+#   docs_url: Documentation URL (required)
+#   featured_on_homepage: Boolean, set to true to display on homepage ecosystem section (optional)
+#   git_label: Custom label for git link (optional, defaults to "GitHub")
+
 # Core asimov ecosystem projects
 core_projects:
   - name: asimov
