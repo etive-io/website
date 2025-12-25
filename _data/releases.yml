@@ -1,0 +1,50 @@
+last_updated: 2025-12-25 02:01:43 UTC
+projects:
+- name: asimov
+  latest_release:
+    version: v0.5.10
+    name: asimov 0.5.10
+    published_at: '2025-12-15'
+    url: https://github.com/etive-io/asimov/releases/tag/v0.5.10
+  recent_releases:
+  - version: v0.5.10
+    name: asimov 0.5.10
+    published_at: '2025-12-15'
+    url: https://github.com/etive-io/asimov/releases/tag/v0.5.10
+  - version: v0.5.9
+    name: asimov 0.5.9
+    published_at: '2025-12-15'
+    url: https://github.com/etive-io/asimov/releases/tag/v0.5.9
+  - version: v0.6.1
+    name: asimov 0.6.1
+    published_at: '2025-12-15'
+    url: https://github.com/etive-io/asimov/releases/tag/v0.6.1
+  - version: v0.6.0
+    name: asimov 0.6.0
+    published_at: '2025-12-15'
+    url: https://github.com/etive-io/asimov/releases/tag/v0.6.0
+  - version: v0.5.8
+    name: v0.5.8
+    published_at: '2024-10-25'
+    url: https://github.com/etive-io/asimov/releases/tag/v0.5.8
+- name: asimov-gwdata
+  latest_release: null
+  recent_releases: []
+- name: asimov-pycbc
+  latest_release: null
+  recent_releases: []
+- name: asimov-cogwheel
+  latest_release:
+    version: v0.1.1
+    name: v0.1.1
+    published_at: '2025-04-03'
+    url: https://github.com/etive-io/asimov-cogwheel/releases/tag/v0.1.1
+  recent_releases:
+  - version: v0.1.1
+    name: v0.1.1
+    published_at: '2025-04-03'
+    url: https://github.com/etive-io/asimov-cogwheel/releases/tag/v0.1.1
+  - version: v0.1.0
+    name: asimov-cogwheel 0.1.0
+    published_at: '2025-04-03'
+    url: https://github.com/etive-io/asimov-cogwheel/releases/tag/v0.1.0
