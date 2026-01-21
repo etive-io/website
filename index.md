@@ -11,7 +11,8 @@ title: "Home"
         <h1>Making gravitational-wave analysis fun, easy, and reproducible</h1>
         <p class="lead">etive.io hosts asimov and its ecosystem – a collection of tools designed to streamline gravitational-wave astrophysics analysis pipelines.</p>
         <div class="mt-4">
-          <a href="{{ "/tutorials" | relative_url }}" class="btn btn-light btn-lg me-2">Get Started</a>
+          <a href="{{ "/features" | relative_url }}" class="btn btn-light btn-lg me-2">Learn More</a>
+          <a href="{{ "/tutorials" | relative_url }}" class="btn btn-outline-light btn-lg me-2">Get Started</a>
           <a href="https://github.com/etive-io" class="btn btn-outline-light btn-lg">View on GitHub</a>
         </div>
       </div>
