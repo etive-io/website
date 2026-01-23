@@ -203,12 +203,14 @@ def update_stats():
               f"(month): {package_stats['pypi_downloads_month']}")
         print(f"  conda-forge (total): {package_stats['conda_forge_downloads_total']}")
     
-    # Write to file
+    # Write to data locations (Jekyll build + public asset)
     output_path = Path(__file__).parent.parent / "_data" / "package-stats.json"
-    with open(output_path, "w") as f:
-        json.dump(stats, f, indent=2)
-    
-    print(f"\nUpdated {output_path}")
+    public_path = Path(__file__).parent.parent / "assets" / "data" / "package-stats.json"
+    public_path.parent.mkdir(parents=True, exist_ok=True)
+    for path in (output_path, public_path):
+        with open(path, "w") as f:
+            json.dump(stats, f, indent=2)
+        print(f"Updated {path}")
 
 if __name__ == "__main__":
     update_stats()

@@ -135,7 +135,7 @@ title: "Research Impact"
 // Load citing papers from data file
 let allPapers = [];
 
-fetch('{{ site.baseurl }}/data/citing-papers.json')
+fetch('{{ site.baseurl }}/assets/data/citing-papers.json')
   .then(response => response.json())
   .then(data => {
     allPapers = data.papers || [];

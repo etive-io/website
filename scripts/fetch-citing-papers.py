@@ -127,12 +127,14 @@ def main():
     
     print(f"Found {len(data['papers'])} citing papers (total: {data['total_citations']})")
     
-    # Write to file
+    # Write to data locations (Jekyll build + public asset)
     output_path = Path(__file__).parent.parent / "_data" / "citing-papers.json"
-    with open(output_path, "w") as f:
-        json.dump(data, f, indent=2)
-    
-    print(f"Updated {output_path}")
+    public_path = Path(__file__).parent.parent / "assets" / "data" / "citing-papers.json"
+    public_path.parent.mkdir(parents=True, exist_ok=True)
+    for path in (output_path, public_path):
+        with open(path, "w") as f:
+            json.dump(data, f, indent=2)
+        print(f"Updated {path}")
 
 if __name__ == "__main__":
     main()

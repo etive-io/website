@@ -58,10 +58,17 @@ def main():
     
     data = fetch_zenodo_releases()
     
+        # Write to data locations (Jekyll build + public asset)
+        output_path = Path(__file__).parent.parent / "_data" / "zenodo-releases.json"
+        public_path = Path(__file__).parent.parent / "assets" / "data" / "zenodo-releases.json"
     # Write to file
-    output_path = Path(__file__).parent.parent / "_data" / "zenodo-releases.json"
     with open(output_path, "w") as f:
         json.dump(data, f, indent=2)
+        public_path.parent.mkdir(parents=True, exist_ok=True)
+        for path in (output_path, public_path):
+            with open(path, "w") as f:
+                json.dump(data, f, indent=2)
+            print(f"Updated {path}")
     
     print(f"Found {len(data['releases'])} releases")
     print(f"Updated {output_path}")

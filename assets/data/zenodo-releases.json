@@ -1,0 +1,141 @@
+{
+  "releases": [
+    {
+      "title": "etive-io/asimov: v0.7.0-alpha.1",
+      "doi": "10.5281/zenodo.18341753",
+      "created": "2026-01-22T17:52:41.984702+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/18341753"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.6.1",
+      "doi": "10.5281/zenodo.17945091",
+      "created": "2025-12-15T21:48:05.696177+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945091"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.6.0",
+      "doi": "10.5281/zenodo.17945085",
+      "created": "2025-12-15T21:46:57.893899+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945085"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.10",
+      "doi": "10.5281/zenodo.17945078",
+      "created": "2025-12-15T21:45:34.040485+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945078"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.9",
+      "doi": "10.5281/zenodo.17945070",
+      "created": "2025-12-15T21:44:23.825719+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945070"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.5.8",
+      "doi": "10.5281/zenodo.13992299",
+      "created": "2024-10-25T13:30:33.664085+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/13992299"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.7",
+      "doi": "10.5281/zenodo.13329517",
+      "created": "2024-08-16T07:45:49.794651+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/13329517"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.6",
+      "doi": "10.5281/zenodo.10547146",
+      "created": "2024-01-21T19:55:14.984107+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/10547146"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.5",
+      "doi": "10.5281/zenodo.10518178",
+      "created": "2024-01-16T11:17:10.857214+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/10518178"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.4",
+      "doi": "10.5281/zenodo.10124824",
+      "created": "2023-11-14T13:54:48.223693+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/10124824"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.3 [reviewed]",
+      "doi": "10.5281/zenodo.8383529",
+      "created": "2023-09-27T13:42:26.427391+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/8383529"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.2",
+      "doi": "10.5281/zenodo.8383526",
+      "created": "2023-09-27T13:42:02.251735+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/8383526"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: Asimov 0.5.0",
+      "doi": "10.5281/zenodo.8208786",
+      "created": "2023-08-02T16:02:04.703274+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/8208786"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.4.0",
+      "doi": "10.5281/zenodo.7843573",
+      "created": "2023-04-18T18:26:58.971388+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/7843573"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.3.4",
+      "doi": "10.5281/zenodo.7079685",
+      "created": "2022-09-14T15:59:47.256357+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/7079685"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.3.2",
+      "doi": "10.5281/zenodo.5142601",
+      "created": "2021-07-28T16:56:22.550698+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/5142601"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov 0.0.1",
+      "doi": "10.5281/zenodo.4024433",
+      "created": "2020-09-11T14:03:35.748109+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/4024433"
+      }
+    }
+  ],
+  "last_updated": "2026-01-23T20:04:36.729043Z"
+}
