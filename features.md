@@ -8,11 +8,12 @@ title: "Features"
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center">
-        <h1>Workflow automation for scientific analysis</h1>
-        <p class="lead">Orchestrate complex analysis pipelines with a tool built by researchers, for researchers.</p>
+        <h1>Workflow automation for scientific research</h1>
+        <p class="lead">Run, monitor, and orchestrate complex analyses across heterogeneous compute environments—from laptops to HPC clusters.</p>
         <div class="mt-4">
           <a href="{{ "/tutorials" | relative_url }}" class="btn btn-light btn-lg me-2">Get Started</a>
-          <a href="{{ "/documentation" | relative_url }}" class="btn btn-outline-light btn-lg">Documentation</a>
+          <a href="{{ "/comparison" | relative_url }}" class="btn btn-outline-light btn-lg me-2">Compare to Nextflow</a>
+          <a href="{{ "/documentation" | relative_url }}" class="btn btn-outline-light btn-lg">Docs</a>
         </div>
       </div>
     </div>
@@ -26,16 +27,13 @@ title: "Features"
       <div class="col-lg-10">
         <h2 class="section-title">What is asimov?</h2>
         <p class="section-subtitle">
-          A workflow management framework that handles the complexity of running, monitoring, and coordinating scientific analyses at scale.
+          A workflow management framework that orchestrates complex scientific computing at scale.
         </p>
         <p style="font-size: 1.1rem; color: #6b7280; line-height: 1.8;">
-          Asimov was developed by the LIGO, Virgo, and KAGRA collaborations to manage gravitational wave parameter estimation analyses.
-          It orchestrated hundreds of analyses for the O3 and O4 observing run catalogues. But asimov isn't limited to gravitational wave physics. Its
-          extensible architecture makes it a powerful tool for any research workflow requiring automated pipeline orchestration.
+          <strong>asimov was created by the LIGO, Virgo, and KAGRA gravitational-wave physics collaborations</strong> to orchestrate hundreds of parameter estimation analyses. It managed the complete O3 and O4 observing run catalogues. But asimov isn't limited to gravitational waves—its extensible architecture makes it powerful for any large-scale scientific workflow.
         </p>
         <p style="font-size: 1.1rem; color: #6b7280; line-height: 1.8;">
-          Whether you're comparing different analysis codes, processing large datasets, or coordinating multi-stage workflows,
-          asimov provides the infrastructure to do it reliably and reproducibly.
+          Write your analysis logic in <strong>Python</strong>. Call <strong>shell scripts, compiled code, containers, or other languages</strong> from anywhere. asimov handles the orchestration, monitoring, dependency resolution, and fault recovery. It integrates with your existing compute infrastructure—whether that's HTCondor, SLURM, Kubernetes, or the cloud.
         </p>
       </div>
     </div>

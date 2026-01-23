@@ -1,0 +1,99 @@
+[
+  {
+    "name": "asimov",
+    "github_repo": "etive-io/asimov",
+    "github_stars": 0,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-bilby",
+    "github_repo": "transientlunatic/asimov-bilby",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-bayeswave",
+    "github_repo": "transientlunatic/asimov-bayeswave",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-cogwheel",
+    "github_repo": "etive-io/asimov-cogwheel",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-pycbc",
+    "github_repo": "etive-io/asimov-pycbc",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-gwdata",
+    "github_repo": "etive-io/asimov-gwdata",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-pyomicron",
+    "github_repo": "transientlunatic/asimov-pyomicron",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "asimov-pastro",
+    "github_repo": "transientlunatic/asimov-pastro",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  },
+  {
+    "name": "minke",
+    "github_repo": "etive-io/minke",
+    "github_stars": 0,
+    "latest_release": null,
+    "release_date": null,
+    "pypi_downloads_month": 0,
+    "pypi_downloads_week": 0,
+    "conda_forge_downloads_month": 0,
+    "last_updated": "2026-01-23T00:00:00Z"
+  }
+]

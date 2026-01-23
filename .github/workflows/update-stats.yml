@@ -1,0 +1,56 @@
+name: Update Package Statistics
+
+on:
+  schedule:
+    # Run every Monday at 2:00 AM UTC
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Fetch package statistics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/update-stats.py
+
+      - name: Fetch Zenodo releases
+        run: |
+          python scripts/fetch-zenodo-releases.py
+
+      - name: Fetch citing papers from NASA ADS
+        if: always()
+        env:
+          ADS_API_KEY: ${{ secrets.ADS_API_KEY }}
+        run: |
+          python scripts/fetch-citing-papers.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add _data/package-stats.json _data/zenodo-releases.json _data/citing-papers.json
+          if git diff --cached --quiet; then
+            echo "No changes in stats"
+          else
+            git commit -m "chore: update package statistics, releases, and citations [skip ci]"
+            git push
+          fi

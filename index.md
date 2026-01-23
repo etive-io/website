@@ -8,12 +8,13 @@ title: "Home"
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center">
-        <h1>Making gravitational-wave analysis fun, easy, and reproducible</h1>
-        <p class="lead">etive.io hosts asimov and its ecosystem – a collection of tools designed to streamline gravitational-wave astrophysics analysis pipelines.</p>
+        <h1>Scientific Workflow Orchestration</h1>
+        <p class="lead">asimov is a robust, extensible framework for managing complex scientific computing workflows. Run Python, shell scripts, compiled binaries, and containerized applications—all orchestrated seamlessly at scale.</p>
+        <p style="font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-top: 1rem;">Built by LIGO researchers. Used in production by the gravitational-wave astronomy community. Ready for your domain.</p>
         <div class="mt-4">
-          <a href="{{ "/features" | relative_url }}" class="btn btn-light btn-lg me-2">Learn More</a>
-          <a href="{{ "/tutorials" | relative_url }}" class="btn btn-outline-light btn-lg me-2">Get Started</a>
-          <a href="https://github.com/etive-io" class="btn btn-outline-light btn-lg">View on GitHub</a>
+          <a href="{{ "/tutorials/quickstart" | relative_url }}" class="btn btn-light btn-lg me-2">5-Minute Quickstart</a>
+          <a href="{{ "/comparison" | relative_url }}" class="btn btn-outline-light btn-lg me-2">Compare to Nextflow</a>
+          <a href="https://github.com/etive-io/asimov" class="btn btn-outline-light btn-lg">GitHub</a>
         </div>
       </div>
     </div>
@@ -25,8 +26,14 @@ title: "Home"
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2 class="section-title">About asimov</h2>
-        <p class="lead text-muted">asimov is a framework for managing and orchestrating gravitational-wave parameter estimation analyses. It provides a unified interface to multiple analysis pipelines, making it easier to run reproducible analyses across different codes.</p>
+        <h2 class="section-title">What is asimov?</h2>
+        <p class="lead text-muted">asimov is a workflow management system designed for scientific computing at scale. It handles job submission, monitoring, dependency resolution, and fault recovery across heterogeneous compute environments—without forcing you to learn a domain-specific language.</p>
+        <p style="margin-top: 1.5rem; color: #6b7280; line-height: 1.8;">
+          <strong>Write workflows in Python.</strong> Use native Python for logic, configuration, and integration. Call out to shell scripts, compiled binaries, containerized services, or other languages as needed. No DSL to learn.
+        </p>
+        <p style="color: #6b7280; line-height: 1.8;">
+          <strong>Designed for research.</strong> Born from the LIGO collaboration's need to coordinate hundreds of parameter estimation analyses. Now proven across gravitational-wave physics, but equally applicable to genomics, climate modeling, machine learning, and beyond.
+        </p>
       </div>
     </div>
   </div>
@@ -96,12 +103,11 @@ title: "Home"
         <div class="text-center">
           <div class="mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.848-1.454l-.853.482c.326.585.83 1.109 1.404 1.466l.414-.892ZM16 12.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm1.5-1.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Zm-7.5 2.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Zm2.5-8.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
             </svg>
           </div>
-          <h3 class="h5 fw-bold">Easy to Use</h3>
-          <p class="text-muted">Unified interface across multiple analysis pipelines makes it simple to get started and switch between tools.</p>
+          <h3 class="h5 fw-bold">Language-Agnostic</h3>
+          <p class="text-muted">Orchestrate Python, shell, C++, containers, and more. Write workflows in Python; call anything from anywhere.</p>
         </div>
       </div>
       
@@ -109,12 +115,11 @@ title: "Home"
         <div class="text-center">
           <div class="mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
-              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+              <path d="M12.5 15H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8.5a.5.5 0 0 1 .354.146l2.854 2.854a.5.5 0 0 1 .146.354V14a1 1 0 0 1-1 1zM4.5 13a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-8zm0-3a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-8zm0-3a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-8z"/>
             </svg>
           </div>
           <h3 class="h5 fw-bold">Reproducible</h3>
-          <p class="text-muted">Standardized workflows and configuration management ensure your analyses are reproducible and well-documented.</p>
+          <p class="text-muted">Standardized configuration, version tracking, and audit logs ensure your science is reproducible and transparent.</p>
         </div>
       </div>
       
@@ -122,12 +127,11 @@ title: "Home"
         <div class="text-center">
           <div class="mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              <path d="M8 3.5a.5.5 0 0 0-1 0V9H3.5a.5.5 0 0 0 0 1H7v3.5a.5.5 0 0 0 1 0V10h3.5a.5.5 0 0 0 0-1H8V3.5z"/>
             </svg>
           </div>
-          <h3 class="h5 fw-bold">Community-Driven</h3>
-          <p class="text-muted">Open-source and built by researchers, for researchers. Contributions are welcome and encouraged.</p>
+          <h3 class="h5 fw-bold">Extensible</h3>
+          <p class="text-muted">Plugin architecture lets you integrate your own analysis tools, backends, and custom logic seamlessly.</p>
         </div>
       </div>
     </div>

@@ -20,24 +20,49 @@ title: "Citing"
       <div class="col-lg-8 mx-auto">
         <h2 class="h3 fw-bold mb-4">Citing asimov</h2>
         
-        <p class="text-muted mb-4">If you use asimov in your research, please cite it in your publications. This helps us track the impact of the software and secure funding for continued development.</p>
+        <p class="text-muted mb-4">If you use asimov in your research, please cite the original paper which describes asimov:</p>
         
         <div class="card mb-4">
           <div class="card-body">
-            <h5 class="card-title mb-3">BibTeX Citation</h5>
-            <pre><code>@software{asimov,
-  author       = {Williams, Daniel and others},
-  title        = {asimov: A framework for managing gravitational-wave analysis},
-  url          = {https://github.com/etive-io/asimov},
-  version      = {latest},
-  year         = {2024}
+            <h5 class="card-title mb-3">Journal Article</h5>
+            <p class="text-muted mb-3">
+              Williams, D., Veitch, J., Chiofalo, M., Schmidt, P., Udall, R., Vajpeyi, A., & Hoy, C. (2023). 
+              "Asimov: A framework for coordinating parameter estimation workflows". 
+              <em>The Journal of Open Source Software</em>, 8(84), 4170. 
+              <a href="https://doi.org/10.21105/joss.04170" target="_blank">https://doi.org/10.21105/joss.04170</a>
+            </p>
+            
+            <h6 class="fw-bold mt-4 mb-2">BibTeX Citation</h6>
+            <pre><code>@article{asimov-paper,
+  author = {Williams, Daniel and Veitch, John and Chiofalo, Maria and Schmidt, Patricia and Udall, Rhiannon and Vajpeyi, Avi and Hoy, Charlie},
+  title = {Asimov: A framework for coordinating parameter estimation workflows},
+  journal = {The Journal of Open Source Software},
+  year = {2023},
+  month = {apr},
+  volume = {8},
+  number = {84},
+  eid = {4170},
+  pages = {4170},
+  doi = {10.21105/joss.04170},
+  archiveprefix = {arXiv},
+  eprint = {2207.01468},
+  primaryclass = {gr-qc}
 }</code></pre>
-            <p class="text-muted mt-3 mb-0"><small>Note: Please check the repository for the most up-to-date citation information and DOI references.</small></p>
           </div>
         </div>
         
-        <div class="alert alert-info">
-          <strong>Tip:</strong> Visit the asimov GitHub repository for DOI badges and version-specific citations through Zenodo or other archival services.
+        <h2 class="h3 fw-bold mb-4 mt-5">Citing Specific Software Versions</h2>
+        
+        <p class="text-muted mb-4">Each release of asimov is archived on Zenodo and receives a unique DOI. When you use a specific version of asimov, you should cite both the paper above and the corresponding Zenodo release.</p>
+        
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6 class="fw-bold mb-2">Latest Releases</h6>
+            <div id="zenodo-releases" style="margin-top: 1rem;">
+              <p class="text-muted"><em>Loading latest releases from Zenodo...</em></p>
+            </div>
+            <p class="text-muted mt-3 mb-0"><small><a href="https://doi.org/10.5281/zenodo.4024432" target="_blank">View all releases on Zenodo →</a></small></p>
+          </div>
         </div>
       </div>
     </div>
@@ -194,3 +219,32 @@ title: "Citing"
     </div>
   </div>
 </section>
+
+<script>
+// Load Zenodo releases for asimov
+fetch('{{ site.baseurl }}/data/zenodo-releases.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('zenodo-releases');
+    if (data.releases && data.releases.length > 0) {
+      let html = '<ul style="list-style: none; padding: 0;">';
+      data.releases.slice(0, 5).forEach(release => {
+        html += `
+          <li style="margin-bottom: 1rem;">
+            <strong><a href="${release.links.html}" target="_blank">${release.title}</a></strong><br>
+            <small class="text-muted">DOI: <a href="https://doi.org/${release.doi}" target="_blank">${release.doi}</a></small><br>
+            <small class="text-muted">Published: ${new Date(release.created).toLocaleDateString()}</small>
+          </li>
+        `;
+      });
+      html += '</ul>';
+      container.innerHTML = html;
+    } else {
+      container.innerHTML = '<p class="text-muted">Check <a href="https://doi.org/10.5281/zenodo.4024432" target="_blank">Zenodo for all releases →</a></p>';
+    }
+  })
+  .catch(error => {
+    console.log('Could not load Zenodo data:', error);
+    document.getElementById('zenodo-releases').innerHTML = '<p class="text-muted">Check <a href="https://doi.org/10.5281/zenodo.4024432" target="_blank">Zenodo for all releases →</a></p>';
+  });
+</script>

@@ -16,6 +16,9 @@ collections:
   tutorials:
     output: true
     permalink: /tutorials/:title/
+  plugins:
+    output: true
+    permalink: /plugins/:title/
 
 # Exclude from processing
 exclude:
