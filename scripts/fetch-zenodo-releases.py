@@ -23,26 +23,13 @@ def fetch_zenodo_releases():
     try:
         # Zenodo API endpoint for a concept (includes all versions)
         # Using the concept ID to get all versions of the record
-        url = f"https://zenodo.org/api/records"
+        url = f"https://zenodo.org/api/records/18341753/versions"
         params = {
-            "q": f"conceptrecid:{ZENODO_CONCEPT_ID}",
             "sort": "mostrecent",
-            "size": "50"
+            "size": "25"
         }
         
         response = requests.get(url, params=params, timeout=10)
-        
-        # Check for common error codes
-        if response.status_code == 400:
-            print(f"Info: Zenodo API returned 400 Bad Request. Trying alternative approach...")
-            # Try searching by concept ID directly
-            url = f"https://zenodo.org/api/records"
-            params = {
-                "q": f"conceptrecid%3A{ZENODO_CONCEPT_ID}",
-                "sort": "mostrecent",
-                "size": "50"
-            }
-            response = requests.get(url, params=params, timeout=10)
         
         response.raise_for_status()
         data = response.json()
