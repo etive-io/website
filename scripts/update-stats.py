@@ -104,11 +104,18 @@ def get_pypi_stats(package_name):
     Fetch PyPI download statistics using pepy.tech API.
     
     pepy.tech provides download stats for PyPI packages.
+    Falls back gracefully if package not found or endpoint unavailable.
     """
     try:
         # pepy.tech API: https://pepy.tech/api/projects/{package}
         url = f"https://pepy.tech/api/projects/{package_name}"
         response = requests.get(url, timeout=10)
+        
+        # Handle 403 Forbidden or 404 Not Found gracefully
+        if response.status_code in [403, 404]:
+            print(f"  Info: PyPI stats not available for {package_name} (status {response.status_code})")
+            return {"downloads_week": 0, "downloads_month": 0}
+        
         response.raise_for_status()
         data = response.json()
         
@@ -116,8 +123,11 @@ def get_pypi_stats(package_name):
             "downloads_week": data.get("downloads", {}).get("last_week", 0),
             "downloads_month": data.get("downloads", {}).get("last_month", 0),
         }
+    except requests.exceptions.HTTPError as e:
+        print(f"  Warning: HTTP error fetching PyPI stats for {package_name}: {e}")
+        return {"downloads_week": 0, "downloads_month": 0}
     except Exception as e:
-        print(f"Error fetching PyPI stats for {package_name}: {e}")
+        print(f"  Warning: Error fetching PyPI stats for {package_name}: {e}")
         return {"downloads_week": 0, "downloads_month": 0}
 
 def get_conda_forge_stats(package_name):
@@ -125,11 +135,18 @@ def get_conda_forge_stats(package_name):
     Fetch conda-forge download statistics.
     
     Uses the conda-forge API to get package download counts.
+    Falls back gracefully if package not found or endpoint unavailable.
     """
     try:
         # conda-forge API for recent downloads
         url = f"https://api.anaconda.org/api/packages/conda-forge/{package_name}"
         response = requests.get(url, timeout=10)
+        
+        # Handle 404 Not Found gracefully - not all packages are on conda-forge
+        if response.status_code == 404:
+            print(f"  Info: Package {package_name} not found on conda-forge")
+            return {"downloads_month": 0}
+        
         response.raise_for_status()
         data = response.json()
         
@@ -138,8 +155,11 @@ def get_conda_forge_stats(package_name):
         return {
             "downloads_month": data.get("downloads", 0),
         }
+    except requests.exceptions.HTTPError as e:
+        print(f"  Warning: HTTP error fetching conda-forge stats for {package_name}: {e}")
+        return {"downloads_month": 0}
     except Exception as e:
-        print(f"Error fetching conda-forge stats for {package_name}: {e}")
+        print(f"  Warning: Error fetching conda-forge stats for {package_name}: {e}")
         return {"downloads_month": 0}
 
 def update_stats():

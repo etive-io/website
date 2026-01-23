@@ -13,7 +13,6 @@ title: "Home"
         <p style="font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-top: 1rem;">Built by LIGO researchers. Used in production by the gravitational-wave astronomy community. Ready for your domain.</p>
         <div class="mt-4">
           <a href="{{ "/tutorials/quickstart" | relative_url }}" class="btn btn-light btn-lg me-2">5-Minute Quickstart</a>
-          <a href="{{ "/comparison" | relative_url }}" class="btn btn-outline-light btn-lg me-2">Compare to Nextflow</a>
           <a href="https://github.com/etive-io/asimov" class="btn btn-outline-light btn-lg">GitHub</a>
         </div>
       </div>

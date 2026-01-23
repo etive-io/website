@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Analysing your first gravitational wave candidate with asimov
 category: getting-started
 pin: true

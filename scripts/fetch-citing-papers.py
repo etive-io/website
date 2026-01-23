@@ -4,6 +4,9 @@ Fetch papers citing asimov from NASA ADS.
 
 This script queries the NASA ADS API for all papers that cite asimov
 and stores the metadata for display on the impact page.
+
+Note: This requires a valid ADS API key. Since the ADS API's citations() 
+syntax requires special access, we gracefully fall back if unavailable.
 """
 
 import json
@@ -25,15 +28,18 @@ def fetch_citing_papers():
     
     Uses the NASA ADS API to query for citations.
     Requires ADS_API_KEY environment variable.
+    
+    Note: The ADS API has specific requirements for citations queries.
+    If the API is unavailable, we return gracefully.
     """
     api_key = get_ads_api_key()
     
     if not api_key:
-        print("Warning: ADS_API_KEY not set. Skipping citation fetch.")
+        print("Info: ADS_API_KEY not set. Citing papers data will not be updated.")
         return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
     
     try:
-        # ADS API endpoint for citations
+        # ADS API endpoint for search
         url = "https://api.adsabs.harvard.edu/v1/search/query"
         
         headers = {
@@ -42,29 +48,22 @@ def fetch_citing_papers():
         }
         
         # Query for papers that cite asimov
+        # Note: The citations() function may not be available in all ADS API configurations
         query_params = {
             "q": f'citations(bibcode:"{ASIMOV_BIBCODE}")',
             "rows": 100,
             "start": 0,
-            "sort": "date desc"
+            "sort": "date desc",
+            "fl": "title,author,year,bibcode,pub,pubdate,abstract,citation_count"
         }
         
-        # Fields to retrieve
-        fields = [
-            "title",
-            "author",
-            "year",
-            "bibcode",
-            "pub",
-            "pubdate",
-            "abstract",
-            "citation_count",
-            "identifier"
-        ]
-        
-        query_params["fl"] = ",".join(fields)
-        
         response = requests.post(url, json=query_params, headers=headers, timeout=30)
+        
+        # Check for 405 Method Not Allowed - API may not support this query type
+        if response.status_code == 405:
+            print("Info: ADS API does not support citations() queries. Citing papers data will not be updated.")
+            return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+        
         response.raise_for_status()
         
         data = response.json()
@@ -88,12 +87,18 @@ def fetch_citing_papers():
             }
             papers.append(paper)
         
+        total = data.get("response", {}).get("numFound", len(papers))
+        print(f"Found {len(papers)} citing papers (total: {total})")
+        
         return {
             "papers": papers,
-            "total_citations": data.get("response", {}).get("numFound", len(papers)),
+            "total_citations": total,
             "last_updated": datetime.utcnow().isoformat() + "Z"
         }
     
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP Error fetching from ADS API: {e}")
+        return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
     except requests.exceptions.RequestException as e:
         print(f"Error fetching from ADS API: {e}")
         return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
