@@ -439,36 +439,6 @@ asimov manage build && asimov manage submit</code></pre>
   </div>
 </div>
 
-## Troubleshooting
-
-<div class="step-substep">
-  <h4>HTCondor not found</h4>
-  <p>Make sure HTCondor is installed and the <code>condor</code> commands are in your PATH:</p>
-  <pre><code class="language-bash">which condor_q</code></pre>
-  <p>If this fails, refer to the <a href="#appendix-single-machine-setup-optional">Single-Machine Setup appendix</a> below.</p>
-</div>
-
-<div class="step-substep">
-  <h4>Project ledger is corrupted</h4>
-  <p>If your <code>.asimov/ledger.yml</code> file becomes corrupted, you can regenerate it:</p>
-  <pre><code class="language-bash">rm -rf .asimov/
-asimov init "My Project"
-asimov apply -f ...  # Re-apply your configurations</code></pre>
-</div>
-
-<div class="step-substep">
-  <h4>Job won't submit</h4>
-  <p>Check the working directory for HTCondor error logs:</p>
-  <pre><code class="language-bash">cat working/GW150914_095045/Prod0/*.err</code></pre>
-</div>
-
-<div class="step-substep">
-  <h4>Results are missing</h4>
-  <p>Check that the job completed successfully:</p>
-  <pre><code class="language-bash">asimov monitor</code></pre>
-  <p>Look for status messages in <code>asimov.log</code>:</p>
-  <pre><code class="language-bash">tail -n 100 asimov.log</code></pre>
-</div>
 
 
 ---
