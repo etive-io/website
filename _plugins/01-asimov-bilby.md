@@ -1,15 +1,15 @@
 ---
-layout: default
-title: asimov-bilby
+layout: item
+title: bilby-dev/bilby
 type: parameter-estimation
 status: stable
 verified: true
-github: https://github.com/transientlunatic/asimov-bayeswave
+github: https://github.com/bilby-dev/bilby
 description: Bilby pipeline integration for gravitational wave parameter estimation
 maintainer: LIGO Scientific Collaboration
 ---
 
-# asimov-bilby
+# bilby-dev/bilby
 
 Integration between Asimov and the Bilby inference library for gravitational wave parameter estimation.
 
@@ -37,7 +37,7 @@ asimov apply -f https://git.ligo.org/asimov/data/-/raw/main/analyses/production-
 
 ## Documentation
 
-- [Bilby Documentation](https://lscsoft.docs.ligo.org/bilby/)
+- [Bilby Documentation](https://lscsoft.docs.ligo.org/bilby-pipe/)
 - [Asimov Getting Started Guide](/tutorials/analyzing-gw150914-with-asimov-0-7-0)
 
 ## Status

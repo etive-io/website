@@ -1,14 +1,14 @@
 ---
 layout: default
-title: "Plugins"
+title: "Pipelines"
 ---
 
 <section class="section">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h1 class="section-title">Asimov Plugins</h1>
-        <p class="lead text-muted">Extend asimov with utilities, inference add-ons, and simulation tools. Browse our collection of official and community plugins. Looking for full pipelines? Visit the pipelines section.</p>
+        <h1 class="section-title">Asimov Pipelines</h1>
+        <p class="lead text-muted">Browse supported analysis pipelines and core integrations. These are the execution backends that asimov orchestrates for inference and data conditioning.</p>
       </div>
     </div>
   </div>
@@ -21,9 +21,8 @@ title: "Plugins"
         <h2 class="h3 fw-bold mb-4">Filter by Type</h2>
         <div class="btn-group mb-4" role="group">
           <button type="button" class="btn btn-outline-primary" onclick="filterPlugins('all')">All</button>
-          <button type="button" class="btn btn-outline-primary" onclick="filterPlugins('utility')">Utility</button>
-          <button type="button" class="btn btn-outline-primary" onclick="filterPlugins('inference')">Inference</button>
-          <button type="button" class="btn btn-outline-primary" onclick="filterPlugins('simulation')">Simulation</button>
+          <button type="button" class="btn btn-outline-primary" onclick="filterPlugins('parameter-estimation')">Parameter Estimation</button>
+          <button type="button" class="btn btn-outline-primary" onclick="filterPlugins('psd-estimation')">PSD &amp; Data Conditioning</button>
         </div>
       </div>
     </div>
@@ -34,20 +33,18 @@ title: "Plugins"
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        {% assign non_pipeline_plugins = site.plugins | where_exp: "plugin", "plugin.type != 'parameter-estimation' and plugin.type != 'psd-estimation'" %}
-        {% assign plugins_by_type = non_pipeline_plugins | group_by: "type" | sort: "name" %}
+        {% assign pipeline_plugins = site.plugins | where_exp: "pipeline", "pipeline.type == 'parameter-estimation' or pipeline.type == 'psd-estimation'" %}
+        {% assign pipelines_by_type = pipeline_plugins | group_by: "type" | sort: "name" %}
         
-        {% for group in plugins_by_type %}
+        {% for group in pipelines_by_type %}
           <div class="plugin-category mb-5">
             <h3 class="h5 fw-bold text-uppercase text-muted mb-4">
-              {% if group.name == "utility" %}
-                Utility Tools
-              {% elsif group.name == "inference" %}
-                Inference & Population Analysis
-              {% elsif group.name == "simulation" %}
-                Simulation & Testing
+              {% if group.name == "parameter-estimation" %}
+                Parameter Estimation
+              {% elsif group.name == "psd-estimation" %}
+                PSD & Data Conditioning
               {% else %}
-                {{ group.name | capitalize }} Plugins
+                {{ group.name | capitalize }} Pipelines
               {% endif %}
             </h3>
             
@@ -98,27 +95,12 @@ title: "Plugins"
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2 class="h3 fw-bold mb-4">Developing Your Own Plugin?</h2>
-        <p>We provide a plugin template to help you get started:</p>
+        <h2 class="h3 fw-bold mb-4">Add a Pipeline Integration</h2>
+        <p>Have a pipeline integration to share? Submit it to the registry and help others adopt it quickly.</p>
         <p>
-          <a href="https://github.com/etive-io/asimov-plugin-template" class="btn btn-primary">View Plugin Template</a>
-          <a href="/documentation/plugins/" class="btn btn-outline-primary">Plugin Development Guide</a>
+          <a href="https://github.com/etive-io/website/issues/new?template=plugin-submission.md" class="btn btn-primary">Submit Pipeline Integration</a>
+          <a href="/documentation/plugins/" class="btn btn-outline-primary">Integration Guide</a>
         </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto text-center">
-        <h2 class="h3 fw-bold mb-3">Have a Plugin to Share?</h2>
-        <p class="lead text-muted mb-4">If you've developed an asimov plugin, we'd love to hear about it! Submit it for inclusion in our registry.</p>
-        <div>
-          <a href="https://github.com/etive-io/website/issues/new?template=plugin-submission.md" class="btn btn-primary me-2">Submit Your Plugin</a>
-          <a href="/contributing/" class="btn btn-outline-primary">Contributing Guidelines</a>
-        </div>
       </div>
     </div>
   </div>
@@ -127,7 +109,6 @@ title: "Plugins"
 <script>
 function filterPlugins(type) {
   // Placeholder for JavaScript filtering
-  // In a static Jekyll site, this would typically require JavaScript or a rebuild
   console.log('Filter by: ' + type);
 }
 </script>

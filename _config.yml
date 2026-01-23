@@ -19,6 +19,21 @@ collections:
   plugins:
     output: true
     permalink: /plugins/:title/
+    defaults:
+      - scope:
+          path: ""
+          type: "plugins"
+        values:
+          layout: "item"
+  pipelines:
+    output: true
+    permalink: /pipelines/:title/
+    defaults:
+      - scope:
+          path: ""
+          type: "pipelines"
+        values:
+          layout: "item"
 
 # Exclude from processing
 exclude:
