@@ -8,7 +8,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:32:57.282221Z"
+    "last_updated": "2026-01-23T17:12:56.912673Z"
   },
   {
     "name": "asimov-bilby",
@@ -19,7 +19,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:32:58.094401Z"
+    "last_updated": "2026-01-23T17:12:58.365838Z"
   },
   {
     "name": "asimov-bayeswave",
@@ -30,7 +30,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:32:59.217666Z"
+    "last_updated": "2026-01-23T17:13:00.186234Z"
   },
   {
     "name": "asimov-cogwheel",
@@ -41,7 +41,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:33:00.440965Z"
+    "last_updated": "2026-01-23T17:13:01.985920Z"
   },
   {
     "name": "asimov-pycbc",
@@ -52,7 +52,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:33:01.714278Z"
+    "last_updated": "2026-01-23T17:13:03.122486Z"
   },
   {
     "name": "asimov-gwdata",
@@ -63,7 +63,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:33:02.814121Z"
+    "last_updated": "2026-01-23T17:13:04.492383Z"
   },
   {
     "name": "asimov-pyomicron",
@@ -74,7 +74,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:33:03.849447Z"
+    "last_updated": "2026-01-23T17:13:06.031362Z"
   },
   {
     "name": "asimov-pastro",
@@ -85,7 +85,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:33:05.447525Z"
+    "last_updated": "2026-01-23T17:13:12.664700Z"
   },
   {
     "name": "minke",
@@ -96,6 +96,6 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_month": 0,
-    "last_updated": "2026-01-23T15:33:06.071511Z"
+    "last_updated": "2026-01-23T17:13:14.045002Z"
   }
 ]
