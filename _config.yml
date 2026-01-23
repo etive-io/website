@@ -13,6 +13,9 @@ collections:
   posts:
     output: true
     permalink: /blog/:year/:month/:day/:title/
+  tutorials:
+    output: true
+    permalink: /tutorials/:title/
 
 # Exclude from processing
 exclude:
