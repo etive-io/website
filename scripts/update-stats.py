@@ -101,14 +101,14 @@ def get_github_stats(github_repo, github_token=None):
 
 def get_pypi_stats(package_name):
     """
-    Fetch PyPI download statistics using pepy.tech API.
+    Fetch PyPI download statistics using pypistats.org API.
     
-    pepy.tech provides download stats for PyPI packages.
+    pypistats.org provides download stats for PyPI packages.
     Falls back gracefully if package not found or endpoint unavailable.
     """
     try:
-        # pepy.tech API: https://pepy.tech/api/projects/{package}
-        url = f"https://pepy.tech/api/projects/{package_name}"
+        # pypistats.org API: https://pypistats.org/api/packages/{package}/recent
+        url = f"https://pypistats.org/api/packages/{package_name}/recent"
         response = requests.get(url, timeout=10)
         
         # Handle 403 Forbidden or 404 Not Found gracefully
@@ -120,8 +120,8 @@ def get_pypi_stats(package_name):
         data = response.json()
         
         return {
-            "downloads_week": data.get("downloads", {}).get("last_week", 0),
-            "downloads_month": data.get("downloads", {}).get("last_month", 0),
+            "downloads_week": data.get("data", {}).get("last_week", 0),
+            "downloads_month": data.get("data", {}).get("last_month", 0),
         }
     except requests.exceptions.HTTPError as e:
         print(f"  Warning: HTTP error fetching PyPI stats for {package_name}: {e}")
@@ -134,33 +134,33 @@ def get_conda_forge_stats(package_name):
     """
     Fetch conda-forge download statistics.
     
-    Uses the conda-forge API to get package download counts.
+    Uses the Anaconda API to get package download counts.
     Falls back gracefully if package not found or endpoint unavailable.
     """
     try:
-        # conda-forge API for recent downloads
-        url = f"https://api.anaconda.org/api/packages/conda-forge/{package_name}"
+        # Anaconda API for conda-forge packages  
+        url = f"https://api.anaconda.org/package/conda-forge/{package_name}"
         response = requests.get(url, timeout=10)
         
         # Handle 404 Not Found gracefully - not all packages are on conda-forge
         if response.status_code == 404:
             print(f"  Info: Package {package_name} not found on conda-forge")
-            return {"downloads_month": 0}
+            return {"downloads_total": 0}
         
         response.raise_for_status()
         data = response.json()
         
-        # Note: conda-forge API doesn't directly provide weekly/monthly stats
-        # We return total downloads; you may want to use Quetz API for more detailed stats
+        # conda-forge API provides total downloads (ndownloads)
+        # This is cumulative across all versions
         return {
-            "downloads_month": data.get("downloads", 0),
+            "downloads_total": data.get("ndownloads", 0),
         }
     except requests.exceptions.HTTPError as e:
         print(f"  Warning: HTTP error fetching conda-forge stats for {package_name}: {e}")
-        return {"downloads_month": 0}
+        return {"downloads_total": 0}
     except Exception as e:
         print(f"  Warning: Error fetching conda-forge stats for {package_name}: {e}")
-        return {"downloads_month": 0}
+        return {"downloads_total": 0}
 
 def update_stats():
     """Update statistics for all packages."""
@@ -191,7 +191,7 @@ def update_stats():
             "release_date": github_stats.get("release_date"),
             "pypi_downloads_week": pypi_stats.get("downloads_week", 0),
             "pypi_downloads_month": pypi_stats.get("downloads_month", 0),
-            "conda_forge_downloads_month": conda_stats.get("downloads_month", 0),
+            "conda_forge_downloads_total": conda_stats.get("downloads_total", 0),
             "last_updated": datetime.utcnow().isoformat() + "Z",
         }
         
@@ -201,7 +201,7 @@ def update_stats():
             print(f"  Latest Release: {package_stats['latest_release']}")
         print(f"  PyPI (week): {package_stats['pypi_downloads_week']}, "
               f"(month): {package_stats['pypi_downloads_month']}")
-        print(f"  conda-forge (month): {package_stats['conda_forge_downloads_month']}")
+        print(f"  conda-forge (total): {package_stats['conda_forge_downloads_total']}")
     
     # Write to file
     output_path = Path(__file__).parent.parent / "_data" / "package-stats.json"
