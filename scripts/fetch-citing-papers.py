@@ -43,26 +43,20 @@ def fetch_citing_papers():
         url = "https://api.adsabs.harvard.edu/v1/search/query"
         
         headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
+            "Authorization": f"Bearer {api_key}"
         }
         
         # Query for papers that cite asimov
-        # Note: The citations() function may not be available in all ADS API configurations
-        query_params = {
-            "q": f'citations(bibcode:"{ASIMOV_BIBCODE}")',
+        # Using GET request with query parameters (not POST with JSON body)
+        params = {
+            "q": f'citations(bibcode:{ASIMOV_BIBCODE})',
             "rows": 100,
             "start": 0,
             "sort": "date desc",
             "fl": "title,author,year,bibcode,pub,pubdate,abstract,citation_count"
         }
         
-        response = requests.post(url, json=query_params, headers=headers, timeout=30)
-        
-        # Check for 405 Method Not Allowed - API may not support this query type
-        if response.status_code == 405:
-            print("Info: ADS API does not support citations() queries. Citing papers data will not be updated.")
-            return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+        response = requests.get(url, params=params, headers=headers, timeout=30)
         
         response.raise_for_status()
         
