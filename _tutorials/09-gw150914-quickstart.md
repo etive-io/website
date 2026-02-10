@@ -346,11 +346,7 @@ Now we need to watch our job. Asimov provides several ways to do this:
       
       <p>And stop monitoring whenever you're ready:</p>
       <pre><code class="language-bash">asimov stop</code></pre>
-      
-      <div class="step-tip">
-        <strong>Pro tip: Let it run</strong>
-        <p>For production analyses, we recommend leaving monitoring running in a <code>screen</code> or <code>tmux</code> session so it stays active even if you disconnect.</p>
-      </div>
+
     </div>
   </div>
 </div>
