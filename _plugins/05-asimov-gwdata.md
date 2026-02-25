@@ -6,7 +6,7 @@ status: stable
 verified: true
 github: https://github.com/etive-io/asimov-pipelines/tree/main/asimov-gwdata
 description: Gravitational wave data discovery and retrieval plugin
-maintainer: Etive.io
+maintainer: Daniel Williams
 ---
 
 # asimov-gwdata

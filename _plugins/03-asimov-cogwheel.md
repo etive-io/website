@@ -6,7 +6,7 @@ status: stable
 verified: true
 github: https://github.com/etive-io/asimov-cogwheel
 description: Cogwheel pipeline integration with efficient relative binning
-maintainer: Etive.io
+maintainer: Daniel Williams
 ---
 
 # asimov-cogwheel

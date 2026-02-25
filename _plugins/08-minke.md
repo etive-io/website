@@ -6,7 +6,7 @@ status: stable
 verified: true
 github: https://github.com/transientlunatic/minke
 description: Gravitational wave signal injection and simulation
-maintainer: Transient Lunatic
+maintainer: Daniel Williams
 ---
 
 # Minke

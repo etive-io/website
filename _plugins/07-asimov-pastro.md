@@ -2,11 +2,11 @@
 layout: item
 title: asimov-pastro
 type: inference
-status: stable
+status: upcoming
 verified: true
 github: https://github.com/transientlunatic/asimov-pastro
 description: Pastro integration for astrophysical parameter inference
-maintainer: Transient Lunatic
+maintainer: Daniel Williams
 ---
 
 # asimov-pastro

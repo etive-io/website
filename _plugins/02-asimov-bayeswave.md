@@ -6,7 +6,7 @@ status: stable
 verified: true
 github: https://github.com/transientlunatic/asimov-bayeswave
 description: BayesWave pipeline integration for power spectral density estimation
-maintainer: LIGO Scientific Collaboration
+maintainer: Daniel Williams
 ---
 
 # asimov-bayeswave

@@ -6,7 +6,7 @@ status: development
 verified: true
 github: https://github.com/etive-io/asimov-pycbc
 description: PyCBC pipeline integration for parameter estimation
-maintainer: Etive.io
+maintainer: Daniel Williams
 ---
 
 # asimov-pycbc

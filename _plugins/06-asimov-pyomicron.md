@@ -6,7 +6,7 @@ status: development
 verified: true
 github: https://github.com/transientlunatic/asimov-pyomicron
 description: Pyomicron integration for omicron glitch finding
-maintainer: Transient Lunatic
+maintainer: Daniel Williams
 ---
 
 # asimov-pyomicron
