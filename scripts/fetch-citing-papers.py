@@ -35,8 +35,8 @@ def fetch_citing_papers():
     api_key = get_ads_api_key()
     
     if not api_key:
-        print("Info: ADS_API_KEY not set. Citing papers data will not be updated.")
-        return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+        print("Warning: ADS_API_KEY not set. Keeping previously fetched citing papers data.")
+        return None
     
     try:
         # ADS API endpoint for search
@@ -91,14 +91,14 @@ def fetch_citing_papers():
         }
     
     except requests.exceptions.HTTPError as e:
-        print(f"HTTP Error fetching from ADS API: {e}")
-        return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+        print(f"Warning: HTTP error fetching from ADS API ({e}); keeping previously fetched citing papers data.")
+        return None
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching from ADS API: {e}")
-        return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+        print(f"Warning: error fetching from ADS API ({e}); keeping previously fetched citing papers data.")
+        return None
     except Exception as e:
-        print(f"Error processing ADS response: {e}")
-        return {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+        print(f"Warning: error processing ADS response ({e}); keeping previously fetched citing papers data.")
+        return None
 
 def infer_domain(journal_name):
     """
@@ -122,14 +122,21 @@ def infer_domain(journal_name):
 def main():
     """Fetch papers and write to JSON file."""
     print(f"Fetching papers citing asimov ({ASIMOV_BIBCODE}) from NASA ADS...")
-    
+
     data = fetch_citing_papers()
-    
-    print(f"Found {len(data['papers'])} citing papers (total: {data['total_citations']})")
-    
-    # Write to data locations (Jekyll build + public asset)
+
     output_path = Path(__file__).parent.parent / "_data" / "citing-papers.json"
     public_path = Path(__file__).parent.parent / "assets" / "data" / "citing-papers.json"
+
+    if data is None:
+        if output_path.exists():
+            print(f"Skipping write: preserving existing data at {output_path}")
+            return
+        data = {"papers": [], "total_citations": 0, "last_updated": datetime.utcnow().isoformat() + "Z"}
+
+    print(f"Found {len(data['papers'])} citing papers (total: {data['total_citations']})")
+
+    # Write to data locations (Jekyll build + public asset)
     public_path.parent.mkdir(parents=True, exist_ok=True)
     for path in (output_path, public_path):
         with open(path, "w") as f:
