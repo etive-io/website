@@ -19,12 +19,8 @@ PACKAGES = {
         "github_repo": "etive-io/asimov",
         "conda_forge_name": "asimov",
     },
-    "asimov-bilby": {
-        "github_repo": "transientlunatic/asimov-bilby",
-        "conda_forge_name": "asimov-bilby",
-    },
     "asimov-bayeswave": {
-        "github_repo": "transientlunatic/asimov-bayeswave",
+        "github_repo": "etive-io/asimov-bayeswave",
         "conda_forge_name": "asimov-bayeswave",
     },
     "asimov-cogwheel": {
@@ -39,6 +35,18 @@ PACKAGES = {
         "github_repo": "etive-io/asimov-gwdata",
         "conda_forge_name": "asimov-gwdata",
     },
+    "asimov-lalinference": {
+        "github_repo": "etive-io/asimov-lalinference",
+        "conda_forge_name": "asimov-lalinference",
+    },
+    "asimov-pesummary": {
+        "github_repo": "etive-io/asimov-pesummary",
+        "conda_forge_name": "asimov-pesummary",
+    },
+    "asimov-gracedb": {
+        "github_repo": "etive-io/asimov-gracedb",
+        "conda_forge_name": "asimov-gracedb",
+    },
     "asimov-pyomicron": {
         "github_repo": "transientlunatic/asimov-pyomicron",
         "conda_forge_name": "asimov-pyomicron",
@@ -48,7 +56,7 @@ PACKAGES = {
         "conda_forge_name": "asimov-pastro",
     },
     "minke": {
-        "github_repo": "etive-io/minke",
+        "github_repo": "transientlunatic/minke",
         "conda_forge_name": "minke",
     },
 }

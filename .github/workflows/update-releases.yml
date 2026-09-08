@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+      actions: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -113,16 +114,28 @@ jobs:
           EOF
           
       - name: Commit and push if changed
+        id: commit
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add _data/releases.yml
-          
+
           # Only commit if there are changes
           if ! git diff --staged --quiet; then
             git commit -m "Update release data [automated]"
             git push
             echo "✓ Changes committed and pushed"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "✓ No changes to commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Trigger Pages deploy
+        # Commits made with GITHUB_TOKEN don't trigger jekyll.yml's `on: push`
+        # (GitHub's anti-recursion rule), so the deploy has to be kicked off
+        # explicitly. workflow_dispatch is exempt from that rule.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run jekyll.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"

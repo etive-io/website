@@ -222,7 +222,7 @@ title: "Citing"
 
 <script>
 // Load Zenodo releases for asimov
-fetch('{{ site.baseurl }}/data/zenodo-releases.json')
+fetch('{{ site.baseurl }}/assets/data/zenodo-releases.json')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('zenodo-releases');

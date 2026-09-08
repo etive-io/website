@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
 
     steps:
       - uses: actions/checkout@v4
@@ -44,13 +45,26 @@ jobs:
           python scripts/fetch-citing-papers.py
 
       - name: Commit and push changes
+        id: commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add _data/package-stats.json _data/zenodo-releases.json _data/citing-papers.json
+          git add _data/package-stats.json _data/zenodo-releases.json _data/citing-papers.json \
+                  assets/data/package-stats.json assets/data/zenodo-releases.json assets/data/citing-papers.json
           if git diff --cached --quiet; then
             echo "No changes in stats"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "chore: update package statistics, releases, and citations [skip ci]"
+            git commit -m "chore: update package statistics, releases, and citations"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Trigger Pages deploy
+        # Commits made with GITHUB_TOKEN don't trigger jekyll.yml's `on: push`
+        # (GitHub's anti-recursion rule), so the deploy has to be kicked off
+        # explicitly. workflow_dispatch is exempt from that rule.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run jekyll.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"

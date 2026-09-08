@@ -25,6 +25,12 @@ core_projects:
     docs_url: https://github.com/etive-io/asimov-gwdata#readme
     featured_on_homepage: true
 
+  - name: asimov-gracedb
+    description: GraceDB integration for asimov, providing event and superevent lookup without making ligo-gracedb a core dependency of the base package.
+    short_description: GraceDB integration for asimov
+    github_url: https://github.com/etive-io/asimov-gracedb
+    docs_url: https://github.com/etive-io/asimov-gracedb#readme
+
 # Pipeline interface projects
 pipeline_interfaces:
   - name: asimov-pycbc
@@ -32,12 +38,30 @@ pipeline_interfaces:
     short_description: Interface between asimov and PyCBC
     github_url: https://github.com/etive-io/asimov-pycbc
     docs_url: https://github.com/etive-io/asimov-pycbc#readme
-    
+
   - name: asimov-cogwheel
     description: Interface between asimov and cogwheel for efficient likelihood calculations using relative binning.
     short_description: Interface between asimov and cogwheel
     github_url: https://github.com/etive-io/asimov-cogwheel
     docs_url: https://github.com/etive-io/asimov-cogwheel#readme
+
+  - name: asimov-bayeswave
+    description: Interface between asimov and BayesWave for on-source power spectral density (PSD) estimation.
+    short_description: Interface between asimov and BayesWave for PSD estimation
+    github_url: https://github.com/etive-io/asimov-bayeswave
+    docs_url: https://etive-io.github.io/asimov-bayeswave/
+
+  - name: asimov-lalinference
+    description: Interface between asimov and LALInference. Superseded by bilby and RIFT; retained for cross-checks and for replicating older analyses, not for new collaboration parameter estimation.
+    short_description: Interface between asimov and LALInference (legacy pipeline)
+    github_url: https://github.com/etive-io/asimov-lalinference
+    docs_url: https://etive-io.github.io/asimov-lalinference/
+
+  - name: asimov-pesummary
+    description: Interface between asimov and PESummary for post-processing, summarising, and visualising parameter estimation results.
+    short_description: Interface between asimov and PESummary for PE post-processing
+    github_url: https://github.com/etive-io/asimov-pesummary
+    docs_url: https://etive-io.github.io/asimov-pesummary/
 
 # Supported analysis pipelines
 supported_pipelines:

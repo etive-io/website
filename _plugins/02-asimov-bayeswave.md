@@ -4,7 +4,7 @@ title: asimov-bayeswave
 type: psd-estimation
 status: stable
 verified: true
-github: https://github.com/transientlunatic/asimov-bayeswave
+github: https://github.com/etive-io/asimov-bayeswave
 description: BayesWave pipeline integration for power spectral density estimation
 maintainer: Daniel Williams
 ---
