@@ -1,4 +1,4 @@
-last_updated: 2026-09-08 03:53:00 UTC
+last_updated: 2026-09-09 03:57:48 UTC
 projects:
 - name: asimov
   latest_release:
@@ -30,6 +30,9 @@ projects:
 - name: asimov-gwdata
   latest_release: null
   recent_releases: []
+- name: asimov-gracedb
+  latest_release: null
+  recent_releases: []
 - name: asimov-pycbc
   latest_release: null
   recent_releases: []
@@ -48,3 +51,44 @@ projects:
     name: asimov-cogwheel 0.1.0
     published_at: '2025-04-03'
     url: https://github.com/etive-io/asimov-cogwheel/releases/tag/v0.1.0
+- name: asimov-bayeswave
+  latest_release:
+    version: v0.1.0
+    name: asimov-bayeswave 0.1.0
+    published_at: '2026-02-12'
+    url: https://github.com/etive-io/asimov-bayeswave/releases/tag/v0.1.0
+  recent_releases:
+  - version: v0.1.0
+    name: asimov-bayeswave 0.1.0
+    published_at: '2026-02-12'
+    url: https://github.com/etive-io/asimov-bayeswave/releases/tag/v0.1.0
+- name: asimov-lalinference
+  latest_release:
+    version: v0.1.0
+    name: asimov-lalinference 0.1.0
+    published_at: '2026-08-17'
+    url: https://github.com/etive-io/asimov-lalinference/releases/tag/v0.1.0
+  recent_releases:
+  - version: v0.1.0
+    name: asimov-lalinference 0.1.0
+    published_at: '2026-08-17'
+    url: https://github.com/etive-io/asimov-lalinference/releases/tag/v0.1.0
+- name: asimov-pesummary
+  latest_release:
+    version: v0.1.2
+    name: asimov-pesummary 0.1.2
+    published_at: '2026-08-20'
+    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.1.2
+  recent_releases:
+  - version: v0.1.2
+    name: asimov-pesummary 0.1.2
+    published_at: '2026-08-20'
+    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.1.2
+  - version: v0.1.1
+    name: asimov-pesummary 0.1.1
+    published_at: '2026-08-20'
+    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.1.1
+  - version: v0.1.0
+    name: asimov-pesummary 0.1.0
+    published_at: '2026-02-25'
+    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.1.0
