@@ -1,4 +1,4 @@
-last_updated: 2026-09-15 04:12:41 UTC
+last_updated: 2026-09-16 04:08:36 UTC
 projects:
 - name: asimov
   latest_release:
@@ -75,11 +75,15 @@ projects:
     url: https://github.com/etive-io/asimov-lalinference/releases/tag/v0.1.0
 - name: asimov-pesummary
   latest_release:
-    version: v0.1.2
-    name: asimov-pesummary 0.1.2
-    published_at: '2026-08-20'
-    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.1.2
+    version: v0.2.0
+    name: asimov-pesummary 0.2.0
+    published_at: '2026-09-15'
+    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.2.0
   recent_releases:
+  - version: v0.2.0
+    name: asimov-pesummary 0.2.0
+    published_at: '2026-09-15'
+    url: https://github.com/etive-io/asimov-pesummary/releases/tag/v0.2.0
   - version: v0.1.2
     name: asimov-pesummary 0.1.2
     published_at: '2026-08-20'
