@@ -2,6 +2,22 @@
   "releases": [
     {
       "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.22829410",
+      "created": "2026-09-18T11:16:42.401642+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22829410"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.22814300",
+      "created": "2026-09-17T14:05:27.718724+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22814300"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
       "doi": "10.5281/zenodo.21976337",
       "created": "2026-08-17T08:22:07.114332+00:00",
       "links": {
@@ -161,5 +177,5 @@
       }
     }
   ],
-  "last_updated": "2026-09-14T07:16:17.453562Z"
+  "last_updated": "2026-09-21T07:20:08.692434Z"
 }
