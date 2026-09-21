@@ -6,7 +6,7 @@ status: stable
 verified: true
 github: https://github.com/bilby-dev/bilby
 description: Bilby pipeline integration for gravitational wave parameter estimation
-maintainer: Daniel Williams
+maintainer: Community
 ---
 
 # bilby-dev/bilby
