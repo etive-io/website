@@ -196,7 +196,6 @@ asimov monitor</code></pre>
           <li><a href="{{ '/tutorials/09-gw150914-quickstart/' | relative_url }}">Analyse GW150914</a><span>set up a project and run a complete analysis</span></li>
           <li><a href="https://asimov.docs.ligo.org/asimov/">Documentation</a><span>user guide, blueprint reference and API</span></li>
           <li><a href="{{ '/features' | relative_url }}">Features</a><span>what asimov does, in more detail</span></li>
-          <li><a href="{{ '/comparison' | relative_url }}">Comparison</a><span>how asimov relates to other workflow tools</span></li>
         </ul>
       </div>
       <div class="col-lg-6">

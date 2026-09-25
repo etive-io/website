@@ -12,7 +12,6 @@ title: "Features"
         <p class="lead">Run, monitor, and orchestrate complex analyses across heterogeneous compute environments—from laptops to HPC clusters.</p>
         <div class="mt-4">
           <a href="{{ "/tutorials" | relative_url }}" class="btn btn-light btn-lg me-2">Get Started</a>
-          <a href="{{ "/comparison" | relative_url }}" class="btn btn-outline-light btn-lg me-2">Compare to Nextflow</a>
           <a href="{{ "/documentation" | relative_url }}" class="btn btn-outline-light btn-lg">Docs</a>
         </div>
       </div>

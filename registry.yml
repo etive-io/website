@@ -115,10 +115,6 @@
   docs: https://etive-io.github.io/asimov-pesummary/
   featured: true
 
-- name: asimov-pastro
-  repo: transientlunatic/asimov-pastro
-  category: post-processing
-
 # Simulation ----------------------------------------------------------------
 
 - name: minke

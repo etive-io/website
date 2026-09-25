@@ -41,7 +41,7 @@ registers at least one.
 
 ## Done in this change
 
-1. `registry.yml` with 18 entries, including packages that weren't listed before
+1. `registry.yml` with 17 entries, including packages that weren't listed before
    (bilby_pipe and RIFT, which ship their own asimov integrations; asimov-jim,
    asimov-simplepe, asimov-pycwb, asimov-ptadata, asimov-exoplanet).
 2. `scripts/build-registry.py` with `--check`, `--strict`, `--only` and `--discover`.
