@@ -33,7 +33,7 @@ title: "Features"
           <strong>asimov was created by the LIGO, Virgo, and KAGRA gravitational-wave physics collaborations</strong> to orchestrate hundreds of parameter estimation analyses. It managed the complete O3 and O4 observing run catalogues. But asimov isn't limited to gravitational waves—its extensible architecture makes it powerful for any large-scale scientific workflow.
         </p>
         <p style="font-size: 1.1rem; color: #6b7280; line-height: 1.8;">
-          Write your analysis logic in <strong>Python</strong>. Call <strong>shell scripts, compiled code, containers, or other languages</strong> from anywhere. asimov handles the orchestration, monitoring, dependency resolution, and fault recovery. It integrates with your existing compute infrastructure—whether that's HTCondor, SLURM, Kubernetes, or the cloud.
+          Write your analysis logic in <strong>Python</strong>. Call <strong>shell scripts, compiled code, containers, or other languages</strong> from anywhere. asimov handles the orchestration, monitoring, dependency resolution, and fault recovery. It submits and monitors jobs on <strong>HTCondor</strong> and <strong>Slurm</strong>, the scheduling systems used across LIGO/Virgo/KAGRA and university HPC clusters.
         </p>
       </div>
     </div>
@@ -66,7 +66,7 @@ title: "Features"
             <p class="text-muted">
               Write your analysis configuration once and deploy it across multiple pipelines. Switch between
               Bilby, LALInference, RIFT, Bayeswave, or custom codes without reconfiguring your analyses.
-              Perfect for comparing methodologies or testing new approaches.
+              Useful for comparing methodologies or testing new approaches.
             </p>
           </div>
         </div>
@@ -155,11 +155,11 @@ title: "Features"
                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
               </svg>
             </div>
-            <h3 class="h5 fw-bold">Scale effortlessly</h3>
+            <h3 class="h5 fw-bold">Scales to catalogue production</h3>
             <p class="text-muted">
               From single-event exploratory analysis on your laptop to hundreds of coordinated
-              production runs on a cluster. The same configuration works at any scale. Proven
-              in production for major gravitational wave catalogue analyses.
+              production runs on a cluster. The same configuration works at any scale, and has been
+              used in production for LVK gravitational-wave catalogue analyses.
             </p>
           </div>
         </div>
@@ -191,11 +191,11 @@ title: "Features"
           </li>
           <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
             <span style="position: absolute; left: 0; color: #2563eb; font-weight: 700; font-size: 1.2rem;">✓</span>
-            <strong>Multi-pipeline by design:</strong> Compare different codes on the same data seamlessly
+            <strong>Multi-pipeline by design:</strong> Compare different codes on the same data through a single configuration
           </li>
           <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
             <span style="position: absolute; left: 0; color: #2563eb; font-weight: 700; font-size: 1.2rem;">✓</span>
-            <strong>Collaborative:</strong> Built-in authentication, role-based access, and audit logging
+            <strong>Collaborative:</strong> SciTokens-based authentication and a git-tracked ledger for shared team workflows
           </li>
           <li style="padding: 0.5rem 0; padding-left: 2rem; position: relative;">
             <span style="position: absolute; left: 0; color: #2563eb; font-weight: 700; font-size: 1.2rem;">✓</span>
@@ -206,11 +206,6 @@ title: "Features"
             <strong>Self-healing:</strong> Automatic failure detection and recovery reduces manual intervention
           </li>
         </ul>
-      </div>
-      <div class="col-lg-6">
-        <div style="background: linear-gradient(135deg, #e0e7ff 0%, #f0e7ff 100%); border-radius: 0.75rem; min-height: 350px; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1.2rem; font-style: italic; border: 2px dashed #e5e7eb;">
-          Workflow visualization or architecture diagram
-        </div>
       </div>
     </div>
   </div>
@@ -270,7 +265,7 @@ title: "Features"
           <div class="card-body">
             <h4 class="h5 fw-bold">Cross-institutional collaborations</h4>
             <p class="text-muted mb-0">
-              Role-based access control and audit logging support team workflows.
+              A shared, git-tracked ledger and per-analysis review sign-off support team workflows.
               SciTokens integration provides institutional authentication.
             </p>
           </div>
@@ -283,7 +278,7 @@ title: "Features"
             <h4 class="h5 fw-bold">Multi-stage data processing</h4>
             <p class="text-muted mb-0">
               Automatic dependency resolution ensures analyses run in the correct order.
-              Share data between stages (e.g., PSDs from Bayeswave to Bilby) seamlessly.
+              Data can be shared between stages (e.g., PSDs from Bayeswave to Bilby).
             </p>
           </div>
         </div>
@@ -318,10 +313,6 @@ title: "Features"
 
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <div style="background: linear-gradient(135deg, #e0e7ff 0%, #f0e7ff 100%); border-radius: 0.75rem; min-height: 300px; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1.2rem; font-style: italic; border: 2px dashed #e5e7eb; margin-bottom: 3rem;">
-          Workflow lifecycle diagram
-        </div>
-
         <div class="row g-4 text-center">
           <div class="col-md-3">
             <div style="width: 60px; height: 60px; background: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem;">1</div>
@@ -353,31 +344,19 @@ title: "Features"
 <section class="section bg-light">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-6 mb-4 order-lg-2">
-        <div style="background: linear-gradient(135deg, #e0e7ff 0%, #f0e7ff 100%); border-radius: 0.75rem; min-height: 350px; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1.2rem; font-style: italic; border: 2px dashed #e5e7eb;">
-          Plugin architecture diagram
-        </div>
-      </div>
-      <div class="col-lg-6 order-lg-1">
+      <div class="col-lg-8 mx-auto">
         <h2 class="section-title">Designed for extension</h2>
         <p style="font-size: 1.1rem; color: #6b7280; line-height: 1.8;">
           Asimov's plugin architecture means you're never locked in. Add new analysis pipelines by
-          subclassing a simple Python interface. Use hooks to inject custom behavior at any stage.
-          Template-based configuration generation adapts to any pipeline's input format.
+          subclassing a simple Python interface, registered via a standard Python entry point. Use hooks to
+          inject custom behavior at any stage. Template-based configuration generation adapts to any
+          pipeline's input format.
         </p>
         <p style="font-size: 1.1rem; color: #6b7280; line-height: 1.8;">
           The same extensibility that allows asimov to support multiple gravitational wave pipelines
-          makes it straightforward to integrate with your own analysis codes. You get the benefit of
-          robust workflow orchestration without rebuilding it yourself.
+          (Bilby, LALInference, RIFT, Bayeswave, and others) makes it straightforward to integrate your
+          own analysis codes without modifying asimov's core.
         </p>
-
-        <div class="card mt-4" style="background: white; padding: 2rem; border: 1px solid #e5e7eb; border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-          <blockquote style="font-size: 1.2rem; line-height: 1.7; color: #1f2937; font-style: italic; margin-bottom: 1rem; border-left: 4px solid #2563eb; padding-left: 1.5rem;">
-            "We developed asimov because we needed to coordinate hundreds of analyses
-            across different pipelines. It's designed to handle real research complexity."
-          </blockquote>
-          <div style="font-size: 1rem; color: #6b7280;">— The asimov development team</div>
-        </div>
       </div>
     </div>
   </div>
@@ -417,11 +396,11 @@ title: "Features"
 <span style="color: #a0aec0;"># Add an event (e.g., GW150914)</span>
 <span style="color: #81e6d9;">$ asimov apply -f https://git.ligo.org/asimov/data/-/raw/main/events/gwtc-1/GW150914_095045.yaml</span>
 
-<span style="color: #a0aec0;"># Add an analysis</span>
-<span style="color: #81e6d9;">$ asimov manage analysis add bilby</span>
+<span style="color: #a0aec0;"># Add an analysis by applying a blueprint to the event</span>
+<span style="color: #81e6d9;">$ asimov apply -f bilby-blueprint.yaml -e GW150914_095045</span>
 
 <span style="color: #a0aec0;"># Check project status</span>
-<span style="color: #81e6d9;">$ olivaw monitor</span></code></pre>
+<span style="color: #81e6d9;">$ asimov monitor</span></code></pre>
 
         <p class="text-center mt-4">
           <a href="{{ "/tutorials" | relative_url }}" class="btn btn-primary btn-lg">View Full Tutorials</a>

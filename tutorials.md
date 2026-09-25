@@ -59,7 +59,8 @@ title: "Tutorials"
       {% assign section_class = "section bg-light" %}
     {% else %}
       {% assign category_title = category | capitalize %}
-      {% if forloop.index0 | modulo: 2 == 1 %}
+      {% assign odd_category = forloop.index0 | modulo: 2 %}
+      {% if odd_category == 1 %}
         {% assign section_class = "section bg-light" %}
       {% else %}
         {% assign section_class = "section" %}

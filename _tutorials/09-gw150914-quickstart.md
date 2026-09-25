@@ -22,12 +22,7 @@ order: 1
   </div>
 </div>
 
-**New features** in asimov 0.7.0 that make this easier:
-- The new **asimov-gwdata plugin** with smart project setup commands
-- **Improved dependency resolution** for complex multi-stage analyses  
-- **Better Python API** for programmatic project creation
-- **Enhanced HTML reporting** with workflow visualization
-- **State machine-based monitoring** for more robust job tracking
+This tutorial uses **asimov 0.7.1** (released 2026-09-18; 0.7.0 was released 2026-08-17). It relies on three plugins: **asimov-gwdata** to fetch strain data, **bayeswave** to estimate the detector noise PSD, and **bilby** to perform the parameter estimation itself.
 
 ## Prerequisites
 
@@ -78,21 +73,14 @@ conda install -c conda-forge -c igwn igwn-software</code></pre>
   <div class="procedural-step">
     <div class="procedural-step-number">3</div>
     <div class="procedural-step-content">
-      <h3>Install Asimov and the GWData Plugin</h3>
-      <p>Since asimov 0.7.0 is currently in pre-release, we need to use pip with the pre-release flag:</p>
-      <pre><code class="language-bash"># Install asimov 0.7.0 (pre-release)
-pip install --pre 'asimov>=0.7.0a1'
+      <h3>Install Asimov and the Pipeline Plugins</h3>
+      <p>Install asimov itself, plus the three pipeline plugins this tutorial uses: <code>asimov-gwdata</code> (fetches strain data), <code>bayeswave</code> (PSD estimation), and <code>bilby</code> (parameter estimation).</p>
+      <pre><code class="language-bash"># Via pip
+pip install asimov asimov-gwdata bilby_pipe bilby
 
-# Install the gwdata plugin (0.7.0-alpha)
-pip install --pre 'asimov-gwdata>=0.7.0a1'</code></pre>
-      
-      <p>After the official release, this simplifies to:</p>
-      <pre><code class="language-bash">pip install asimov asimov-gwdata</code></pre>
-      
-      <div class="step-important">
-        <strong>Keep the pre-release flag</strong>
-        <p>The <code>--pre</code> flag is required to download pre-release versions. Without it, pip won't find the right version.</p>
-      </div>
+# Or via conda
+conda install -c conda-forge bilby bayeswave asimov-gwdata</code></pre>
+      <p class="text-muted">The <code>bayeswave</code> package is currently only available via conda-forge.</p>
     </div>
   </div>
 
@@ -128,10 +116,9 @@ condor_q</code></pre>
     <div class="procedural-step-content">
       <h3>Verify Your Complete Setup</h3>
       <p>Make sure everything is installed correctly:</p>
-      <pre><code class="language-bash">asimov --version
-asimov gw events list --catalog gwtc-2-1 | head -5</code></pre>
+      <pre><code class="language-bash">asimov --version</code></pre>
       
-      <p>You should see asimov's version number and a short list of events.</p>
+      <p>You should see asimov's version number printed (0.7.1 or later).</p>
       
       <div class="step-note">
         <strong>Troubleshooting</strong>
@@ -146,43 +133,13 @@ asimov gw events list --catalog gwtc-2-1 | head -5</code></pre>
   </div>
 </div>
 
-## Step 1: Explore Available Events and Analyses
+## Step 1: About GW150914
 
-<div class="procedural-steps">
-  <div class="procedural-step">
-    <div class="procedural-step-number">1</div>
-    <div class="procedural-step-content">
-      <h3>Browse Available Events</h3>
-      <p>Before setting up your project, let's see what's available. The asimov-gwdata plugin provides convenient commands to discover events and analysis configurations:</p>
-      <pre><code class="language-bash"># List all available events from the GWTC-2.1 catalogue
-asimov gw events list --catalog gwtc-2-1
-
-# Get detailed information about GW150914
-asimov gw events show GW150914_095045</code></pre>
-      
-      <p>This will show you:</p>
-      <ul>
-        <li>The exact time the signal was detected</li>
-        <li>Which detectors (LIGO Hanford and LIGO Livingston) observed it</li>
-        <li>Recommended priors for parameter estimation</li>
-        <li>Data quality information</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="procedural-step">
-    <div class="procedural-step-number">2</div>
-    <div class="procedural-step-content">
-      <h3>Browse Available Analysis Templates</h3>
-      <p>Now let's see what analysis configurations are available:</p>
-      <pre><code class="language-bash"># List all available analysis templates
-asimov gw analyses list
-
-# Show details about the production configuration
-asimov gw analyses show production-default</code></pre>
-    </div>
-  </div>
-</div>
+GW150914 was the first gravitational wave ever detected, observed by the LIGO Hanford and Livingston
+detectors on 14 September 2015. It's a common "hello world" event for parameter-estimation tutorials
+because it's well studied and its blueprints are readily available. asimov doesn't ship its own
+catalogue browser—instead, events and analysis defaults are distributed as YAML blueprint files that
+you apply directly to your project, which is what the next step does.
 
 ## Step 2: Set Up Your Project
 
@@ -191,35 +148,66 @@ asimov gw analyses show production-default</code></pre>
     <div class="procedural-step-number">1</div>
     <div class="procedural-step-content">
       <h3>Create Project Directory</h3>
-      <p>First, create a directory for your project and move into it:</p>
+      <p>First, create a directory for your project, move into it, and initialize an asimov project:</p>
       <pre><code class="language-bash">mkdir gw150914-tutorial
-cd gw150914-tutorial</code></pre>
+cd gw150914-tutorial
+asimov init "GW150914 Analysis Tutorial"</code></pre>
+      <p class="text-muted">This sets up the project's directory structure and a blank, git-tracked ledger.</p>
     </div>
   </div>
 
   <div class="procedural-step">
     <div class="procedural-step-number">2</div>
     <div class="procedural-step-content">
-      <h3>Choose Your Setup Method</h3>
-      <p>Now you have two options for setting up your analysis:</p>
-      
-      <div class="step-options">
-        <div class="step-option">
-          <strong>Option A: Interactive Wizard (Recommended for new users)</strong>
-          <p>If you prefer a guided, step-by-step approach, use the interactive wizard:</p>
-          <pre><code class="language-bash">asimov gw quickstart</code></pre>
-          <p>This will walk you through friendly prompts to choose your analysis preset, select events, pick analyses, and configure options. The wizard then automatically sets everything up for you.</p>
-        </div>
+      <h3>Apply the Project-Wide Defaults</h3>
+      <p>Asimov ships pipelines with a minimal set of default settings. A blueprint with the settings normally used for LVK production analyses is maintained in the asimov data repository—apply the resource-allocation defaults and the prior defaults:</p>
+      <pre><code class="language-bash">asimov apply -f https://git.ligo.org/asimov/data/-/raw/main/defaults/production-pe.yaml
+asimov apply -f https://git.ligo.org/asimov/data/-/raw/main/defaults/production-pe-priors.yaml</code></pre>
+    </div>
+  </div>
 
-        <div class="step-option">
-          <strong>Option B: Direct Command (For experienced users)</strong>
-          <p>If you know exactly what you want, use the direct setup command:</p>
-          <pre><code class="language-bash">asimov gw setup \
-  --events GW150914_095045 \
-  --analyses production-default</code></pre>
-          <p>This command downloads configurations, sets up pipelines, initializes git, and resolves dependencies automatically.</p>
-        </div>
-      </div>
+  <div class="procedural-step">
+    <div class="procedural-step-number">3</div>
+    <div class="procedural-step-content">
+      <h3>Add the Event</h3>
+      <p>Add GW150914 to the project by applying its event blueprint, which is also maintained in the data repository:</p>
+      <pre><code class="language-bash">asimov apply -f https://git.ligo.org/asimov/data/-/raw/main/events/gwtc-2-1/GW150914_095045.yaml</code></pre>
+    </div>
+  </div>
+
+  <div class="procedural-step">
+    <div class="procedural-step-number">4</div>
+    <div class="procedural-step-content">
+      <h3>Define the Workflow</h3>
+      <p>The standard workflow for a gravitational-wave analysis has three stages: fetch data (<code>gwdata</code>), estimate the noise PSD (<code>bayeswave</code>), then run parameter estimation (<code>bilby</code>), with each stage declaring the previous one as a dependency via <code>needs</code>. Save the following as <code>workflow.yaml</code>:</p>
+      <pre><code class="language-yaml">kind: analysis
+name: get-data
+pipeline: gwdata
+file length: 4096
+download:
+  - frames
+scheduler:
+  accounting group: ligo.dev.o4.cbc.pe.bilby
+  request memory: 1024
+  request post memory: 16384
+---
+kind: analysis
+name: generate-psd
+pipeline: bayeswave
+comment: Bayeswave on-source PSD estimation process
+needs:
+  - get-data
+---
+kind: analysis
+name: bilby-IMRPhenomXPHM-cosmo
+pipeline: bilby
+waveform:
+  approximant: IMRPhenomXPHM
+comment: PE job using IMRPhenomXPHM and bilby
+needs:
+  - generate-psd</code></pre>
+      <p>Then apply the workflow to the event you added above, using its full name:</p>
+      <pre><code class="language-bash">asimov apply -f workflow.yaml -e GW150914_095045</code></pre>
     </div>
   </div>
 </div>
@@ -237,8 +225,9 @@ cd gw150914-tutorial</code></pre>
 │   └── ledger.yml             # The project database (git-tracked)
 ├── checkouts/                  # Working directories for each analysis
 │   └── GW150914_095045/       # Event directory
-│       ├── bayeswave/         # Bayeswave on-source PSD job
-│       └── bilby/             # Bilby parameter estimation job
+│       ├── get-data/          # gwdata download job
+│       ├── generate-psd/      # Bayeswave on-source PSD job
+│       └── bilby-IMRPhenomXPHM-cosmo/  # Bilby parameter estimation job
 ├── results/                    # Where results will be stored
 ├── working/                    # HTCondor job submission files
 └── README.md                   # Project information</code></pre>
@@ -255,12 +244,13 @@ cd gw150914-tutorial</code></pre>
       <p>You should see something like:</p>
       <pre><code>GW150914_095045
   Analyses
-  - Prod0[bayeswave]    ready
-  - Prod1[bilby]        ready (waiting for Prod0)</code></pre>
+  - get-data[gwdata]                      ready
+  - generate-psd[bayeswave]               waiting (needs get-data)
+  - bilby-IMRPhenomXPHM-cosmo[bilby]      waiting (needs generate-psd)</code></pre>
       
       <div class="step-note">
         <strong>Dependency resolution</strong>
-        <p>Notice how Prod1 (bilby) is marked as "waiting"—asimov's improved dependency resolution (new in 0.7.0) knows that bilby needs the power spectral density (PSD) estimates from bayeswave before it can start.</p>
+        <p>The <code>needs</code> entries in <code>workflow.yaml</code> tell asimov that <code>generate-psd</code> needs the strain data from <code>get-data</code>, and the bilby analysis needs the PSD from <code>generate-psd</code>, before each can be built and submitted.</p>
       </div>
     </div>
   </div>
@@ -273,13 +263,8 @@ cd gw150914-tutorial</code></pre>
     <div class="procedural-step-number">1</div>
     <div class="procedural-step-content">
       <h3>Build Configuration Files</h3>
-      <p>Create all the pipeline-specific configuration files:</p>
+      <p>Asimov works out which stages of the workflow are ready to run and produces the configuration needed to submit them to the scheduler. Since only <code>get-data</code> has no unmet dependencies, this is the stage that gets built first:</p>
       <pre><code class="language-bash">asimov manage build</code></pre>
-      
-      <p>You'll see output like:</p>
-      <pre><code>● Working on GW150914_095045
-  Working on production Prod0
-  Production config Prod0 created.</code></pre>
       
       <div class="step-tip">
         <strong>Check the working directory</strong>
@@ -297,7 +282,7 @@ cd gw150914-tutorial</code></pre>
       
       <div class="step-note">
         <strong>Dependency handling</strong>
-        <p>This submits the bayeswave job (Prod0) to the scheduler. The bilby job (Prod1) won't submit yet because it's waiting for bayeswave to complete—that's the dependency system in action.</p>
+        <p>This submits the <code>get-data</code> job to the scheduler. <code>generate-psd</code> and the bilby analysis won't submit yet, because they're waiting on their dependencies—run <code>asimov manage build</code> and <code>asimov manage submit</code> again as each stage completes, or use <code>asimov start</code> below to automate this.</p>
       </div>
     </div>
   </div>
@@ -315,12 +300,7 @@ Now we need to watch our job. Asimov provides several ways to do this:
       <p>For a quick status check:</p>
       <pre><code class="language-bash">asimov monitor</code></pre>
       
-      <p>This checks the job status once and shows you what's happening:</p>
-      <pre><code>GW150914_095045
-  - Prod0[bayeswave]
-    ● Running (HTCondor ID: 12345)
-  - Prod1[bilby]  
-    ● Waiting (ready to run after Prod0 completes)</code></pre>
+      <p>This checks the job status once and shows you what's happening, similar to <code>asimov report status</code>.</p>
     </div>
   </div>
 
@@ -328,25 +308,12 @@ Now we need to watch our job. Asimov provides several ways to do this:
     <div class="procedural-step-number">2</div>
     <div class="procedural-step-content">
       <h3>Continuous Monitoring (Recommended)</h3>
-      <p>For longer jobs, set up automated monitoring that will:</p>
-      <ul>
-        <li>Check job status every 15 minutes</li>
-        <li>Automatically submit dependent jobs when their dependencies complete</li>
-        <li>Run post-processing when analyses finish</li>
-        <li>Provide real-time HTML reports (new in 0.7.0)</li>
-      </ul>
+      <p>You probably don't want to check on these jobs by hand. Asimov can automate the process instead: checking the status of each analysis, and building and submitting the next stage automatically once its dependencies complete.</p>
       
       <pre><code class="language-bash">asimov start</code></pre>
       
-      <p>You'll see:</p>
-      <pre><code>● Asimov is running (process ID: 54321)</code></pre>
-      
-      <p>This starts a background process. You can check the logs at any time with:</p>
-      <pre><code class="language-bash">tail -f asimov.log</code></pre>
-      
-      <p>And stop monitoring whenever you're ready:</p>
+      <p>This starts a background monitoring process, and stops once everything is done, or you can stop it yourself with:</p>
       <pre><code class="language-bash">asimov stop</code></pre>
-
     </div>
   </div>
 </div>
@@ -357,24 +324,20 @@ While your job is running, let's understand what's happening:
 
 <div class="step-substep">
   <h4>The Multi-Stage Workflow</h4>
-  <p>Your project has two analyses working together:</p>
+  <p>Your project has three analyses working together:</p>
   <ol>
-    <li><strong>Bayeswave (Prod0):</strong> Produces an estimate of the power spectral density (the noise characteristics) of the detector during the GW150914 observation. This typically takes hours to days.</li>
-    <li><strong>Bilby (Prod1):</strong> Uses the PSD from Bayeswave to perform the actual parameter estimation—inferring properties like the masses and spins of the merging black holes. This uses Bayesian inference to calculate the probability of different parameters given the observed signal.</li>
+    <li><strong>get-data:</strong> Fetches the strain data needed for the analysis, via the <code>gwdata</code> plugin.</li>
+    <li><strong>generate-psd (Bayeswave):</strong> Produces an estimate of the power spectral density (the noise characteristics) of the detector during the GW150914 observation. This typically takes hours to days.</li>
+    <li><strong>bilby-IMRPhenomXPHM-cosmo (Bilby):</strong> Uses the PSD from Bayeswave to perform the actual parameter estimation—inferring properties like the masses and spins of the merging black holes, using Bayesian inference to calculate the probability of different parameters given the observed signal.</li>
   </ol>
-  <p>The state machine monitoring (new in 0.7.0) automatically handles submitting Prod1 once Prod0 completes.</p>
+  <p>Asimov's dependency resolution, declared with <code>needs</code> in <code>workflow.yaml</code>, submits each stage automatically once the one before it completes.</p>
 </div>
 
 <div class="step-substep">
   <h4>Tracking Progress with Reports</h4>
-  <p>Once monitoring is running, asimov generates HTML reports showing:</p>
-  <ul>
-    <li>Current job status</li>
-    <li>Workflow dependency graphs (new in 0.7.0)</li>
-    <li>Historical information</li>
-    <li>Any errors or warnings</li>
-  </ul>
-  <p>These are stored in the <code>results/</code> directory.</p>
+  <p>You can generate an HTML status report for the project at any time with:</p>
+  <pre><code class="language-bash">asimov report html</code></pre>
+  <p>By default this is written to the project's configured web directory; PESummary-based pages for a completed bilby analysis are written under <code>pages/</code>.</p>
 </div>
 
 ## Step 7: When Jobs Complete
@@ -413,25 +376,27 @@ After your jobs finish (this can take days or weeks for production-quality analy
 <div class="step-options">
   <div class="step-option">
     <strong>Run More Events</strong>
-    <p>Add another event to your existing project:</p>
-    <pre><code class="language-bash">asimov gw events add GW151012_095443 --analyses production-default
+    <p>Add another event by applying its blueprint from the data repository, then apply a similar workflow blueprint to it:</p>
+    <pre><code class="language-bash">asimov apply -f https://git.ligo.org/asimov/data/-/raw/main/events/gwtc-2-1/GW151012_095443.yaml
+asimov apply -f workflow.yaml -e GW151012_095443
 asimov manage build && asimov manage submit</code></pre>
   </div>
 
   <div class="step-option">
     <strong>Customize Your Analysis</strong>
-    <p>Edit <code>.asimov/ledger.yml</code> to adjust analysis settings like prior ranges, sampler settings, and waveform approximants. Then rebuild:</p>
-    <pre><code class="language-bash">asimov manage build && asimov manage submit</code></pre>
+    <p>Edit <code>workflow.yaml</code> to adjust settings like waveform approximants, priors, or sampler settings, then re-apply it and rebuild:</p>
+    <pre><code class="language-bash">asimov apply -f workflow.yaml -e GW150914_095045
+asimov manage build && asimov manage submit</code></pre>
   </div>
 
   <div class="step-option">
     <strong>Use a Different Pipeline</strong>
-    <p>Instead of <code>production-default</code>, you could use alternatives like <code>bilby-IMRPhenomXPHM</code> or custom configurations. See <code>asimov gw analyses list</code> for all options.</p>
+    <p>Swap <code>pipeline: bilby</code> for another supported sampler, such as <code>lalinference</code> or <code>rift</code>, provided the corresponding plugin is installed. See the <a href="{{ "/plugins" | relative_url }}">plugins directory</a> for what's available.</p>
   </div>
 
   <div class="step-option">
     <strong>Contribute to Asimov</strong>
-    <p>Check out the <a href="/contributing">Contributing Guide</a> to get involved with development!</p>
+    <p>Check out the <a href="{{ "/contributing" | relative_url }}">Contributing Guide</a> to get involved with development.</p>
   </div>
 </div>
 
@@ -526,12 +491,8 @@ condor_status     # Show available slots</code></pre>
   <p>We recommend using institutional computing clusters with HTCondor, or work with your institution's computing facility to set up access.</p>
 </div>
 
-### Future Improvements
+### Other Schedulers
 
-We're actively working to make asimov easier to use without requiring HTCondor. Upcoming features will include:
-- Direct cloud computing support (AWS, Google Cloud, etc.)
-- Local multiprocessing support
-- Slurm scheduler integration
-- Better containerization
-
-Stay tuned for updates!
+Besides HTCondor, asimov also supports submitting and monitoring jobs on **Slurm**. If your institution's
+cluster runs Slurm rather than HTCondor, see the asimov documentation for how to configure it as your
+scheduler backend.

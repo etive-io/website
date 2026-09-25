@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "asimov: The Workflow Platform for Complex Scientific Research"
+title: "asimov and other workflow tools"
 ---
 
 <!-- Hero Section -->
@@ -8,113 +8,94 @@ title: "asimov: The Workflow Platform for Complex Scientific Research"
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center">
-        <h1>asimov: Built for Complex Scientific Workflows</h1>
-        <p class="lead">Purpose-built for computational research with multiple interdependent codes, long-running analyses, and publication-grade reproducibility requirements.</p>
+        <h1>asimov and other workflow tools</h1>
+        <p class="lead">Where asimov sits relative to other research workflow software, and when each tool is the better fit.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Overview Section -->
+<!-- Intro -->
 <section class="section">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h2 class="section-title">Quick Feature Comparison</h2>
-        <p class="section-subtitle">How asimov stacks up against general-purpose workflow tools</p>
-        
+        <h2 class="section-title">What level asimov works at</h2>
+        <p>asimov orchestrates <strong>analyses</strong> &mdash; long-running, heavyweight, individually reviewed units of scientific work, such as a Bayesian parameter-estimation run &mdash; across the <strong>subjects</strong> of a catalogue, such as the gravitational-wave events in GWTC-3. It does not build or manage the fine-grained task graph inside an analysis: that is delegated to whatever pipeline is being run (for example, <code>bilby_pipe</code> writes its own HTCondor DAG). asimov's job is the layer above that: which analyses exist for which subjects, what each depends on, what its configuration was, whether it has been reviewed, and where it currently stands.</p>
+        <p>This is a different granularity from most workflow engines, which schedule individual tasks or files within a single pipeline run. The comparison below is offered in that spirit &mdash; these tools solve related but not identical problems, and several are commonly used <em>together</em> with asimov rather than instead of it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h2 class="section-title">Feature comparison</h2>
+        <p class="section-subtitle">A comparison against other established workflow and provenance tools. Where a detail is uncertain, it is described generally rather than guessed.</p>
+
         <div class="table-responsive mt-5">
-          <table class="table table-bordered">
+          <table class="table table-bordered align-middle">
             <thead class="table-light">
               <tr>
-                <th style="width: 20%;">Feature</th>
-                <th style="width: 16%;">asimov</th>
-                <th style="width: 16%;">Nextflow</th>
-                <th style="width: 16%;">Snakemake</th>
-                <th style="width: 16%;">Galaxy</th>
-                <th style="width: 16%;">Cromwell</th>
+                <th style="width: 18%;">&nbsp;</th>
+                <th style="width: 16.4%;">asimov</th>
+                <th style="width: 16.4%;">AiiDA</th>
+                <th style="width: 16.4%;">Snakemake</th>
+                <th style="width: 16.4%;">Nextflow</th>
+                <th style="width: 16.4%;">Apache Airflow</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Primary Language</strong></td>
-                <td>Python</td>
-                <td>Groovy/Java</td>
-                <td>Python</td>
-                <td>Web UI / YAML</td>
-                <td>WDL</td>
+                <td><strong>Unit of work</strong></td>
+                <td>An analysis of a subject (e.g. one event's parameter estimation)</td>
+                <td>A calculation or workflow step in a provenance graph</td>
+                <td>A rule producing output files from input files</td>
+                <td>A process operating on items in a dataflow</td>
+                <td>A task within a DAG, typically scheduled on a recurring basis</td>
               </tr>
               <tr>
-                <td><strong>Workflow Definition</strong></td>
-                <td>Python API + YAML</td>
-                <td>Nextflow DSL</td>
-                <td>Snakefile (Python)</td>
-                <td>Graphical or YAML</td>
-                <td>WDL</td>
+                <td><strong>Workflow specification</strong></td>
+                <td>Declarative YAML blueprints (project/subject/analysis) with hierarchical, inherited settings; dependencies expressed with <code>needs:</code></td>
+                <td>Python API (AiiDA work chains/work functions); calculations and their inputs/outputs recorded as a graph</td>
+                <td>A Snakefile: a Python-embedded DSL of file-pattern rules</td>
+                <td>A dataflow DSL, built on Groovy, describing channels and processes</td>
+                <td>Python DAGs of operators, defined as code</td>
               </tr>
               <tr>
-                <td><strong>Target Users</strong></td>
-                <td>Researchers / Developers</td>
-                <td>Bioinformaticians / DevOps</td>
-                <td>Bioinformaticians / Data Scientists</td>
-                <td>Bench Scientists</td>
-                <td>WDL Community / Genomics</td>
+                <td><strong>Provenance &amp; record-keeping</strong></td>
+                <td>A ledger (YAML or database) recording each analysis's configuration and state; generated configs are committed to git</td>
+                <td>A full provenance graph stored in a database, capturing every calculation's inputs, outputs, and code version</td>
+                <td>Rule graph and run metadata; provenance is largely implicit in the file dependency graph</td>
+                <td>Execution trace and reports (e.g. via Nextflow Tower/Seqera Platform); provenance follows the dataflow graph</td>
+                <td>DAG run history and task logs in its metadata database; not a scientific provenance graph</td>
               </tr>
               <tr>
-                <td><strong>Execution Backends</strong></td>
-                <td>HTCondor, Local, Docker</td>
-                <td>Nextflow Tower, Cloud native</td>
-                <td>SLURM, PBS, Local, Cloud</td>
-                <td>Local, Galaxy Server</td>
-                <td>Google Cloud, AWS, Azure</td>
+                <td><strong>Execution backends</strong></td>
+                <td>HTCondor and Slurm</td>
+                <td>Local execution plus remote HPC schedulers (Slurm, PBS, SGE, LSF, and others) through scheduler plugins, over local or SSH transports</td>
+                <td>Local execution, most HPC schedulers, and several cloud/cluster executors</td>
+                <td>Local execution, most HPC schedulers, and cloud executors including Kubernetes</td>
+                <td>Local or distributed execution via its scheduler and executors (e.g. Celery, Kubernetes); not HPC-scheduler-oriented</td>
               </tr>
               <tr>
-                <td><strong>Job Submission</strong></td>
-                <td>Direct + Managed</td>
-                <td>Native Cloud</td>
-                <td>Cluster-aware</td>
-                <td>Web UI</td>
-                <td>Cloud-focused</td>
+                <td><strong>Human review / sign-off</strong></td>
+                <td>Built in: a review module records sign-off decisions against each analysis in the ledger</td>
+                <td>Not a built-in concept; review would be handled outside the tool</td>
+                <td>Not a built-in concept</td>
+                <td>Not a built-in concept</td>
+                <td>Not a built-in concept; task success/failure is tracked, not scientific review</td>
               </tr>
               <tr>
-                <td><strong>Multi-language Support</strong></td>
-                <td>✓ (Python-first)</td>
-                <td>✓ (Groovy-first)</td>
-                <td>✓ (Python-first)</td>
-                <td>✓ (Tools)</td>
-                <td>✓ (WDL tasks)</td>
-              </tr>
-              <tr>
-                <td><strong>Containerization</strong></td>
-                <td>Docker, Singularity</td>
-                <td>Docker, Singularity, Podman</td>
-                <td>Docker, Conda</td>
-                <td>Tool containers</td>
-                <td>Docker</td>
-              </tr>
-              <tr>
-                <td><strong>Dependency Resolution</strong></td>
-                <td>Manual + Automatic</td>
-                <td>Automatic</td>
-                <td>Automatic</td>
-                <td>Manual</td>
-                <td>Manual</td>
-              </tr>
-              <tr>
-                <td><strong>Monitoring UI</strong></td>
-                <td>Web dashboard (in development)</td>
-                <td>Nextflow Tower (managed)</td>
-                <td>Limited</td>
-                <td>Web UI</td>
-                <td>Cromwell Server</td>
-              </tr>
-              <tr>
-                <td><strong>Extensibility</strong></td>
-                <td>Plugin system</td>
-                <td>Custom modules</td>
-                <td>Custom rules</td>
-                <td>Tool integration</td>
-                <td>Custom tasks</td>
+                <td><strong>Primary community</strong></td>
+                <td>Gravitational-wave astronomy (LIGO/Virgo/KAGRA); domain-agnostic core</td>
+                <td>Computational materials science and atomistic simulation</td>
+                <td>Bioinformatics and general computational science</td>
+                <td>Bioinformatics (nf-core) and general scientific pipelines</td>
+                <td>Data engineering</td>
               </tr>
             </tbody>
           </table>
@@ -124,221 +105,50 @@ title: "asimov: The Workflow Platform for Complex Scientific Research"
   </div>
 </section>
 
-<!-- Physical Sciences Focus -->
-<section class="section bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 mx-auto">
-        <h2 class="section-title">Built for Complex Scientific Research</h2>
-        <p class="section-subtitle mb-5">Whether in physics, chemistry, biology, climate science, or computational engineering—asimov addresses the needs of research that demands multi-code orchestration and reproducibility</p>
-        
-        <div class="row g-4 mt-4">
-          <div class="col-lg-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">🔬 Multi-Code Orchestration</h5>
-                <p class="card-text">Seamlessly integrate Python, C++, Fortran, and shell pipelines in a single workflow. Define complex dependencies between heterogeneous codes without preprocessing or manual orchestration.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">🖥️ Academic HPC Integration</h5>
-                <p class="card-text">Native support for HTCondor, SLURM, and PBS—the infrastructure that powers university research. Works with your existing HPC cluster, not cloud-only platforms.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">📊 Computational Scale</h5>
-                <p class="card-text">Orchestrate thousands of jobs across heterogeneous resources. Built for parameter sweeps, ensemble methods, statistical inference at scale, and any workflow with massive computational demands.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">🔐 Research Governance</h5>
-                <p class="card-text">Audit trails, role-based access, and reproducibility built-in. Essential for collaborative research, multi-institution projects, and grant-mandated archival requirements.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">🐍 Python-Native for Science</h5>
-                <p class="card-text">Built entirely in Python, asimov integrates directly with NumPy, SciPy, Astropy, and domain-specific packages. No context-switching between DSLs—your analysis logic and orchestration logic are one.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title fw-bold">📈 Reproducible Science</h5>
-                <p class="card-text">Every workflow execution produces a complete audit trail. Version-tracked configurations, reproducible event data, and containerized codes ensure your research meets modern reproducibility standards.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Design Philosophy -->
+<!-- When to use which -->
 <section class="section">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h2 class="section-title">The Research Orchestration Problem</h2>
-        
-        <p class="lead mb-4">Generic workflow tools weren't designed for the realities of computational research:</p>
-        
-        <div class="row g-4 mt-4">
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">The Research Challenge</h5>
-            <ul>
-              <li><strong>Multi-code workflows:</strong> Analyses flow through multiple interdependent analysis codes and simulations</li>
-              <li><strong>Long-running computations:</strong> Individual jobs can take days or weeks; need robust management and recovery</li>
-              <li><strong>Complex dependencies:</strong> Results from one code feed into the next; intricate orchestration needed</li>
-              <li><strong>Heterogeneous compute:</strong> Mix of Python packages, compiled binaries, shell scripts, remote resources</li>
-              <li><strong>Reproducibility at scale:</strong> Publication requirements demand complete audit trails across thousands of jobs</li>
-            </ul>
-          </div>
-          
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">asimov's Solution</h5>
-            <ul>
-              <li><strong>Orchestration framework</strong> built for multi-code scientific pipelines</li>
-              <li><strong>Stateful job management</strong> with recovery from partial failures</li>
-              <li><strong>Monitoring dashboards</strong> for tracking hundreds or thousands of jobs</li>
-              <li><strong>Plugin architecture</strong> for adding analysis codes without forking</li>
-              <li><strong>Research infrastructure</strong> designed for publication-grade reproducibility</li>
-            </ul>
-          </div>
-        </div>
+        <h2 class="section-title">When to use which</h2>
+        <p><strong>asimov</strong> fits when a project runs many heavyweight analyses per subject, across a whole catalogue, using several different analysis codes, and needs a durable, reviewable record of what was run and why &mdash; the situation LVK parameter-estimation catalogues (GWTC-2, 2.1, 3, and 4.0) are in.</p>
+        <p><strong>Snakemake</strong> and <strong>Nextflow</strong> are strong choices for file-oriented pipelines where the unit of work is a transformation from input files to output files, and where container-based portability and a large existing library of community workflows (e.g. nf-core) are valuable.</p>
+        <p><strong>AiiDA</strong> is the natural choice when full, queryable data provenance of atomistic or materials-science simulations is the goal, with every calculation's inputs, outputs, and code versions captured in a graph database.</p>
+        <p><strong>Apache Airflow</strong> suits recurring, schedule-driven data-engineering jobs &mdash; ETL pipelines, periodic reports &mdash; rather than one-off scientific analyses.</p>
+        <p>These tools are not mutually exclusive with asimov. A pipeline that asimov orchestrates as a single analysis may itself be implemented as a Snakemake or Nextflow workflow underneath; asimov's ledger and review layer sit above that, tracking the analysis as a whole rather than its internal steps.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Real-World Use Cases in Physics -->
+<!-- Current limitations -->
 <section class="section bg-light">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h2 class="section-title">Current Focus & Future Directions</h2>
-        <p class="section-subtitle mb-5">asimov currently powers gravitational wave astronomy research, with infrastructure designed to extend to any domain requiring multi-code orchestration</p>
-        
-        <div class="row g-4 mt-4">
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">🌊 Current: Gravitational Wave Astronomy</h5>
-            <p class="mb-3">asimov is actively used for:</p>
-            <ul class="small">
-              <li>Multi-code parameter estimation pipelines (signal processing → Bayesian inference → population inference)</li>
-              <li>Thousands of nested sampling jobs coordinated across LIGO and research institutions</li>
-              <li>Ensemble simulations for synthetic data generation and detector characterization</li>
-            </ul>
-          </div>
-          
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">🔮 Expanding To: Computational Science</h5>
-            <p class="mb-3">The architecture applies directly to:</p>
-            <ul class="small">
-              <li><strong>Computational Biology:</strong> Molecular dynamics ensembles, free energy calculations, structure prediction</li>
-              <li><strong>Climate Science:</strong> Model ensemble runs, coupled simulations, large-scale data analysis</li>
-              <li><strong>Materials Science:</strong> Parameter sweeps, simulation pipelines, cross-code validation</li>
-              <li><strong>ML in Science:</strong> Training dataset generation, hyperparameter optimization, model inference</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="alert alert-info mt-5" role="alert">
-          <p class="mb-0"><strong>Building the next domain:</strong> If you work in computational science and see your workflow reflected in asimov's architecture, we'd like to hear from you. asimov is designed to expand beyond its current focus—get in touch if you're interested in piloting multi-code orchestration for your research.</p>
-        </div>
+        <h2 class="section-title">Current limitations</h2>
+        <ul>
+          <li>Submission is currently limited to HTCondor and Slurm; there is no support for PBS, SGE, LSF, or cloud/Kubernetes execution.</li>
+          <li>asimov does not manage containers itself &mdash; any containerization is left to the pipeline being run.</li>
+          <li>The plugin ecosystem is presently concentrated on gravitational-wave analysis codes (Bilby, LALInference, RIFT, BayesWave, PESummary, and similar).</li>
+          <li>There is no graphical monitoring UI at this time; status is inspected through the command line and generated HTML reports.</li>
+          <li><a href="https://github.com/etive-io/asimov-exoplanet">asimov-exoplanet</a> is an early example of the ledger/blueprint/plugin model applied outside gravitational-wave astronomy, showing the approach is not inherently domain-specific, though using it in a new domain currently means writing new pipeline plugins.</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Why Physics Needs a Different Tool -->
-<section class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 mx-auto">
-        <h2 class="section-title">Why Specialized Tools Fall Short</h2>
-        
-        <div class="row g-4 mt-4">
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">Bioinformatics-First Tools</h5>
-            <p><strong>Nextflow, Snakemake, Galaxy</strong> assume cloud infrastructure and pre-built tool ecosystems:</p>
-            <ul class="small">
-              <li>✗ Built for "docker pull biotools"; your Fortran solver isn't in Bioconda</li>
-              <li>✗ Cloud-native designs miss HTCondor/SLURM resources universities depend on</li>
-              <li>✗ Assume quick-running tasks; not designed for week-long parameter estimation</li>
-              <li>✗ Limited state management for complex inter-code dependencies</li>
-            </ul>
-          </div>
-          
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">Generic Job Schedulers</h5>
-            <p><strong>Slurm, PBS, HTCondor</strong> can run individual jobs, but lack research-grade orchestration:</p>
-            <ul class="small">
-              <li>✗ No monitoring dashboards for tracking thousand-job surveys</li>
-              <li>✗ Manual dependency management across codes</li>
-              <li>✗ No audit trails for reproducibility</li>
-              <li>✗ No integration with analysis packages (Bilby, LALInference, etc.)</li>
-            </ul>
-          </div>
-          
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">Python Task Frameworks</h5>
-            <p><strong>Celery, Dask, Ray</strong> are built for distributed computing, not research orchestration:</p>
-            <ul class="small">
-              <li>✗ No stateful workflow management</li>
-              <li>✗ Poor support for HPC cluster integration</li>
-              <li>✗ No built-in reproducibility or audit features</li>
-              <li>✗ No monitoring UI or research-grade monitoring</li>
-            </ul>
-          </div>
-          
-          <div class="col-lg-6">
-            <h5 class="fw-bold mb-3">asimov Fills the Gap</h5>
-            <p><strong>Purpose-built for physics research:</strong></p>
-            <ul class="small">
-              <li>✓ Orchestrates multi-code scientific pipelines</li>
-              <li>✓ Native HPC + Python package integration</li>
-              <li>✓ Monitoring and state management for long-running analyses</li>
-              <li>✓ Built-in reproducibility and audit trails</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Call to Action -->
+<!-- Closing -->
 <section class="section">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto text-center">
-        <h2 class="section-title">Ready to Get Started?</h2>
-        <p class="lead text-muted mb-4">Explore asimov with our tutorials and documentation.</p>
+        <h2 class="section-title">Learn more</h2>
+        <p class="lead text-muted mb-4">See asimov in action, or browse the available pipeline plugins.</p>
         <div>
-          <a href="{{ "/tutorials" | relative_url }}" class="btn btn-primary btn-lg me-2">View Tutorials</a>
-          <a href="https://github.com/etive-io/asimov" class="btn btn-outline-primary btn-lg">GitHub Repository</a>
-        </div>
-        
-        <div class="alert alert-info mt-5" role="alert">
-          <strong>Note:</strong> This comparison reflects asimov's current capabilities and design philosophy. The field of workflow orchestration is rapidly evolving. For the latest features and updates, check our <a href="https://github.com/etive-io/asimov">GitHub repository</a> and <a href="{{ "/documentation" | relative_url }}">documentation</a>.
+          <a href="{{ '/tutorials/09-gw150914-quickstart/' | relative_url }}" class="btn btn-primary btn-lg me-2">GW150914 quickstart</a>
+          <a href="{{ '/plugins/' | relative_url }}" class="btn btn-outline-primary btn-lg">Plugin registry</a>
         </div>
       </div>
     </div>
