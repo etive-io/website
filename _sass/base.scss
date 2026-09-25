@@ -37,14 +37,16 @@ body {
 
 // Hero section
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #0f1b2d;
   color: white;
-  padding: 5rem 0;
-  
+  padding: 5rem 0 4.5rem;
+
   h1 {
-    font-size: 3rem;
+    font-size: 2.75rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
   }
   
   p.lead {
@@ -60,7 +62,8 @@ body {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
   font-weight: 700;
   margin-bottom: 1rem;
   color: $text-color;
@@ -488,3 +491,149 @@ pre code {
     margin: 0.75rem 0 0 0;
   }
 }
+// Plugin registry
+.registry-card {
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+    border-color: $primary-color;
+  }
+
+  .card-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 1.05rem;
+  }
+}
+
+.registry-controls .btn.active {
+  background: $text-color;
+  border-color: $text-color;
+  color: #fff;
+}
+
+.registry-facts {
+  position: sticky;
+  top: 1.5rem;
+
+  pre {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+}
+
+.registry-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+
+  dt { font-weight: 500; color: $text-muted; }
+  dd { margin: 0; }
+}
+
+.readme {
+  overflow-wrap: anywhere;
+
+  img { max-width: 100%; height: auto; }
+  // Badge rows at the top of READMEs
+  p > a > img, p > img { display: inline-block; margin: 0 0.15rem 0.15rem 0; }
+  h1:first-child { display: none; } // the page already shows the name
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.35rem; margin-top: 2rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.5rem; }
+  table { display: block; overflow-x: auto; margin-bottom: 1rem; }
+  th, td { border: 1px solid $border-color; padding: 0.35rem 0.6rem; }
+}
+
+// Homepage
+.hero-eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+}
+
+.hero-install {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  padding: 1.25rem 1.5rem;
+
+  pre {
+    background: rgba(0, 0, 0, 0.35);
+    border: 0;
+    color: #e5edf7;
+    margin: 0.35rem 0 0.75rem;
+  }
+  pre code { color: inherit; }
+  pre:last-child { margin-bottom: 0; }
+}
+
+.hero-install-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.evidence {
+  background: $light-bg;
+
+  .evidence-figure {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-color;
+    white-space: nowrap;
+  }
+  .evidence-label {
+    font-size: 0.875rem;
+    color: $text-muted;
+    max-width: 16rem;
+    margin: 0.25rem auto 0;
+  }
+}
+
+.pillars {
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding-top: 0.75rem;
+    border-top: 3px solid $primary-color;
+    display: inline-block;
+  }
+  p { color: #374151; }
+}
+
+.flow-figure {
+  margin: 0;
+  color: $text-muted;
+
+  svg { width: 100%; height: auto; font-family: $font-family; }
+  .flow-node rect { fill: #fff; stroke: #cbd5e1; stroke-width: 1.5; }
+  .flow-node.core rect { fill: #eff6ff; stroke: $primary-color; }
+  .flow-node text { text-anchor: middle; font-size: 15px; font-weight: 600; fill: $text-color; }
+  .flow-node text.sub { font-size: 12px; font-weight: 400; fill: $text-muted; }
+  .flow-edge path { stroke: currentColor; stroke-width: 1.5; fill: none; }
+  .flow-edge text { text-anchor: middle; font-size: 12px; fill: $text-muted; }
+  .flow-edge text.left { text-anchor: start; }
+}
+
+.learn-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid $border-color;
+
+  a { font-weight: 600; margin-right: 0.5rem; }
+  span { color: $text-muted; }
+}
+
+.cite-block {
+  border-left: 3px solid $primary-color;
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.navbar-brand-org { font-weight: 400; color: $text-muted; font-size: 0.9em; }
