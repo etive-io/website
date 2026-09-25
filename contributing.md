@@ -8,7 +8,7 @@ title: "Contributing"
     <div class="row">
       <div class="col-lg-8 mx-auto">
         <h1 class="section-title">Contributing to asimov</h1>
-        <p class="lead text-muted">We welcome contributions from the community! Learn how you can help make gravitational-wave analysis better for everyone.</p>
+        <p class="lead text-muted">We welcome contributions from the community. Learn how you can help maintain and extend asimov for gravitational-wave analysis and beyond.</p>
       </div>
     </div>
   </div>
@@ -96,8 +96,8 @@ title: "Contributing"
             <p class="text-muted">Fork the repository and clone it locally:</p>
             <pre><code>git clone https://github.com/YOUR_USERNAME/asimov.git
 cd asimov
-pip install -e .[dev]</code></pre>
-            <p class="text-muted mt-3">The <code>[dev]</code> extra installs development dependencies including testing frameworks and linters.</p>
+pip install -e ".[testing]"</code></pre>
+            <p class="text-muted mt-3">The <code>testing</code> extra installs the packages needed to run asimov's test suite. Other extras (<code>docs</code>, <code>bilby</code>, <code>slurm</code>, <code>lvkgw</code>, <code>lvkgw-extras</code>) install optional dependencies for specific pipelines or for building the documentation.</p>
           </div>
         </div>
         
@@ -129,9 +129,9 @@ pip install -e .[dev]</code></pre>
             <h5 class="card-title">4. Run Tests</h5>
             <p class="text-muted">Ensure all tests pass before submitting:</p>
             <pre><code>python -m unittest discover</code></pre>
-            <p class="text-muted mt-3">Run linters to check code style:</p>
-            <pre><code>flake8 .
-black --check .</code></pre>
+            <p class="text-muted mt-3">Run the linter to check code style:</p>
+            <pre><code>flake8 .</code></pre>
+            <p class="text-muted mt-3">Asimov follows standard PEP 8 style, checked with flake8; it does not use Black or another auto-formatter.</p>
           </div>
         </div>
         
@@ -163,12 +163,11 @@ black --check .</code></pre>
         <div class="card mb-3">
           <div class="card-body">
             <h5 class="card-title">Python Style</h5>
-            <p class="text-muted">We follow PEP 8 conventions. Key points:</p>
+            <p class="text-muted">We follow the standard <a href="https://www.python.org/dev/peps/pep-0008/" target="_blank">PEP 8</a> conventions, checked automatically in CI with <a href="http://flake8.pycqa.org/en/latest/" target="_blank">flake8</a>. Key points:</p>
             <ul class="mb-0">
               <li>Use 4 spaces for indentation (no tabs)</li>
-              <li>Maximum line length of 88 characters (Black default)</li>
-              <li>Use descriptive variable names</li>
-              <li>Use type hints where appropriate</li>
+              <li>Use descriptive variable names (avoid single-letter names)</li>
+              <li>Don't repeat yourself—wrap repeated code into a function</li>
             </ul>
           </div>
         </div>
@@ -218,6 +217,34 @@ black --check .</code></pre>
             <p class="text-muted mb-0">For command line interfaces, we use the Click framework. Ensure CLIs are well-documented with help text and examples.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="h3 fw-bold mb-4">Listing a Plugin on This Site</h2>
+        <p class="text-muted mb-4">
+          The <a href="{{ "/plugins" | relative_url }}">plugins directory</a> is generated from a single
+          registry file, <code>registry.yml</code>, at the root of this website's repository. To list a
+          pipeline plugin, open a pull request adding a short entry to that file:
+        </p>
+        <pre><code>- name: asimov-mypipeline
+  repo: your-org/asimov-mypipeline   # owner/name on GitHub
+  category: pipeline
+  pypi: asimov-mypipeline            # optional, if published to PyPI
+  maintenance: community             # "official" or "community"
+  docs: https://your-org.github.io/asimov-mypipeline/
+  summary: >
+    A short, one- or two-sentence description of what the plugin does.</code></pre>
+        <p class="text-muted mt-3">
+          That's all you need to add. Everything else shown on the plugin's page&mdash;its current version,
+          entry points, README, and licence&mdash;is fetched automatically from PyPI and GitHub at build
+          time, so it stays up to date without further edits to the registry.
+        </p>
       </div>
     </div>
   </div>
@@ -310,7 +337,7 @@ black --check .</code></pre>
         
         <div class="text-center mt-5">
           <h3 class="h4 fw-bold mb-3">Ready to Contribute?</h3>
-          <p class="lead text-muted mb-4">Help us make gravitational-wave analysis fun, easy, and reproducible!</p>
+          <p class="lead text-muted mb-4">Help us make gravitational-wave analysis easier and more reproducible.</p>
           <a href="https://github.com/etive-io" target="_blank" class="btn btn-primary btn-lg">View Repositories on GitHub</a>
         </div>
       </div>

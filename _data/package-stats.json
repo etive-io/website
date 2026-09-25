@@ -99,17 +99,6 @@
     "last_updated": "2026-09-21T07:20:05.144744Z"
   },
   {
-    "name": "asimov-pastro",
-    "github_repo": "transientlunatic/asimov-pastro",
-    "github_stars": 0,
-    "latest_release": null,
-    "release_date": null,
-    "pypi_downloads_week": 0,
-    "pypi_downloads_month": 0,
-    "conda_forge_downloads_total": 0,
-    "last_updated": "2026-09-21T07:20:05.799032Z"
-  },
-  {
     "name": "minke",
     "github_repo": "transientlunatic/minke",
     "github_stars": 9,

@@ -1,47 +1,31 @@
-# GitHub Workflows
+# Workflows
 
-This directory contains automated workflows for the etive.io website.
+| Workflow | Trigger | What it does |
+|---|---|---|
+| `jekyll.yml` | push to `master`, daily, manual | Refreshes the plugin registry (`scripts/build-registry.py`), builds the site and deploys it to GitHub Pages. |
+| `registry-check.yml` | pull requests touching `registry.yml` or the registry code | Validates `registry.yml`, fetches changed entries in `--strict` mode (the repository must be readable and register `asimov.*` entry points), builds the site and uploads it as a preview artifact. |
+| `update-stats.yml` | weekly, manual | Fetches download counts, Zenodo releases and citing papers, commits them to `_data/`, and triggers a deploy. The package list comes from `registry.yml`. |
 
-## Workflows
+## The plugin registry
 
-### jekyll.yml
-Builds and deploys the Jekyll site to GitHub Pages on every push to the master branch.
+`registry.yml` is the only hand-maintained list of ecosystem packages. Everything
+shown about a package (description, version, licence, Python support, entry
+points, conda-forge availability, README, releases) is fetched at build time from
+PyPI and the package's repository, then written to `_data/registry.json`.
+`_plugins/registry_pages.rb` turns that file into one page per package under
+`/plugins/<slug>/`.
 
-### update-releases.yml
-Automatically fetches release information from GitHub for all ecosystem projects and updates `_data/releases.yml`.
+`_data/registry.json` is committed as a snapshot. The build overwrites it with fresh
+data, and keeps the snapshot value for anything it can't reach, so local builds work
+offline and an outage at PyPI or GitHub never removes content from the site. To
+refresh it locally:
 
-**Schedule:** Runs daily at 00:00 UTC
+```bash
+pip install requests pyyaml docutils
+GITHUB_TOKEN=... python scripts/build-registry.py     # token optional; avoids rate limits
+python scripts/build-registry.py --discover           # also list untracked repos tagged asimov-plugin
+```
 
-**Manual trigger:** Can be triggered manually from the Actions tab
-
-**What it does:**
-1. Fetches the latest release information for all projects listed in `_data/projects.yml`
-2. For each project, retrieves:
-   - Latest release version and date
-   - Up to 5 most recent releases
-3. Updates `_data/releases.yml` with the fetched data
-4. Commits and pushes changes if there are updates
-
-**Data structure:**
-The generated `_data/releases.yml` file contains:
-- `last_updated`: Timestamp of when the data was fetched
-- `projects`: Array of project release information, each containing:
-  - `name`: Project name
-  - `latest_release`: Latest version, name, date, and URL
-  - `recent_releases`: List of recent releases
-
-This data is automatically used by the releases page to display current version information.
-
-## Setup
-
-No additional setup is required. The workflow uses the repository's `GITHUB_TOKEN` which is automatically available in GitHub Actions.
-
-## Testing
-
-To test the release update workflow manually:
-1. Go to the Actions tab in the GitHub repository
-2. Select "Update Release Data" workflow
-3. Click "Run workflow"
-4. Select the branch and click "Run workflow"
-
-The workflow will fetch release data and commit it to the repository if there are changes.
+No secrets are needed: the built-in `GITHUB_TOKEN` can read public repositories.
+`update-stats.yml` optionally uses an `ADS_API_KEY` secret for citation data
+(see `docs/ADS_API_SETUP.md`).

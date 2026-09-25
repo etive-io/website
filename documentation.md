@@ -18,20 +18,21 @@ title: "Documentation"
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h2 class="h3 fw-bold mb-4">Core Projects</h2>
+        <h2 class="h3 fw-bold mb-4">Core Framework</h2>
         
-        {% for project in site.data.projects.core_projects %}
+        {% assign core = site.data.registry.packages | where: "category", "core" | first %}
+        {% if core %}
         <div class="card mb-4 package-card">
           <div class="card-body">
-            <h4>{{ project.name }}</h4>
-            <p class="package-description">{{ project.description }}</p>
+            <h4>{{ core.name }}</h4>
+            <p class="package-description">{{ core.summary }}</p>
             <div class="package-links">
-              <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
-              <a href="{{ project.docs_url }}" target="_blank">Documentation →</a>
+              <a href="{{ core.docs }}" target="_blank">Documentation →</a>
+              <a href="{{ core.repo_url }}" target="_blank">GitHub →</a>
             </div>
           </div>
         </div>
-        {% endfor %}
+        {% endif %}
       </div>
     </div>
   </div>
@@ -41,48 +42,42 @@ title: "Documentation"
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h2 class="h3 fw-bold mb-4">Pipeline Interfaces</h2>
+        <h2 class="h3 fw-bold mb-4">Plugins</h2>
+        <p class="text-muted mb-4">Extend asimov with plugins for analysis pipelines, data handling, and more:</p>
         
-        {% for project in site.data.projects.pipeline_interfaces %}
-        <div class="card mb-4 package-card">
-          <div class="card-body">
-            <h4>{{ project.name }}</h4>
-            <p class="package-description">{{ project.description }}</p>
-            <div class="package-links">
-              <a href="{{ project.github_url }}" target="_blank">GitHub →</a>
-              <a href="{{ project.docs_url }}" target="_blank">Documentation →</a>
-            </div>
-          </div>
-        </div>
+        {% for category in site.data.registry.categories %}
+          {% if category.id != "core" %}
+            {% assign plugins = site.data.registry.packages | where: "category", category.id %}
+            {% if plugins.size > 0 %}
+              <h3 class="h5 fw-bold mt-5 mb-3">{{ category.label }}</h3>
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Plugin</th>
+                    <th>Description</th>
+                    <th>Documentation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% assign sorted_plugins = plugins | sort: "name" %}
+                  {% for plugin in sorted_plugins %}
+                  <tr>
+                    <td><a href="{{ "/plugins/" | append: plugin.slug | append: "/" | relative_url }}">{{ plugin.name }}</a></td>
+                    <td>{{ plugin.summary }}</td>
+                    <td>
+                      {% if plugin.docs %}
+                        <a href="{{ plugin.docs }}" target="_blank">Docs</a>
+                      {% else %}
+                        <a href="{{ "/plugins/" | append: plugin.slug | append: "/" | relative_url }}">README</a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
+          {% endif %}
         {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 mx-auto">
-        <h2 class="h3 fw-bold mb-4">Supported Analysis Pipelines</h2>
-        <p class="text-muted mb-4">asimov integrates with several leading gravitational-wave analysis pipelines. Each pipeline has its own comprehensive documentation:</p>
-        
-        <div class="row g-4">
-          {% for pipeline in site.data.projects.supported_pipelines %}
-          <div class="col-md-6">
-            <div class="card h-100 package-card">
-              <div class="card-body">
-                <h4>{{ pipeline.name }}</h4>
-                <p class="package-description">{{ pipeline.description }}</p>
-                <div class="package-links">
-                  <a href="{{ pipeline.github_url }}" target="_blank">{{ pipeline.git_label | default: 'GitHub' }} →</a>
-                  <a href="{{ pipeline.docs_url }}" target="_blank">Documentation →</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
       </div>
     </div>
   </div>
@@ -92,56 +87,18 @@ title: "Documentation"
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2 class="h3 fw-bold mb-4">API Documentation</h2>
-        <p class="text-muted mb-4">Detailed API documentation is automatically generated from the source code for each package. This includes:</p>
-        
-        <ul>
-          <li>Class and function references</li>
-          <li>Parameter descriptions and types</li>
-          <li>Return value specifications</li>
-          <li>Usage examples</li>
-          <li>Cross-references to related components</li>
+        <h2 class="h3 fw-bold mb-3">Guides in the asimov documentation</h2>
+        <p class="text-muted">The <a href="https://asimov.docs.ligo.org/asimov/">asimov documentation</a> is the reference for the core package. Good starting points:</p>
+        <ul class="list-unstyled learn-list">
+          <li><a href="https://asimov.docs.ligo.org/asimov/getting-started.html">Getting started</a><span>install asimov and set up a project</span></li>
+          <li><a href="https://asimov.docs.ligo.org/asimov/blueprints.html">Blueprints</a><span>the YAML format for projects, subjects and analyses, and how settings cascade</span></li>
+          <li><a href="https://asimov.docs.ligo.org/asimov/ledger.html">The ledger</a><span>where asimov records every analysis and its state</span></li>
+          <li><a href="https://asimov.docs.ligo.org/asimov/clusters.html">Clusters and schedulers</a><span>running on HTCondor and Slurm</span></li>
+          <li><a href="https://asimov.docs.ligo.org/asimov/monitor-state-machine.html">Monitoring</a><span>how asimov tracks jobs and recovers from failures</span></li>
+          <li><a href="https://asimov.docs.ligo.org/asimov/hooks.html">Hooks</a><span>extending asimov with post-monitor, applicator and file-source hooks</span></li>
+          <li><a href="https://asimov.docs.ligo.org/asimov/api/asimov.html">API reference</a><span>the Python API, generated from the source</span></li>
         </ul>
-        
-        <p class="mt-4">API documentation is built and hosted through GitHub Actions for each package. Visit the individual package repositories linked above to access their latest API documentation.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <h2 class="h3 fw-bold mb-4">Documentation Resources</h2>
-        
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">User Guides</h5>
-            <p class="text-muted mb-0">Step-by-step guides for common tasks and workflows. See the <a href="{{ "/tutorials" | relative_url }}">Tutorials</a> section.</p>
-          </div>
-        </div>
-        
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Examples</h5>
-            <p class="text-muted mb-0">Example configurations and analysis scripts demonstrating best practices.</p>
-          </div>
-        </div>
-        
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Contributing Guide</h5>
-            <p class="text-muted mb-0">Learn how to contribute to asimov and its ecosystem. See the <a href="{{ "/contributing" | relative_url }}">Contributing</a> section.</p>
-          </div>
-        </div>
-        
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">FAQ</h5>
-            <p class="text-muted mb-0">Frequently asked questions and troubleshooting tips (coming soon).</p>
-          </div>
-        </div>
+        <p class="mt-4 text-muted">For worked examples, see the <a href="{{ "/tutorials" | relative_url }}">tutorials</a>. To contribute to asimov or list a plugin, see <a href="{{ "/contributing" | relative_url }}">contributing</a>.</p>
       </div>
     </div>
   </div>

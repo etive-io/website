@@ -1,0 +1,71 @@
+name: Check plugin registry
+
+# Runs on pull requests that add or change registry entries: validates
+# registry.yml, then fetches the changed entries to confirm each repository
+# can be read and registers asimov entry points. The site builds as part of
+# the check so the new plugin page can be previewed from the artifact.
+on:
+  pull_request:
+    paths:
+      - registry.yml
+      - scripts/build-registry.py
+      - _plugins/registry_pages.rb
+      - _layouts/plugin.html
+      - plugins.md
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml docutils
+
+      - name: Validate registry.yml
+        run: python scripts/build-registry.py --check
+
+      - name: Fetch changed entries
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          changed=$(python - <<'PY'
+          import os, subprocess, yaml
+          base = subprocess.run(["git", "show", f"{os.environ['BASE_SHA']}:registry.yml"],
+                                capture_output=True, text=True).stdout
+          old = {e["name"]: e for e in (yaml.safe_load(base) or [])}
+          new = yaml.safe_load(open("registry.yml")) or []
+          print(" ".join(e["name"] for e in new if old.get(e["name"]) != e))
+          PY
+          )
+          if [ -z "$changed" ]; then
+            echo "No registry entries changed; checking all."
+            python scripts/build-registry.py --strict
+          else
+            echo "Checking: $changed"
+            python scripts/build-registry.py --strict --only $changed
+          fi
+
+      - uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-preview
+          path: _site
+          retention-days: 7
