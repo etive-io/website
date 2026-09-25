@@ -1,0 +1,96 @@
+---
+layout: default
+---
+{% assign p = page.package %}
+<section class="section pb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb small mb-0">
+            <li class="breadcrumb-item"><a href="{{ '/plugins/' | relative_url }}">Plugins</a></li>
+            <li class="breadcrumb-item"><a href="{{ '/plugins/' | relative_url }}#category={{ p.category }}">{{ p.category_label }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ p.name }}</li>
+          </ol>
+        </nav>
+        <h1 class="post-title mb-2">{{ p.name }}</h1>
+        {% if p.summary != "" %}<p class="lead text-muted mb-3">{{ p.summary }}</p>{% endif %}
+        <div class="d-flex flex-wrap gap-2 mb-2">
+          {% if p.maintenance == "official" %}<span class="badge text-bg-primary">Maintained by the asimov team</span>{% else %}<span class="badge text-bg-light border">Community</span>{% endif %}
+          {% if p.pypi %}<span class="badge text-bg-light border">PyPI {{ p.pypi.version }}</span>{% endif %}
+          {% if p.conda %}<span class="badge text-bg-light border">conda-forge {{ p.conda.version }}</span>{% endif %}
+          {% if p.pypi.status %}<span class="badge text-bg-light border">{{ p.pypi.status }}</span>{% endif %}
+        </div>
+        {% if p.deprecated %}
+        <div class="alert alert-warning mt-3 mb-0" role="alert"><strong>Deprecated.</strong> {{ p.deprecated }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-7 offset-lg-1 order-2 order-lg-1">
+        {% if page.readme_html %}
+        <div class="readme item-content">
+          {{ page.readme_html }}
+        </div>
+        {% else %}
+        <p class="text-muted">This package's README could not be fetched. See the <a href="{{ p.repo_url }}">repository</a>.</p>
+        {% endif %}
+        <p class="small text-muted border-top pt-3 mt-5">
+          This page is generated from the package's own README and metadata.
+          To change it, update the <a href="{{ p.repo_url }}">repository</a> or the package's PyPI metadata.
+        </p>
+      </div>
+
+      <aside class="col-lg-3 order-1 order-lg-2">
+        <div class="registry-facts">
+          <h2 class="h6 text-uppercase text-muted fw-bold">Install</h2>
+          <pre class="mb-2"><code>{{ p.install }}</code></pre>
+          {% if p.install_conda %}<pre class="mb-3"><code>{{ p.install_conda }}</code></pre>{% endif %}
+
+          {% if p.entry_points.size > 0 %}
+          <h2 class="h6 text-uppercase text-muted fw-bold mt-4">Provides</h2>
+          <dl class="small mb-0">
+            {% for ep in p.entry_points %}
+            <dt class="fw-semibold">{{ ep.label }}{% if ep.names.size > 1 %}s{% endif %}</dt>
+            <dd class="mb-2">{% for n in ep.names %}<code>{{ n }}</code>{% unless forloop.last %}, {% endunless %}{% endfor %}</dd>
+            {% endfor %}
+          </dl>
+          <p class="small text-muted">Registered via <code>{{ p.entry_points | map: "group" | join: "</code>, <code>" }}</code>. Use pipeline names in a blueprint's <code>pipeline:</code> field.</p>
+          {% endif %}
+
+          <h2 class="h6 text-uppercase text-muted fw-bold mt-4">Details</h2>
+          <dl class="small registry-dl">
+            {% if p.latest_version %}<dt>Version</dt><dd>{{ p.latest_version }}{% if p.pypi.released %} <span class="text-muted">({{ p.pypi.released }})</span>{% endif %}</dd>{% endif %}
+            {% if p.pypi.requires_python %}<dt>Python</dt><dd>{{ p.pypi.requires_python }}</dd>{% endif %}
+            {% if p.pypi.license %}<dt>Licence</dt><dd>{{ p.pypi.license }}</dd>{% endif %}
+            {% if p.source.last_activity %}<dt>Last activity</dt><dd>{{ p.source.last_activity }}</dd>{% endif %}
+            {% if p.source.stars %}<dt>Stars</dt><dd>{{ p.source.stars }}</dd>{% endif %}
+          </dl>
+
+          <h2 class="h6 text-uppercase text-muted fw-bold mt-4">Links</h2>
+          <ul class="list-unstyled small">
+            <li><a href="{{ p.repo_url }}">Source code</a></li>
+            {% if p.docs %}<li><a href="{{ p.docs }}">Documentation</a></li>{% endif %}
+            {% if p.pypi %}<li><a href="{{ p.pypi.url }}">PyPI</a></li>{% endif %}
+            {% if p.conda %}<li><a href="{{ p.conda.url }}">conda-forge</a></li>{% endif %}
+            <li><a href="{{ p.repo_url }}/issues">Report an issue</a></li>
+          </ul>
+
+          {% if p.source.releases.size > 0 %}
+          <h2 class="h6 text-uppercase text-muted fw-bold mt-4">Recent releases</h2>
+          <ul class="list-unstyled small">
+            {% for r in p.source.releases limit: 3 %}
+            <li><a href="{{ r.url }}">{{ r.version }}</a> <span class="text-muted">{{ r.published_at }}</span></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

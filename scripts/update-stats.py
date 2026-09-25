@@ -9,57 +9,37 @@ GitHub (via GitHub API), then updates the _data/package-stats.json file.
 
 import json
 import requests
+import yaml
 import os
 from datetime import datetime
 from pathlib import Path
 
-# Packages to track with their GitHub repositories
-PACKAGES = {
-    "asimov": {
-        "github_repo": "etive-io/asimov",
-        "conda_forge_name": "asimov",
-    },
-    "asimov-bayeswave": {
-        "github_repo": "etive-io/asimov-bayeswave",
-        "conda_forge_name": "asimov-bayeswave",
-    },
-    "asimov-cogwheel": {
-        "github_repo": "etive-io/asimov-cogwheel",
-        "conda_forge_name": "asimov-cogwheel",
-    },
-    "asimov-pycbc": {
-        "github_repo": "etive-io/asimov-pycbc",
-        "conda_forge_name": "asimov-pycbc",
-    },
-    "asimov-gwdata": {
-        "github_repo": "etive-io/asimov-gwdata",
-        "conda_forge_name": "asimov-gwdata",
-    },
-    "asimov-lalinference": {
-        "github_repo": "etive-io/asimov-lalinference",
-        "conda_forge_name": "asimov-lalinference",
-    },
-    "asimov-pesummary": {
-        "github_repo": "etive-io/asimov-pesummary",
-        "conda_forge_name": "asimov-pesummary",
-    },
-    "asimov-gracedb": {
-        "github_repo": "etive-io/asimov-gracedb",
-        "conda_forge_name": "asimov-gracedb",
-    },
-    "asimov-pyomicron": {
-        "github_repo": "transientlunatic/asimov-pyomicron",
-        "conda_forge_name": "asimov-pyomicron",
-    },
-    "asimov-pastro": {
-        "github_repo": "transientlunatic/asimov-pastro",
-        "conda_forge_name": "asimov-pastro",
-    },
-    "minke": {
-        "github_repo": "transientlunatic/minke",
-        "conda_forge_name": "minke",
-    },
-}
+REGISTRY = Path(__file__).resolve().parent.parent / "registry.yml"
+
+
+def load_packages():
+    """
+    Packages to track, taken from registry.yml (the single list of ecosystem
+    packages). Only GitHub-hosted, PyPI-published packages are included: the
+    download counts of upstream codes such as bilby_pipe say nothing about
+    asimov's use.
+    """
+    with open(REGISTRY) as f:
+        entries = yaml.safe_load(f) or []
+    packages = {}
+    for e in entries:
+        repo = str(e["repo"])
+        pypi = e.get("pypi", e["name"])
+        if repo.startswith("http") or not pypi:
+            continue
+        packages[pypi] = {
+            "github_repo": repo,
+            "conda_forge_name": e.get("conda", pypi),
+        }
+    return packages
+
+
+PACKAGES = load_packages()
 
 def get_github_stats(github_repo, github_token=None):
     """

@@ -1,7 +1,7 @@
 url: "https://etive.io" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
-title: "etive.io" # the name of your site
-description: "Making gravitational-wave analysis fun, easy, and reproducible"
+title: "asimov" # the name of your site
+description: "Workflow infrastructure for automated, recorded and reproducible scientific analysis"
 email: contact@etive.io
 
 # Build settings
@@ -16,24 +16,6 @@ collections:
   tutorials:
     output: true
     permalink: /tutorials/:title/
-  plugins:
-    output: true
-    permalink: /plugins/:title/
-    defaults:
-      - scope:
-          path: ""
-          type: "plugins"
-        values:
-          layout: "item"
-  pipelines:
-    output: true
-    permalink: /pipelines/:title/
-    defaults:
-      - scope:
-          path: ""
-          type: "pipelines"
-        values:
-          layout: "item"
 
 # Exclude from processing
 exclude:
@@ -43,3 +25,5 @@ exclude:
   - vendor
   - .bundle
   - README.md
+  - registry.yml
+  - scripts

@@ -1,0 +1,742 @@
+{
+  "generated_at": "2026-09-25 10:44 UTC",
+  "categories": [
+    {
+      "id": "core",
+      "label": "Core"
+    },
+    {
+      "id": "parameter-estimation",
+      "label": "Parameter estimation"
+    },
+    {
+      "id": "data",
+      "label": "Data & noise characterisation"
+    },
+    {
+      "id": "search",
+      "label": "Searches & burst analyses"
+    },
+    {
+      "id": "post-processing",
+      "label": "Post-processing & results"
+    },
+    {
+      "id": "population",
+      "label": "Populations & catalogues"
+    },
+    {
+      "id": "simulation",
+      "label": "Simulation & injections"
+    },
+    {
+      "id": "integration",
+      "label": "Services & integrations"
+    },
+    {
+      "id": "other-domains",
+      "label": "Beyond gravitational waves"
+    }
+  ],
+  "entry_point_groups": {
+    "asimov.pipelines": "Pipeline",
+    "asimov.hooks.applicator": "Applicator hook",
+    "asimov.hooks.postmonitor": "Post-monitor hook",
+    "asimov.hooks.filesource": "File source",
+    "asimov.monitor.states": "Monitor state",
+    "asimov.commands": "CLI command"
+  },
+  "packages": [
+    {
+      "name": "asimov",
+      "slug": "asimov",
+      "repo": "etive-io/asimov",
+      "repo_url": "https://github.com/etive-io/asimov",
+      "category": "core",
+      "category_label": "Core",
+      "maintenance": "official",
+      "featured": false,
+      "deprecated": null,
+      "docs": "https://asimov.docs.ligo.org/asimov/",
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "<div align=\"center\">\n  <img src=\"logo.svg\" alt=\"Asimov Logo\" width=\"200\"/>\n\n# Asimov\n\n### Workflow orchestration for complex scientific analyses\n\n**A general-purpose framework for managing automated analysis pipelines on HPC clusters**\n\nBattle-tested in production by LIGO, Virgo, and KAGRA collaborations\n\n[Documentation](https://asimov.docs.ligo.org/asimov) · [Installation](#-installing-asimov) · [Quick Start](#-quick-start) · [Contributing](https://github.com/etive-io/asimov/blob/HEAD/CONTRIBUTING.rst)\n\n[![coverage report](https://git.ligo.org/asimov/asimov/badges/master/coverage.svg)](https://git.ligo.org/asimov/asimov/-/commits/master)\n[![conda-forge version](https://anaconda.org/conda-forge/asimov/badges/version.svg)](https://anaconda.org/conda-forge/asimov/)\n![pypi](https://img.shields.io/pypi/v/asimov.svg)\n![tests](https://git.ligo.org/asimov/asimov/badges/master/pipeline.svg)\n[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)\n\n</div>\n\n---\n\n## Table of Contents\n\n- [What is Asimov?](#what-is-asimov)\n- [Why Asimov?](#why-asimov)\n- [Key Features](#-key-features)\n- [Primary Use Case: Gravitational Waves](#-primary-use-case-gravitational-waves)\n- [Beyond Gravitational Waves](#-beyond-gravitational-waves)\n- [Installing Asimov](#-installing-asimov)\n- [Quick Start](#-quick-start)\n- [Do I Need Asimov?](#-do-i-need-asimov)\n- [Example Workflow](#-example-workflow)\n- [Extensibility](#-extensibility)\n- [Roadmap](#-roadmap)\n- [Contributing](#-contributing)\n- [Citation](#-citation)\n- [Authors](#-authors)\n\n---\n\n## What is Asimov?\n\n**Asimov** is a general-purpose workflow orchestration platform designed to automate complex scientific analyses on high-throughput computing (HTC) clusters.\n\nAt its core, Asimov provides:\n- **Pipeline-agnostic architecture** - Coordinate multiple analysis tools through a unified interface\n- **Intelligent job management** - Submit, monitor, and recover jobs automatically\n- **Configuration management** - Version-controlled, reproducible analysis workflows\n- **Results organization** - Structured handling of outputs with validation\n\n**Designed for flexibility:** While gravitational wave analysis is the primary use case, Asimov's architecture supports any scientific workflow involving:\n- Long-running computational jobs\n- Multiple analysis pipelines or tools\n- Systematic parameter studies\n- HTC cluster environments (HTCondor, Slurm)\n- Complex dependencies between analyses\n\n---\n\n## Why Asimov?\n\nMany scientific analyses involve running computationally intensive pipelines on HPC clusters—processes that can take **days to weeks** and involve **hundreds of coordinated jobs**. Common challenges include:\n\n- **Manual configuration** for each pipeline and analysis\n- **Constant monitoring** of job status across clusters\n- **Error-prone** restart and recovery procedures\n- **Scattered results** across different filesystems\n- **Difficult reproducibility** and collaboration\n- **Pipeline lock-in** - custom scripts tied to specific tools\n\n### Asimov solves this by providing:\n\n✅ **Pipeline-agnostic interface** - One framework for multiple analysis tools\n✅ **Automated job orchestration** - Submit, monitor, recover automatically\n✅ **Version-controlled configuration** - Reproducible, auditable workflows\n✅ **Intelligent error handling** - Detect and recover from failures\n✅ **Results management** - Organized, validated outputs\n✅ **Scalability** - From single analyses to large-scale campaigns\n\n---\n\n## 🚀 Key Features\n\n### 🤖 Intelligent Job Management\nAsimov interacts with high-throughput computing systems (HTCondor, Slurm) to submit jobs, monitor their progress, detect failures, and automatically initiate recovery or post-processing tasks.\n\n### 🔌 Pipeline-Agnostic Architecture\nDefine analyses once, deploy across multiple pipelines. Asimov's extensible plugin system allows you to add support for new analysis tools without modifying the core framework. Current implementations include gravitational wave parameter estimation pipelines (LALInference, Bilby, BayesWave, RIFT), with support for custom pipelines.\n\n### 📋 Centralized Configuration\nAll ongoing, completed, and scheduled analyses are recorded in version-controlled ledgers, making it easy to find jobs, configurations, and results. Every analysis is tracked and reproducible.\n\n### 📊 Reporting & Monitoring\nGenerate both machine-readable and human-friendly reports of all monitored jobs, with automatic collation of log files, diagnostic outputs, and status summaries.\n\n### 🗂️ Results Management\nSpecial tools help manage analysis outputs, ensure data integrity, and organize results for publication and archival.\n\n### 🔄 Workflow Automation\nSet up continuous monitoring that automatically:\n- Starts jobs when dependencies are met\n- Initiates post-processing when jobs complete\n- Handles errors and resubmissions\n- Generates reports and summaries\n\n---\n\n## 🌊 Case Study: Gravitational Waves\n\n**Proven at scale in production:** Asimov was developed by and is actively used by the **LIGO, Virgo, and KAGRA collaborations** for gravitational wave parameter estimation.\n\n### Real-World Impact\n\n- **GWTC-2, GWTC-3, and GWTC-4.0 catalogs** - Managed parameter estimation for 90+ gravitational wave events\n- **O3 & O4 observing runs** - Continuous automated analysis of new detections\n- **Multiple pipelines** - Unified interface for LALInference, Bilby, BayesWave, and RIFT\n- **Production-ready** - Battle-tested on hundreds of analyses over multiple years\n\nThis production use demonstrates Asimov's capability to handle:\n- **Complex Bayesian inference** (days to weeks per job)\n- **Hundreds of jobs per event** (different parameter configurations)\n- **Catalog-scale workflows** (90+ events × multiple pipelines)\n- **Critical scientific output** (published in major collaboration papers)\n\nSee [USERS.md](https://github.com/etive-io/asimov/blob/HEAD/USERS.md) for institutions and research groups using Asimov.\n\n---\n\n## 🔬 Beyond Gravitational Waves\n\nWhile gravitational wave analysis is the primary driver, **Asimov's architecture is general-purpose**. It's suitable for any scientific domain requiring:\n\n### Potential Applications\n\n- **Astrophysics & Cosmology** - Parameter estimation for transient events, population studies, systematic surveys\n- **Climate Science** - Model ensembles, parameter sweeps, multi-model comparisons\n- **Particle Physics** - Monte Carlo campaigns, detector simulations, systematic studies\n- **Computational Chemistry** - Molecular dynamics campaigns, conformational searches\n- **Machine Learning** - Hyperparameter sweeps, model training pipelines, ensemble methods\n- **Any domain with:**\n  - Long-running computational jobs (hours to weeks)\n  - Multiple analysis tools to coordinate\n  - Need for systematic, reproducible workflows\n  - HPC cluster infrastructure\n\n### Adding Your Pipeline\n\nAsimov provides a plugin architecture for adding new analysis pipelines. If your field has established analysis tools that run on HPC clusters, they can be integrated with Asimov. See [Contributing](#-contributing) for information on extending Asimov to new domains.\n\n---\n\n## 📦 Installing Asimov\n\nAsimov is written in Python and available on PyPI and conda-forge.\n\n### Via pip\n```bash\npip install asimov\n```\n\n### Via conda\n```bash\nconda install -c conda-forge asimov\n```\n\n### Requirements\n\nAsimov requires `git` to be installed and configured:\n```bash\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\"\n```\n\n**Supported Python versions:** 3.8+\n\n---\n\n## ⚡ Quick Start\n\nGet started with Asimov in minutes. This example uses gravitational wave analysis:\n\n### 1. Create a new project\n```bash\nmkdir my-analysis-project\ncd my-analysis-project\nasimov init \"My Analysis Project\"\n```\n\n### 2. Configure your workflow\n```bash\n# For gravitational wave analysis, you can use pre-configured templates:\nasimov apply -f https://git.ligo.org/asimov/data/-/raw/main/defaults/production-pe.yaml\nasimov apply -f https://git.ligo.org/asimov/data/-/raw/main/defaults/production-pe-priors.yaml\n\n# For other domains, you'll create custom configuration files (see docs)\n```\n\n### 3. Add your analysis target\n```bash\n# Example: GW event\nasimov apply -f https://git.ligo.org/asimov/data/-/raw/main/events/gwtc-2-1/GW150914_095045.yaml\n```\n\n### 4. Define analyses\n```bash\nasimov apply -f https://git.ligo.org/asimov/data/-/raw/main/analyses/production-default.yaml -e GW150914_095045\n```\n\n### 5. Build and submit jobs\n```bash\nasimov manage build    # Generate pipeline-specific configuration files\nasimov manage submit   # Submit to cluster\n```\n\n### 6. Monitor your jobs\n```bash\n# Check status once\nasimov monitor\n\n# Or start continuous monitoring (checks every 15 minutes)\nasimov start\n```\n\nAsimov will automatically handle post-processing, restart failed jobs, and organize results when complete!\n\n**For non-GW applications:** See the [documentation](https://asimov.docs.ligo.org/asimov) for guides on adapting Asimov to your analysis workflows.\n\n---\n\n## 🤔 Do I Need Asimov?\n\n**You should consider Asimov if you:**\n\n- Are running **long-running analyses** on HPC clusters (hours to weeks per job)\n- Need to **coordinate multiple analysis pipelines or tools**\n- Want **reproducible, version-controlled** analysis configurations\n- Are managing **many jobs** with complex dependencies\n- Need **automated monitoring** and error recovery\n- Are conducting **systematic studies** with parameter variations\n- Want to **scale** from exploratory analyses to production campaigns\n\n**Common Use Cases:**\n\n- 🌊 **Parameter estimation** - Bayesian inference, MCMC, nested sampling\n- 📊 **Systematic studies** - Parameter sweeps, sensitivity analyses\n- 📚 **Large-scale campaigns** - Catalogs, surveys, ensemble runs\n- 🔬 **Multi-tool comparisons** - Compare results across different analysis pipelines\n- 👥 **Collaborative workflows** - Shared, reproducible configurations\n- 🤖 **Automated pipelines** - Continuous analysis of new data\n\n**Gravitational Wave Researchers:**\nAsimov is production-ready with full support for LALInference, Bilby, BayesWave, and RIFT.\n\n**Other Scientific Domains:**\nAsimov's architecture is extensible to other fields. See [Beyond Gravitational Waves](#-beyond-gravitational-waves) for potential applications.\n\n---\n\n## 📖 Example Workflow\n\nHere's what a typical Asimov workflow looks like:\n\n```\n1. Initialize project       → asimov init\n                            ↓\n2. Configure defaults       → asimov apply (settings & priors)\n                            ↓\n3. Add events              → asimov apply (event data)\n                            ↓\n4. Add analyses            → asimov apply (analysis configs)\n                            ↓\n5. Build configs           → asimov manage build\n                            ↓\n6. Submit to cluster       → asimov manage submit\n                            ↓\n7. Monitor progress        → asimov start (automated)\n                            ↓\n8. [Automatic steps]\n   - Job monitoring\n   - Error detection & recovery\n   - Post-processing (PESummary)\n   - Results organization\n                            ↓\n9. Access results          → Organized in results/ directory\n```\n\nAll configurations and job metadata are stored in `.asimov/ledger.yml` for full reproducibility.\n\n---\n\n## 🔧 Extensibility\n\nAsimov's plugin architecture allows new analysis pipelines to be integrated without modifying the core framework.\n\n### Currently Supported Pipelines\n\nGravitational wave parameter estimation pipelines (production-ready):\n\n| Pipeline | Description | Status |\n|----------|-------------|--------|\n| **LALInference** | Nested sampling & MCMC parameter estimation | ✅ Production |\n| **Bilby** | Modern Bayesian inference framework | ✅ Production |\n| **BayesWave** | Unmodeled analysis & glitch subtraction | ✅ Production |\n| **RIFT** | Rapid parameter estimation | ✅ Production |\n\n### Adding New Pipelines\n\nTo add support for a new analysis tool:\n\n1. **Define the interface** - Create a pipeline class implementing Asimov's base interface\n2. **Configuration mapping** - Define how Asimov configurations map to your tool's inputs\n3. **Job management** - Specify how to build, submit, and monitor jobs\n4. **Post-processing** - Define result handling and validation\n\nSee the [documentation](https://asimov.docs.ligo.org/asimov) and [Contributing Guide](https://github.com/etive-io/asimov/blob/HEAD/CONTRIBUTING.rst) for detailed instructions on adding pipeline support.\n\n### Future Extensions\n\n- **Gravitic** - Framework for experimental gravitational wave pipelines\n- **Machine learning workflows** - Training pipeline management\n- **Custom pipelines** - Community contributions for new domains\n\n---\n\n## 🗺️ Roadmap\n\n### Gravitic Pipelines\nSupport for pipelines constructed using [gravitic](https://github.com/transientlunatic/gravitic), allowing experimental tools to be used without constructing entire new pipelines. This will also enable Asimov to manage the training of machine learning algorithms.\n\n### Workflow Replication & Extension\nAllow existing workflows to be duplicated (similar to `git clone`), extended with new jobs that can access completed jobs from the parent workflow, and replicated with modifications for systematic studies.\n\n### Enhanced Reporting\nWeb-based dashboards for real-time job monitoring and analysis status visualization.\n\n\n### Multi-Messenger Astronomy\nImproved support for joint electromagnetic and gravitational wave analyses, multi-wavelength campaigns.\n\n---\n\n## 🤝 Contributing\n\nWe welcome contributions from the community! Whether you're:\n\n- 🐛 Reporting bugs\n- 💡 Suggesting features\n- 📝 Improving documentation\n- 🔧 Adding pipeline support\n- 🧪 Writing tests\n\nPlease see our [Contributors' Guide](https://github.com/etive-io/asimov/blob/HEAD/CONTRIBUTING.rst) to get started!\n\n### Ways to Contribute\n\n- Report issues on our [Issue Tracker](https://git.ligo.org/etive-io/asimov/-/issues)\n- Submit pull requests with improvements\n- Improve documentation and examples\n- Share your use cases and workflows\n- **Add support for new analysis pipelines** - especially from other scientific domains!\n- Contribute examples for non-GW applications\n\n---\n\n## 📚 Citation\n\nIf you use Asimov in your research, please cite it! This helps us demonstrate impact and secure continued development support.\n\n**BibTeX:**\n```bibtex\n@ARTICLE{asimov-paper,\n      author = {{Williams}, Daniel and {Veitch}, John and {Chiofalo}, Maria and {Schmidt}, Patricia and {Udall}, Rhiannon and {Vajpeyi}, Avi and {Hoy}, Charlie},\n        title = \"{Asimov: A framework for coordinating parameter estimation workflows}\",\n      journal = {The Journal of Open Source Software},\n    keywords = {Python, astronomy, gravitational waves, General Relativity and Quantum Cosmology, Physics - Data Analysis, Statistics and Probability},\n        year = 2023,\n        month = apr,\n      volume = {8},\n      number = {84},\n          eid = {4170},\n        pages = {4170},\n          doi = {10.21105/joss.04170},\narchivePrefix = {arXiv},\n      eprint = {2207.01468},\nprimaryClass = {gr-qc},\n}\n```\n\nSee [CITATION.cff](https://github.com/etive-io/asimov/blob/HEAD/CITATION.cff) for more citation formats.\n\nPublications using Asimov should also reference the relevant pipeline papers as appropriate for your domain.\n\n---\n\n## 👨‍💻 Authors\n\n**Asimov** is developed by the **LIGO, Virgo, and KAGRA collaborations**.\n\n**Primary Maintainer:** Daniel Williams ([@transientlunatic](https://github.com/transientlunatic))\n\n**Development Support:** Science and Technology Facilities Council (STFC) and the [Institute for Gravitational Research](https://www.gla.ac.uk/schools/physics/research/groups/igr/) at the [University of Glasgow](https://www.glasgow.ac.uk).\n\n### Contributors\n\nWe're grateful to all our contributors! See the full list in [CONTRIBUTORS.md](https://github.com/etive-io/asimov/blob/HEAD/CONTRIBUTORS.md).\n\n---\n\n## Testing Status\n\n[![Bilby Pipeline CI](https://github.com/etive-io/asimov/actions/workflows/ci-bilby.yml/badge.svg)](https://github.com/etive-io/asimov/actions/workflows/ci-bilby.yml)\n[![Bilby Pipeline CI (Slurm)](https://github.com/etive-io/asimov/actions/workflows/ci-bilby-slurm.yml/badge.svg)](https://github.com/etive-io/asimov/actions/workflows/ci-bilby-slurm.yml)\n\n\n## 📄 License\n\nAsimov is released under the [MIT License](https://github.com/etive-io/asimov/blob/HEAD/LICENSE).\n\n---\n\n## 🔗 Links\n\n- **Documentation:** https://asimov.docs.ligo.org/asimov\n- **Issue Tracker:** https://git.ligo.org/asimov/asimov/-/issues\n- **Releases:** https://git.ligo.org/asimov/asimov/-/releases\n- **PyPI:** https://pypi.org/project/asimov/\n- **Conda:** https://anaconda.org/conda-forge/asimov\n\n---\n\n<div align=\"center\">\n\n**⭐ If Asimov helps your research, please consider starring the repository! ⭐**\n\n</div>\n",
+          "url": "https://github.com/etive-io/asimov/blob/HEAD/README.md"
+        }
+      },
+      "pypi": {
+        "name": "asimov",
+        "version": "0.7.1",
+        "released": "2026-09-25",
+        "summary": "A Python package for managing and interacting with data analysis jobs.",
+        "requires_python": ">=3.9",
+        "license": null,
+        "status": "Production/Stable",
+        "url": "https://pypi.org/project/asimov/"
+      },
+      "conda": null,
+      "entry_points": [],
+      "summary": "Workflow infrastructure for automated, recorded and reproducible scientific analysis.",
+      "install": "pip install asimov",
+      "latest_version": "0.7.1",
+      "latest_released": "2026-09-25"
+    },
+    {
+      "name": "bilby_pipe",
+      "slug": "bilby-pipe",
+      "repo": "https://git.ligo.org/lscsoft/bilby_pipe",
+      "repo_url": "https://git.ligo.org/lscsoft/bilby_pipe",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "community",
+      "featured": true,
+      "deprecated": null,
+      "docs": "https://lscsoft.docs.ligo.org/bilby_pipe/master/",
+      "source": {},
+      "pypi": {
+        "name": "bilby-pipe",
+        "version": "1.10.1",
+        "released": "2026-09-10",
+        "summary": "Automating the running of bilby for gravitational wave signals",
+        "requires_python": ">=3.11",
+        "license": "MIT License",
+        "status": null,
+        "url": "https://pypi.org/project/bilby-pipe/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "bilby",
+            "bilby_native",
+            "bilbyonline"
+          ]
+        }
+      ],
+      "summary": "Bilby's pipeline for gravitational-wave parameter estimation; ships its own asimov integration.",
+      "install": "pip install bilby-pipe",
+      "latest_version": "1.10.1",
+      "latest_released": "2026-09-10"
+    },
+    {
+      "name": "RIFT",
+      "slug": "rift",
+      "repo": "https://git.ligo.org/rapidpe-rift/rift",
+      "repo_url": "https://git.ligo.org/rapidpe-rift/rift",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {},
+      "pypi": {
+        "name": "RIFT",
+        "version": "0.0.17.13",
+        "released": "2026-08-14",
+        "summary": "RIFT parameter estimation pipeline. Note branch used is temp-RIT-Tides-port_python3_restructure_package (which will become master shortly)!",
+        "requires_python": null,
+        "license": "MIT License",
+        "status": null,
+        "url": "https://pypi.org/project/RIFT/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "rift"
+          ]
+        }
+      ],
+      "summary": "Rapid iterative fitting for gravitational-wave parameter estimation; ships its own asimov integration.",
+      "install": "pip install RIFT",
+      "latest_version": "0.0.17.13",
+      "latest_released": "2026-08-14"
+    },
+    {
+      "name": "asimov-pycbc",
+      "slug": "asimov-pycbc",
+      "repo": "etive-io/asimov-pycbc",
+      "repo_url": "https://github.com/etive-io/asimov-pycbc",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "official",
+      "featured": true,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-pycbc\n\nAn [Asimov](https://github.com/asimov-gw/asimov) plugin for running\n[PyCBC Inference](http://pycbc.org/pycbc/latest/html/inference.html)\nparameter estimation.\n\n📚 **[Full documentation and tutorial](https://etive-io.github.io/asimov-pycbc/)**\n\n## Overview\n\nThis plugin enables Asimov to submit and manage `pycbc_inference` jobs for\ngravitational wave parameter estimation. It provides:\n\n- **Configuration templating**: renders a `pycbc_inference` config file\n  from a bundled Liquid template, populated from a production's ledger\n  metadata (`config_template`), for use by `asimov manage build`.\n- **Scheduler integration**: submits jobs via Asimov's own scheduler\n  abstraction (`self.scheduler`, from `asimov.pipeline.Pipeline` /\n  `asimov.scheduler_utils`), which supports both HTCondor and Slurm --\n  rather than talking to a scheduler's API directly.\n- **Status tracking**: monitors job completion by checking for a genuine,\n  readable posterior samples file.\n- **Checkpoint-aware resurrection**: `pycbc_inference` checkpoints its own\n  progress; a failed or evicted job is resubmitted so it resumes from that\n  checkpoint rather than starting over.\n- **Dependency-driven post-processing**: once a job completes, its samples are\n  available (via `collect_assets()`) to any downstream production with a\n  `needs:` dependency on it -- for example an\n  [asimov-pesummary](https://github.com/etive-io/asimov-pesummary) production.\n  This plugin doesn't submit that job itself; Asimov's own dependency\n  resolution does.\n\n## Compatibility\n\nRequires `asimov>=0.7`. This plugin does not depend on the `pycbc` Python\npackage itself -- like the sibling `asimov-lalinference` and\n`asimov-bayeswave` plugins, it shells out to the `pycbc_inference`\nexecutable, which is expected to be installed separately (e.g. via conda)\nin the environment pointed at by Asimov's `[pipelines] environment` config\noption.\n\n## Installation\n\n```bash\npip install asimov-pycbc\n```\n\nFor development:\n```bash\ngit clone https://github.com/etive-io/asimov-pycbc\ncd asimov-pycbc\npip install -e \".[test]\"\n```\n\n## Usage\n\nOnce installed, Asimov discovers this plugin automatically via its\n`asimov.pipelines` entry point. Add a production to an event with\n`pipeline: pycbc`:\n\n```yaml\nkind: analysis\nname: pycbc-imrphenompv2\npipeline: pycbc\nwaveform:\n  approximant: IMRPhenomPv2\n  reference frequency: 20\nsampler:\n  sampler: dynesty\n  sampler kwargs:\n    nlive: 2000\n    dlogz: 0.1\nscheduler:\n  accounting group: ligo.dev.o4.cbc.pe.pycbc\n  processes: 8\n```\n\n`asimov manage build submit` will render a `pycbc_inference` ini from the\nbundled template (unless one already exists in the event repository) and\nsubmit the job.\n\n### Data\n\nStrain data is read from a production's `data` metadata using the same\nconventions as the other Asimov gravitational-wave pipeline plugins (e.g.\n`asimov-gwdata`, `asimov-lalinference`, `asimov-bayeswave`):\n\n- `data.frame types` / `data.channels` -- real data via datafind lookup\n- `data.cache files` -- a pre-built LAL-format frame cache\n- `data.frame files` -- explicit frame file paths\n- `data.fake strain` (e.g. `aLIGOZeroDetHighPower`) -- simulated Gaussian\n  noise, no real strain data required\n\nThis means a production populated by a data-retrieval step (for example\n[asimov-gwdata](https://github.com/etive-io/asimov-gwdata), which writes\n`data.cache files/data.frame files` into a production's metadata) is picked\nup automatically, without any extra wiring: `data-retrieval -> pycbc ->\npesummary` is expressed entirely through Asimov's own `needs:` dependency\nmechanism.\n\n### Post-processing\n\nThis plugin does not run PESummary (or anything else) itself. When a `pycbc`\nproduction completes, `after_completion()` only marks it `finished` --\npost-processing is expressed as a separate production with a `needs:`\ndependency on it, e.g.:\n\n```yaml\nkind: analysis\nname: pycbc-test-pesummary\npipeline: pesummary\nneeds:\n  - pycbc-test\nwaveform:\n  approximant: IMRPhenomD\n  reference frequency: 30\n  minimum frequency:\n    H1: 30\npostprocessing:\n  pesummary:\n    multiprocess: 2\n```\n\nAsimov's own dependency resolution builds and submits `pycbc-test-pesummary`\nonce `pycbc-test` reaches `finished`; PESummary picks up its samples via\n`pycbc-test`'s `collect_assets()` (through `production._previous_assets()`).\nInstall [asimov-pesummary](https://github.com/etive-io/asimov-pesummary) into\nthe *same* environment as `pycbc` itself -- `summarypages` needs to\n`import pycbc` to read `pycbc_inference`'s native HDF5 format.\n\n## Testing\n\nUnit tests (mocked, no external dependencies):\n\n```bash\npip install -e \".[test]\"\npytest\n```\n\n`.github/workflows/e2e.yml` also runs a genuine end-to-end test: a real\n`pycbc_inference` run (using PyCBC's own simulated `--fake-strain` noise so\nno real strain data is required) submitted through a real HTCondor\nscheduler, waiting for a real, parseable posterior samples file -- then a\nreal `asimov-pesummary` production, wired up via `needs:`, that consumes\nthose samples and produces a real, parseable `summarypages` output.\n\n`.github/workflows/docs.yml` also checks that the subcommand and flags used\nby every `asimov ...` command shown in `docs/*.rst` still exist on the live,\ninstalled asimov CLI, on every pull request (`scripts/lint_tutorial_commands.py`).\nIt doesn't validate positional arguments or actually run anything, but it\ndoes mean a renamed subcommand or flag in a future asimov release shows up\nas a CI failure here rather than as a tutorial that silently stops working:\n\n```bash\npip install -e .\npython scripts/lint_tutorial_commands.py\n```\n\n## Contributing\n\nContributions welcome! Please submit issues or pull requests to\n[etive-io/asimov-pycbc](https://github.com/etive-io/asimov-pycbc).\n\n## License\n\nMIT -- see [LICENSE](https://github.com/etive-io/asimov-pycbc/blob/HEAD/LICENSE).\n",
+          "url": "https://github.com/etive-io/asimov-pycbc/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "pycbc"
+          ]
+        }
+      ],
+      "summary": "PyCBC Inference pipeline integration for Asimov",
+      "install": "pip install git+https://github.com/etive-io/asimov-pycbc",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-cogwheel",
+      "slug": "asimov-cogwheel",
+      "repo": "etive-io/asimov-cogwheel",
+      "repo_url": "https://github.com/etive-io/asimov-cogwheel",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "official",
+      "featured": true,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# Asimov-Cogwheel\n\n[![DOI](https://zenodo.org/badge/959049139.svg)](https://doi.org/10.5281/zenodo.15129871)\n\nThis is asimov-cogwheel, an interface to the [cogwheel](https://cogwheel.readthedocs.io/) gravitational-wave parameter estimation code which allows the [asimov](https://asimov.docs.ligo.org/asimov/master/index.html) analysis automation code to run it.\n\n## Installation\n\nYou can install asimov-cogwheel by running\n```\n$ pip install asimov-cogwheel\n```\n\n## Using Frame Files\n\nYou can specify GWF (Gravitational Wave Frame) files as input data sources in your configuration file. This allows you to use strain data from local files or from previous analyses (e.g., from the asimov-gwdata pipeline) instead of downloading from GWOSC.\n\nFrame files should be in the standard GWF format used by LIGO/Virgo/KAGRA.\n\nTo use frame files, add a `data` section to your configuration file:\n```yaml\nevent:\n  name: GW150914\n  event time: 1126259462.4  # GPS time is required when using frame files\n\ndata:\n  frame files:\n    H1: /path/to/H-H1_GWOSC_16KHZ_R1-1126257415-4096.gwf\n    L1: /path/to/L-L1_GWOSC_16KHZ_R1-1126257415-4096.gwf\n    V1: /path/to/V-V1_GWOSC_16KHZ_R1-1126257415-4096.gwf\n  # Optional: Specify custom channel names for each detector\n  # If not specified, defaults to {IFO}:GWOSC-16KHZ_R1_STRAIN\n  channels:\n    H1: H1:GWOSC-16KHZ_R1_STRAIN\n    L1: L1:GWOSC-16KHZ_R1_STRAIN\n    V1: V1:GWOSC-16KHZ_R1_STRAIN\n  # Optional: Segment length in seconds (default: 32.0)\n  segment length: 32.0\n\nlikelihood:\n  # Optional: Post trigger time in seconds (default: 2.0)\n  # Time after the event to include in the analysis\n  post trigger time: 2.0\n\nquality:\n  # Optional: Maximum frequency in Hz (default: 1024.0)\n  # Can be specified per-detector or as a single value\n  maximum frequency:\n    H1: 1024.0\n    L1: 1024.0\n```\n\nWhen frame files are specified:\n- The frame files are read using `gwpy.timeseries.TimeSeries`\n- Strain data is extracted from the specified channels\n- Data segment duration is configurable via `data.segment length` (default: 32s)\n- Post-trigger time is configurable via `likelihood.post trigger time` (default: 2s)\n- The time before the event is calculated as: segment length - post trigger time\n- Maximum analysis frequency is configurable via `quality.maximum frequency` (default: 1024 Hz)\n- The `event time` parameter is required to properly center the data\n- If frame files are not specified, the default behavior is to download data from GWOSC\n\nThis approach makes the data handling compatible with [bilby](https://github.com/bilby-dev/bilby), allowing results from the two pipelines to be compared directly.\n\n### Using with Asimov\n\nWhen using asimov to orchestrate analyses, you can pass frame files from previous pipeline stages (such as asimov-gwdata) by setting the `data` metadata on the production object. The asimov template will automatically include these in the configuration file following asimov's blueprint structure.\n\n## Using Custom PSDs\n\nYou can specify custom Power Spectral Density (PSD) files for each interferometer in your configuration file. This is useful when you want to use PSDs generated by other tools (e.g., BayesWave) for on-source analysis, rather than computing PSDs from the data.\n\nPSD files should be in two-column text format:\n```\n# frequency (Hz)    PSD value\n20.0                1.0e-46\n50.0                1.0e-46\n...\n```\n\nTo use custom PSDs, add a `psds` section to your configuration file:\n```yaml\npsds:\n  H1: /path/to/H1_psd.txt\n  L1: /path/to/L1_psd.txt\n  V1: /path/to/V1_psd.txt\n  # Optional: Configure whitening filter parameters\n  whitening_filter:\n    fmin: 15.0       # Minimum frequency (Hz), default: 15.0\n    df_taper: 1.0    # Taper width (Hz), default: 1.0\n```\n\nWhen PSDs are specified in the configuration:\n- The PSD files are loaded during the inference step\n- Amplitude Spectral Densities (ASDs) are computed as the square root of the PSDs\n- The ASDs are interpolated to match the event data frequencies\n- New whitening filters are created and applied to the data\n- The `fmin` and `df_taper` parameters control the highpass filter used in the whitening process\n- If no PSDs are specified, the default behavior is to estimate them from the data using the Welch method\n\nFrame files and custom PSDs can be used together to provide complete control over the input data and noise characterization.\n\n",
+          "url": "https://github.com/etive-io/asimov-cogwheel/blob/HEAD/README.md"
+        }
+      },
+      "pypi": {
+        "name": "asimov-cogwheel",
+        "version": "0.1.1",
+        "released": "2025-04-03",
+        "summary": "An asimov interface to the cogwheel parameter estimation code.",
+        "requires_python": ">=3.8",
+        "license": "MIT",
+        "status": null,
+        "url": "https://pypi.org/project/asimov-cogwheel/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "cogwheel"
+          ]
+        }
+      ],
+      "summary": "An asimov interface to the cogwheel parameter estimation code.",
+      "install": "pip install asimov-cogwheel",
+      "latest_version": "0.1.1",
+      "latest_released": "2025-04-03"
+    },
+    {
+      "name": "asimov-jim",
+      "slug": "asimov-jim",
+      "repo": "transientlunatic/asimov-jim",
+      "repo_url": "https://github.com/transientlunatic/asimov-jim",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-jim\n\n[Jim (JimGW)](https://github.com/GW-JAX-Team/Jim) pipeline integration for\n[Asimov](https://github.com/transientlunatic/asimov).\n\nJim is a JAX-based toolkit for Bayesian parameter estimation of\ngravitational-wave sources, pairing differentiable waveform models from\n[ripple](https://github.com/GW-JAX-Team/ripple) with GPU-accelerated\nJAX-based samplers (flowMC and several BlackJAX backends). This plugin lets\nAsimov build, submit, monitor and collect the results of `jim-run` jobs\nalongside other pipelines (PyCBC, Bilby, LALInference, ...) in the same\nproject.\n\n## Installation\n\n```bash\npip install asimov-jim\n```\n\nThis also installs `asimov`. You'll separately need Jim itself available in\nthe environment the job runs in (`pip install JimGW`, or `JimGW[cuda]` for\nGPU support) so that `jim-run` is on the `PATH`.\n\nFor development:\n\n```bash\ngit clone https://github.com/transientlunatic/asimov-jim.git\ncd asimov-jim\npip install -e \".[test]\"\npytest\n```\n\n## Usage\n\nLedger settings are added via blueprint files and `asimov apply`, not by\nhand-editing a flat ledger — and settings are inherited hierarchically\n(analysis > event/subject > pipeline defaults > global), so event-wide\nvalues like `interferometers`, `\"event time\"`, `waveform` and\n`likelihood` frequencies are set once on the *event* blueprint rather than\nrepeated on every analysis. A minimal event blueprint:\n\n```yaml\n# event.yaml\nkind: event\nname: GW150914_095045\n\ninterferometers: [H1, L1]\n\"event time\": 1126259462.4\n\nwaveform:\n  approximant: IMRPhenomXPHM\n  \"reference frequency\": 20\n\nlikelihood:\n  \"minimum frequency\": {H1: 20, L1: 20}\n  \"maximum frequency\": {H1: 896, L1: 896}\n\npriors:\n  M_c: {type: uniform, minimum: 10.0, maximum: 80.0}\n  q: {type: uniform, minimum: 0.125, maximum: 1.0}\n  iota: {type: sine}\n  dec: {type: cosine}\n```\n\nand an analysis blueprint attaching a Jim production to it (only settings\nspecific to *this* analysis — pipeline choice, scheduler resources, any\n`jim:` overrides — belong here; everything above is inherited):\n\n```yaml\n# jim-analysis.yaml\nkind: analysis\nname: GW150914_jim\npipeline: jim\nevent: GW150914_095045\n\nscheduler:\n  cpus: 2\n  gpus: 1\n  \"request memory\": 8192MB\n  \"accounting group\": ligo.dev.o4.cbc.pe.jim\n```\n\n```bash\nasimov apply -f event.yaml\nasimov apply -f jim-analysis.yaml\nasimov manage build       # render this analysis's TOML config (ledger input -> config.toml, not the other way round)\nasimov manage submit      # submit the jim-run job\nasimov monitor            # poll for completion\n```\n\n### Settings: shared vocabulary first, `jim:` only for what's genuinely jim-specific\n\nMost of Jim's configuration maps directly onto the same generic Asimov\nvocabulary every other pipeline reads — there's no `jim:` override layer\nfor any of these:\n\n- `interferometers`, `\"event time\"`, `data.\"data files\"`, `data.channels`,\n  `data.\"segment length\"` → `[data]` (see [Data](#data) below — Jim always\n  reads already-resolved frame files this way, never fetches its own)\n- `waveform.approximant`, `waveform.\"reference frequency\"` → `[waveform]`\n- `likelihood.\"minimum/maximum frequency\"` (lowest/highest across\n  detectors) → `[likelihood] f_min`/`f_max`\n- `priors:` → `[prior]`, via the standard `PriorInterface.convert()`\n  mechanism (see [Priors](#priors) below)\n- `sampler: {sampler: <name>, \"sampler kwargs\": {...}}` (the same shape\n  `bilby`/`pycbc` use) → `[sampler] type` + whatever kwargs Jim's chosen\n  backend takes, e.g.:\n\n  ```yaml\n  sampler:\n    sampler: flowmc              # flowmc | blackjax-ns-aw | blackjax-nss | blackjax-swig | blackjax-smc\n    \"sampler kwargs\":\n      n_chains: 1000\n      n_local_steps: 100\n      n_global_steps: 1000\n      # any other field for the chosen backend's config is passed straight through\n  ```\n\nA small `jim:` block, set *in the ledger blueprint* (an `analysis`\nblueprint for a single production, or an `event`/`configuration` blueprint\nif shared), covers the handful of things that have no generic Asimov\nequivalent at all — PSD file paths (see [Data](#data)), Jim's `[sampling]`\nsection, output options, and an escape hatch for the two prior types the\ngeneric `priors:` mechanism can't express:\n\n```yaml\n# added to an analysis (or event/configuration) blueprint\njim:\n  seed: 0\n  verbose: false\n\n  data:\n    psd_files: {H1: ..., L1: ...}   # no generic equivalent -- see Data below\n    psd_is_asd: {H1: false, L1: false}\n\n  sampling:\n    time_frame: detector        # geocentric | detector -- passed straight through to Jim's [sampling] section\n    sky_frame: equatorial\n\n  output:\n    n_samples: 5000\n    save_corner: true\n    corner_parameters: [M_c, q]\n    # any other Jim [output] field is passed straight through too\n\n  prior:\n    # Jim-native prior spec, used as-is instead of the priors: -> jim\n    # conversion below. Only needed for a prior type the conversion\n    # doesn't cover (rayleigh, uniform_sphere).\n    M_c: {type: uniform, min: 10.0, max: 80.0}\n```\n\n`checkpoint_dir`/`checkpoint_interval` and `output.dir`/`output.overwrite`\nare always set by the plugin itself (to `<rundir>/checkpoint` and\n`<rundir>/output` respectively, kept separate so Jim's own checkpoint\nwrites don't trip its refusal to overwrite an existing output directory)\nand can't be overridden.\n\n### Data\n\n`asimov-jim` always uses Jim's `file` data mode and never Jim's own\nbuilt-in `gwosc`/`injection` fetch modes — this production must already\nhave real frame files resolved before it builds, exactly like every other\npipeline, so that the data used is consistent across pipelines in the same\nproject rather than each one fetching independently. Strain files come\nfrom the generic `data:` blueprint vocabulary (the\n[adding-a-pipeline tutorial](https://asimov.readthedocs.io/en/latest/tutorials/adding-a-pipeline.html)\nand [GWOSC cookbook](https://asimov.readthedocs.io/en/latest/ligo-cookbook/working-with-gwosc.html)\nshow the canonical pattern), typically populated by a `pipeline: gwdata`\nproduction wired up via `needs:`:\n\n```yaml\nkind: analysis\nname: get-data\npipeline: gwdata\ndownload:\n  - frames\n---\nkind: analysis\nname: GW150914_jim\npipeline: jim\nevent: GW150914_095045\nneeds:\n  - get-data\n```\n\n```yaml\n# resolved onto the event by the gwdata production above\ndata:\n  \"data files\": {H1: /path/to/H1.gwf, L1: /path/to/L1.gwf}\n  channels: {H1: H1:GWOSC-16KHZ_R1_STRAIN, L1: L1:GWOSC-16KHZ_R1_STRAIN}\n  \"segment length\": 4\n```\n\n→ Jim's `strain_files`/`strain_channels`/`duration`. There's no generic\nAsimov vocabulary for PSD files (pipelines that need them typically\nestimate their own, e.g. via a separate BayesWave PSD-generation\nproduction), so those stay under `jim: data: psd_files:`/`psd_is_asd:`\n(shown above) until a shared convention exists.\n\n### Priors\n\nLike every other pipeline, Jim reads priors from the ledger's generic\n`priors:` block, via a `JimPriorInterface.convert()` that translates each\nentry's `type` into Jim's own `[prior]` table. It covers the five prior\ntypes with an unambiguous field-for-field match: `uniform`, `gaussian`,\n`sine`, `cosine` and `power_law`. Two of Jim's own prior types have no\nequivalent in the generic `PriorSpecification` (`rayleigh`, `uniform_sphere`);\nfor those, set the parameter directly under `jim: prior:` (see above),\nwhich takes precedence over the `priors:` conversion when given.\n\n**Parameter names are passed through unchanged** -- write them using Jim's\nown names (`M_c`, `q`, `s1_z`, `iota`, `d_L`, `t_c`, ...; see `jim-run\n--init` for the full reference parametrization). This plugin deliberately\ndoes not attempt to translate parameter names or spin/distance conventions\nfrom another pipeline's convention (e.g. Bilby's `chirp_mass`/`mass_ratio`),\nsince guessing at that mapping risks silently producing a different\nphysical prior than the one written in the ledger.\n\n### GPUs\n\nJim is JAX-based and normally wants a GPU. Set `scheduler: {gpus: N}` (as\nin the example above) to request one -- `request_gpus` under HTCondor,\n`--gres=gpu:N` under Slurm.\n\n### Checkpointing and resumption\n\n`jim-run` checkpoints its own progress to `checkpoint.pkl` and resumes\nautomatically whenever that file is present, with no special flag needed.\nIf a job is evicted or fails, `resurrect()` simply resubmits the same\ncommand (up to 5 attempts), which picks up from the last checkpoint.\n\n## Post-processing\n\nLike the sibling [asimov-pycbc](https://github.com/etive-io/asimov-pycbc)\nplugin, this plugin does not submit any post-processing job itself.\nExpress post-processing (e.g. PESummary) as a separate production with a\n`needs:` dependency on the Jim production; Asimov's own dependency\nresolution builds and submits it once the Jim production finishes, and it\ncan pick up the samples via `collect_assets()[\"samples\"]`\n(`<rundir>/output/samples.npz`).\n\n## Development\n\n```bash\npip install -e \".[test]\"\npytest\n```\n\nSee [asimov-plugin-template](https://github.com/etive-io/asimov-plugin-template)\nfor background on Asimov's plugin architecture, and the sibling\n[asimov-pycbc](https://github.com/etive-io/asimov-pycbc) and\n[asimov-bayeswave](https://github.com/etive-io/asimov-bayeswave) plugins\nfor other single-job (non-DAG) pipeline integrations that follow the same\npattern.\n\n## License\n\nMIT License - see [LICENSE](https://github.com/transientlunatic/asimov-jim/blob/HEAD/LICENSE) for details.\n",
+          "url": "https://github.com/transientlunatic/asimov-jim/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "jim"
+          ]
+        }
+      ],
+      "summary": "Jim (JimGW) parameter estimation pipeline integration for Asimov",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-jim",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-simplepe",
+      "slug": "asimov-simplepe",
+      "repo": "transientlunatic/asimov-simplepe",
+      "repo_url": "https://github.com/transientlunatic/asimov-simplepe",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": "https://transientlunatic.github.io/asimov-simplepe/",
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-simplepe\n\nAn [Asimov](https://github.com/etive-io/asimov) plugin for running\n[simple-pe](https://git.ligo.org/stephen-fairhurst/simple-pe), a rapid,\nmetric/Fisher-matrix-based parameter estimation code for gravitational-wave\nsignals from compact binary coalescences.\n\n📚 **[Full documentation and tutorial](https://transientlunatic.github.io/asimov-simplepe/)**\n\n## Overview\n\nUnlike a full stochastic (MCMC/nested-sampling) parameter estimation\npipeline, `simple-pe` expands the likelihood locally around a matched-filter\ntrigger to produce an approximate posterior in CPU-minutes rather than\nCPU-days -- useful for low-latency estimates, and as a fast cross-check or\nseed for a more detailed run. This plugin enables Asimov to build and submit\n`simple_pe_pipe` jobs for that analysis. It provides:\n\n- **Configuration templating**: renders a `simple_pe_pipe` config file from\n  a bundled Liquid template, populated from a production's ledger metadata\n  (`config_template`), for use by `asimov manage build`.\n- **Trigger-parameter seeding**: writes the small `trigger_parameters.json`\n  file `simple_pe_pipe` uses to seed its local optimisation, before the\n  main config is rendered.\n- **DAG generation and scheduler integration**: `simple_pe_pipe` builds a\n  real HTCondor DAG (plus a companion local-run bash script); this plugin\n  submits that DAG via Asimov's own scheduler abstraction (`self.scheduler`,\n  from `asimov.pipeline.Pipeline`), which supports both HTCondor and\n  Slurm -- rather than talking to a scheduler's API directly.\n- **Status tracking**: monitors job completion by checking for a genuine\n  posterior samples file.\n- **DAG-rescue-aware resurrection**: like `lalinference_pipe`,\n  `simple_pe_pipe` produces a real DAGMan workflow; an interrupted run\n  leaves a rescue DAG behind, which is resubmitted automatically.\n- **Dependency-driven post-processing**: once a job completes, its samples\n  are available (via `collect_assets()`) to any downstream production with\n  a `needs:` dependency on it -- for example an\n  [asimov-pesummary](https://github.com/etive-io/asimov-pesummary)\n  production. This plugin doesn't submit that job itself; Asimov's own\n  dependency resolution does.\n\n## Compatibility\n\nRequires `asimov>=0.7`. This plugin does not depend on the `simple-pe`\nPython package itself -- like the sibling `asimov-lalinference` and\n`asimov-bayeswave` plugins, it shells out to the `simple_pe_pipe`\nexecutable, which is expected to be installed separately in the environment\npointed at by Asimov's `[pipelines] environment` config option.\n\n`simple-pe` is not currently distributed on PyPI or conda-forge; install it\nfrom its GitLab repository (it depends on `pycbc` and `lalsuite`, both\navailable from conda-forge):\n\n```bash\nconda install -c conda-forge pycbc lalsuite\necho \"setuptools<82\" > constraints.txt  # see note below\necho \"numpy<2\" >> constraints.txt        # see note below\npip install -c constraints.txt \"setuptools<82\" \"numpy<2\"\npip install -c constraints.txt git+https://git.ligo.org/stephen-fairhurst/simple-pe.git\n```\n\n> **`pkg_resources` note.** `simple_pe_pipe` imports `pycbc.waveform`, which\n> does a bare `import pkg_resources` in `retrieve_waveform_plugins()` (see\n> [simple-pe issue #29](https://git.ligo.org/stephen-fairhurst/simple-pe/-/issues/29),\n> still open upstream). `setuptools` removed the bundled `pkg_resources`\n> module starting with 82.0.0 (confirmed directly: 81.0.0 still provides\n> it, 82.0.0 doesn't), so `simple_pe_pipe` fails to even import with\n> `ModuleNotFoundError: No module named 'pkg_resources'` against an\n> unpinned (or too-recent) `setuptools` -- confirmed directly via this\n> plugin's own CI. A bare `pip install \"setuptools<82\"` isn't enough on\n> its own, either: installing `simple-pe` in a *separate* `pip install`\n> right after it can silently re-resolve `setuptools` back past 82 as one\n> of its own transitive dependencies (also confirmed directly). A\n> constraints file applied to both commands, as above, is what actually\n> holds the pin.\n\n> **`numpy<2` note.** `simple_pe_filter`'s own\n> `load_trigger_parameters_from_file()` wraps the loaded trigger-parameters\n> dict in `SimplePESamples` (a pesummary-style samples container built for\n> posterior *chains*, so even a single scalar comes back as a shape-`(1,)`\n> array rather than a true 0-d array) before\n> `simple_pe.io.io.estimate_data_length_from_template_parameters` does\n> `int(2**(np.ceil(np.log2(wf_len))))` on a value derived from it. NumPy\n> hard-errors this exact implicit shape-`(1,)`-to-scalar conversion since\n> 2.0 (only a `DeprecationWarning` before that):\n> `TypeError: only 0-dimensional arrays can be converted to Python\n> scalars`, hit on every real analysis regardless of channel mode --\n> confirmed directly via this plugin's own e2e CI on the real `filter` DAG\n> node. Pinning `numpy<2` (alongside every pip install here, for the same\n> re-resolution reason as `setuptools` above) keeps it a warning instead\n> of a crash without touching `simple-pe`'s own source.\n\n> **A note on the config schema below.** The keys used by this plugin's\n> bundled template (`configs/simplepe.ini`) -- `trigger_time`,\n> `trigger_parameters`, `outdir`, `channels`, `asd`, `f_low`, `f_high`,\n> `approximant`, `accounting_group`, `accounting_group_user`,\n> `generate_corner` -- and their value formats are confirmed directly\n> against a real, live `simple_pe_pipe --help` and a real successful DAG\n> build in this plugin's own end-to-end CI. Its output-file detection\n> (`samples()`) is still an unconfirmed best-effort guess, though: it\n> searches for common posterior/samples filenames rather than one exact\n> confirmed name. If you hit a mismatch there (or anywhere else) against a\n> real `simple_pe_pipe` release, please open an issue or PR.\n\n## Installation\n\n```bash\npip install asimov-simplepe\n```\n\nFor development:\n```bash\ngit clone https://github.com/transientlunatic/asimov-simplepe\ncd asimov-simplepe\npip install -e \".[test]\"\n```\n\n## Usage\n\nOnce installed, Asimov discovers this plugin automatically via its\n`asimov.pipelines` entry point. Add a production to an event with\n`pipeline: simplepe`:\n\n```yaml\nkind: analysis\nname: simplepe-imrphenomxphm\npipeline: simplepe\nwaveform:\n  approximant: IMRPhenomXPHM\nlikelihood:\n  minimum frequency:\n    H1: 20\n    L1: 20\nscheduler:\n  accounting group: ligo.dev.o4.cbc.pe.simple_pe\n```\n\n`asimov manage build submit` will render a `simple_pe_pipe` ini (and the\naccompanying trigger-parameters file) from the bundled template (unless a\nconfig already exists in the event repository), build a DAG, and submit it.\n\n### Peak finder\n\n`peak_finder` (default `metric`, simple-pe's own Fisher-matrix algorithm)\nselects the peak-finding method `simple_pe_pipe` uses, e.g. `production.meta['peak_finder']: scipy`.\nThis isn't optional in practice: `simple_pe_pipe`'s real `--peak_finder`\nCLI option defaults to an *empty list*, and its DAG-building code creates\nevery actual analysis stage (the match-filter, metric, corner-plot, and\nPESummary jobs) inside a loop over that list -- an empty list means the\nloop runs zero times and the DAG silently ends up containing only its\n`datafind` job, no error of any kind. Confirmed directly via this\nplugin's own e2e CI, which is why this template always sets it.\n\n### Data\n\nStrain data is read from a production's `data` metadata, using the same\nconventions as the other Asimov gravitational-wave pipeline plugins (e.g.\n`asimov-gwdata`, `asimov-lalinference`, `asimov-pycbc`):\n\n- `data.channels` -- per-interferometer strain channel name, *without*\n  the leading `IFO:` (this plugin adds that itself when rendering the\n  ini). `simple_pe_pipe` also recognises two special values here,\n  confirmed directly from its own `--help` text: `GWOSC` to read public\n  GWOSC open data instead of a private frame channel (this plugin's own\n  end-to-end test uses this, against GW150914's real data), and `INJ`\n  to have `simple_pe_pipe` simulate an injection itself rather than\n  reading any real strain data at all -- no datafind access needed.\n  When any interferometer uses `INJ`, `before_config()` also writes an\n  `injection.json` file from the production's `trigger` metadata and\n  the ini references it via `injection = ...` -- `simple_pe_datafind`\n  requires this unconditionally in that case (confirmed directly from\n  its real source, via this plugin's own e2e CI). **Known issue:**\n  `INJ` mode currently hits a genuine upstream `simple-pe` bug once\n  `write_converted_injection_parameters()` runs (a `SimplePESamples`-\n  wrapped value eventually produces a NaN GPS time, sending LALSuite\n  into what is for all practical purposes an infinite loop) --\n  confirmed directly via this plugin's own e2e CI (see `CHANGELOG.md`\n  for the full trail); this plugin's own code fully supports `INJ`\n  (unit-tested) and will use it correctly once fixed upstream, but the\n  e2e test itself uses `GWOSC` instead to avoid depending on that fix.\n- `data.asd` -- per-interferometer path to a real, two-column (frequency,\n  ASD) text file. There is no analytic-PSD-model-name shortcut here --\n  confirmed directly from `--help` (\"ASD files to use for the analysis\")\n  and from this plugin's own e2e CI, which generates a real file from\n  pycbc's analytic `aLIGOZeroDetHighPower` model for its test (a PSD is\n  needed for the Fisher-matrix/SNR calculation regardless of where the\n  strain data itself comes from).\n\nThis means a production populated by a data-retrieval step (for example\n[asimov-gwdata](https://github.com/etive-io/asimov-gwdata)) can be picked\nup by making the `simplepe` production `needs:` that data-retrieval\nproduction and mapping its output into `data.channels`/`data.asd` (stripping\nthe data-retrieval step's own `IFO:` channel prefix, if it includes one).\n\n### Trigger parameters\n\n`simple_pe_pipe` seeds its local optimisation from an approximate set of\ntrigger parameters (masses, spins, sky location). Supply these via a\n`trigger` block on the production:\n\n```yaml\ntrigger:\n  mass1: 36\n  mass2: 29\n  spin1z: 0.0\n  spin2z: 0.0\n  ra: 1.95\n  dec: -1.27\n  distance: 440\n  phase: 0\n  psi: 0\n```\n\nAny parameter left unset falls back to a sensible default: `mass1`/`mass2`\ndefault to 1.4 (solar masses), `ra`/`dec`/`spin1z`/`spin2z`/`phase`/`psi`\ndefault to 0, and `distance` defaults to 400 Mpc; `time` is always taken\nfrom the event's `event time`, not from this block.\n\n### Post-processing\n\nThis plugin does not run PESummary (or anything else) itself. When a\n`simplepe` production completes, `after_completion()` only marks it\n`finished` -- post-processing is expressed as a separate production with a\n`needs:` dependency on it, e.g.:\n\n```yaml\nkind: analysis\nname: simplepe-test-pesummary\npipeline: pesummary\nneeds:\n  - simplepe-imrphenomxphm\npostprocessing:\n  pesummary:\n    multiprocess: 2\n```\n\nAsimov's own dependency resolution builds and submits\n`simplepe-test-pesummary` once `simplepe-imrphenomxphm` reaches `finished`;\nPESummary picks up its samples via `simplepe-imrphenomxphm`'s\n`collect_assets()` (through `production._previous_assets()`).\n\n**Known issue:** `simple_pe_pipe`'s own `analysis` stage currently hits a\ngenuine upstream numerical-robustness bug -- unrelated to the `INJ`-mode\nissue above, and hit on every real analysis regardless of channel mode --\nbefore it can produce a posterior samples file: PESummary's subdominant-\nmultipole rejection-sampling reweighting\n(`pesummary.core.reweight.rejection_sampling()`, called unconditionally\nfrom `simple_pe.param_est.pe.reweight_based_on_observed_snrs()`) has no\nguard against a non-finite weight, and raises `OverflowError: Range\nexceeds valid bounds` when one occurs -- confirmed directly via this\nplugin's own e2e CI against real GW150914 GWOSC data (see `CHANGELOG.md`\nfor the full trail). There is no CLI flag to disable or adjust this\nreweighting step, so it isn't something this plugin's ini/config\nrendering can work around. This plugin's own DAG building and submission\nare confirmed correct up to this point -- `datafind`, `filter`, and\n`analysis`'s own Fisher-matrix metric peak-finding and SNR computation\nall complete successfully, writing real `peak_parameters.json`/\n`peak_snrs.json` output -- so the e2e test verifies that real,\ncurrently-achievable output directly rather than requiring a full\nposterior-samples file.\n\n## Testing\n\nUnit tests (mocked, no external dependencies):\n\n```bash\npip install -e \".[test]\"\npytest\n```\n\n`.github/workflows/e2e.yml` also runs a genuine end-to-end test: a real\n`simple_pe_pipe` DAG built and submitted through a real HTCondor scheduler\nagainst real GW150914 GWOSC data, waiting for and validating the real\n`peak_parameters.json`/`peak_snrs.json` output its `analysis` node\nproduces. It does *not* currently wait for a full posterior-samples file --\nsee the \"Known issue\" note under *Post-processing* above for why.\n\n`.github/workflows/docs.yml` also checks that the subcommand and flags used\nby every `asimov ...` command shown in `docs/*.rst` still exist on the live,\ninstalled asimov CLI, on every pull request\n(`scripts/lint_tutorial_commands.py`).\n\n## Contributing\n\nContributions welcome! Please submit issues or pull requests to\n[transientlunatic/asimov-simplepe](https://github.com/transientlunatic/asimov-simplepe).\n\n## License\n\nMIT -- see [LICENSE](https://github.com/transientlunatic/asimov-simplepe/blob/HEAD/LICENSE).\n",
+          "url": "https://github.com/transientlunatic/asimov-simplepe/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "simplepe"
+          ]
+        }
+      ],
+      "summary": "Simple-PE pipeline integration for Asimov",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-simplepe",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-lalinference",
+      "slug": "asimov-lalinference",
+      "repo": "etive-io/asimov-lalinference",
+      "repo_url": "https://github.com/etive-io/asimov-lalinference",
+      "category": "parameter-estimation",
+      "category_label": "Parameter estimation",
+      "maintenance": "official",
+      "featured": false,
+      "deprecated": "LALInference is a legacy pipeline; use it for cross-checks and reproducing older analyses, not for new work.",
+      "docs": "https://etive-io.github.io/asimov-lalinference/",
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-lalinference\n\nLALInference pipeline integration for [Asimov](https://github.com/etive-io/asimov).\n\nThis package provides a plugin for Asimov 0.7+ that enables integration with the LALInference parameter estimation pipeline for gravitational wave data analysis.\n\n> [!WARNING]\n> LALInference has been superseded by newer sampling pipelines (bilby, RIFT) and this\n> integration is not fully reviewed. It **must not** be used for collaboration parameter\n> estimation analyses. It remains useful for cross-checks and for replicating older\n> analyses.\n\n## Features\n\n- 🔌 **Plugin Architecture**: Seamlessly integrates with Asimov via entry points\n- 🚀 **Scheduler-agnostic**: Automated DAG generation and job submission via Asimov's\n  HTCondor/Slurm scheduler API\n- 📈 **Result Collection**: Automatic collection of posterior samples and results\n- 🧪 **Well Tested**: Unit tests plus a genuine end-to-end test (real `lalinference_pipe`\n  DAG generation and HTCondor execution against LALInference's own simulated noise)\n\n## Installation\n\nLALInference itself is only distributed via conda-forge — there is no PyPI wheel for it —\nso installing this plugin is a two-step process:\n\n```bash\nconda install -c conda-forge lalinference\npip install asimov-lalinference\n```\n\n### From Source\n\n```bash\nconda install -c conda-forge lalinference\ngit clone https://github.com/transientlunatic/asimov-lalinference.git\ncd asimov-lalinference\npip install -e .\n```\n\n### For Development\n\n```bash\npip install -e \".[docs,test]\"\n```\n\n## Quick Start\n\nOnce installed (alongside a working `lalinference_pipe`, from the conda-forge `lalinference`\npackage), the LALInference pipeline is automatically available in Asimov via its entry-point\nregistry — no further configuration is required beyond a normal Asimov production blueprint.\nSee the [documentation](https://github.com/etive-io/asimov-lalinference/blob/HEAD/docs/index.rst) for a full example blueprint.\n\n## Requirements\n\n- Python >= 3.10 (the conda-forge `lalinference` feedstock does not build for older Pythons)\n- asimov >= 0.7.0\n- `conda-forge::lalinference` — install separately with `conda install -c conda-forge lalinference`\n  (there is no `asimov[gw]` extra in asimov core today that would pull this in automatically;\n  each GW pipeline plugin, including this one, currently needs to be installed explicitly)\n\n## Operational notes\n\n### HTCondor pools without an IGWN-style job wrapper\n\n`lalinference_pipe` generates a small `lalinf_touch_output` placeholder script per engine\nnode and wires it in via custom `+PreCmd`/`+PreArguments` job classads, so that any\ndeclared output file the real executable doesn't happen to write for a given run (e.g. the\nSNR summary file, which isn't always produced) still exists as an empty placeholder by the\ntime HTCondor transfers job outputs — otherwise the transfer hard-fails with something like:\n\n```\nTransfer output files failure ... Details: 1 total failures: first failure: reading from\nfile .../lalinferencenest-...-1.hdf5_snr.txt: (errno 2) No such file or directory\n```\n\n`+`-prefixed classads aren't a native HTCondor pre-exec hook — real IGWN/LIGO condor pools\napparently have a `USER_JOB_WRAPPER` configured site-wide that interprets this convention,\nbut a vanilla HTCondor install (e.g. the `htcondor/mini` test image this repo's own CI uses,\nor your own self-hosted pool) does not, and `lalinf_touch_output` silently never runs. If\nyou hit the error above on a pool you control, configure a `USER_JOB_WRAPPER` that reads\n`PreCmd`/`PreArguments` off the job ad (available via the `$_CONDOR_JOB_AD` file HTCondor\nprovides to every job) and runs it before the real executable — see\n`.github/workflows/e2e.yml` in this repo for a working example.\n\n## License\n\nMIT License - see LICENSE file for details.\n\n## Contributing\n\nContributions are welcome! Please see CONTRIBUTING.md for guidelines.\n",
+          "url": "https://github.com/etive-io/asimov-lalinference/blob/HEAD/README.md"
+        }
+      },
+      "pypi": {
+        "name": "asimov-lalinference",
+        "version": "0.1.0",
+        "released": "2026-08-17",
+        "summary": "LALInference pipeline integration for Asimov",
+        "requires_python": ">=3.10",
+        "license": null,
+        "status": "Beta",
+        "url": "https://pypi.org/project/asimov-lalinference/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "lalinference"
+          ]
+        }
+      ],
+      "summary": "LALInference pipeline integration for Asimov",
+      "install": "pip install asimov-lalinference",
+      "latest_version": "0.1.0",
+      "latest_released": "2026-08-17"
+    },
+    {
+      "name": "asimov-gwdata",
+      "slug": "asimov-gwdata",
+      "repo": "etive-io/asimov-gwdata",
+      "repo_url": "https://github.com/etive-io/asimov-gwdata",
+      "category": "data",
+      "category_label": "Data & noise characterisation",
+      "maintenance": "official",
+      "featured": true,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# Asimov GWData\n\nThis package provides an asimov pipeline for collecting published gravitational wave data for use in parameter estimation studies.\n\n## Installation\n\n```bash\npip install asimov-gwdata\n```\n\nFor development:\n```bash\ngit clone https://github.com/etive-io/asimov-gwdata\ncd asimov-gwdata\npip install -e .\n```\n## Documentation\n\n📚 **[Read the full documentation](https://etive-io.github.io/asimov-gwdata/)** for comprehensive guides, API reference, and examples.\n\n## Usage\n\n### Fetching posteriors\n\nTo download a posterior file from a known location you'll need to write a YAML configuration file, for example,\n\n```yaml\ndata: \n  - posterior\nsource:\n  type: pesummary\n  location: /home/daniel/GW150914/test.h5\n  analysis: C01:IMRPhenomXPHM\n```\n\nand then run\n\n`$ gwdata --settings test.yaml`\nwhere `test.yaml` is the configuration file above.\n\n### Usage with asimov\n\nThe script can also be called as a pipeline in asimov.\nTo do this you'll need to apply a blueprint to the project, for example:\n\n```yaml\nkind: analysis\nname: get-data\npipeline: gwdata\ndownload:\n  - posterior\nevent: GW150914\nsource:\n  type: pesummary\n  location: /home/daniel/<event>/test.h5\n  analysis: C01:IMRPhenomXPHM\n```\n\n## Testing\n\nThis package includes a comprehensive test suite that can run without network access using mock fixtures.\n\nRun tests:\n```bash\npython3 -m unittest discover -s tests -p \"test_*.py\" -v\n```\n\nOr use the convenient test runner script:\n```bash\nchmod +x run_tests.sh  # Make executable (first time only)\n./run_tests.sh\n```\n\nFor detailed testing documentation, see [docs/testing.md](https://github.com/etive-io/asimov-gwdata/blob/HEAD/docs/testing.md).\n\nFor CI/CD integration examples, see [docs/ci-testing-examples.md](https://github.com/etive-io/asimov-gwdata/blob/HEAD/docs/ci-testing-examples.md).\n\n**Using asimov-gwdata test fixtures in other projects (e.g., asimov):**\nSee [docs/integration-testing.md](https://github.com/etive-io/asimov-gwdata/blob/HEAD/docs/integration-testing.md) for detailed guidance on how to\nuse asimov-gwdata's mock fixtures when testing projects that call asimov-gwdata.\n\n## Development\n\nSee [tests/README.md](https://github.com/etive-io/asimov-gwdata/blob/HEAD/tests/README.md) for information on writing tests.\n",
+          "url": "https://github.com/etive-io/asimov-gwdata/blob/HEAD/README.md"
+        }
+      },
+      "pypi": {
+        "name": "asimov-gwdata",
+        "version": "0.7.1",
+        "released": "2026-03-31",
+        "summary": "An asimov plugin to make downloading gravitational wave data easier",
+        "requires_python": ">=3.7",
+        "license": "MIT",
+        "status": null,
+        "url": "https://pypi.org/project/asimov-gwdata/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "gwdata"
+          ]
+        }
+      ],
+      "summary": "An asimov plugin to make downloading gravitational wave data easier",
+      "install": "pip install asimov-gwdata",
+      "latest_version": "0.7.1",
+      "latest_released": "2026-03-31"
+    },
+    {
+      "name": "asimov-bayeswave",
+      "slug": "asimov-bayeswave",
+      "repo": "etive-io/asimov-bayeswave",
+      "repo_url": "https://github.com/etive-io/asimov-bayeswave",
+      "category": "data",
+      "category_label": "Data & noise characterisation",
+      "maintenance": "official",
+      "featured": true,
+      "deprecated": null,
+      "docs": "https://etive-io.github.io/asimov-bayeswave/",
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-bayeswave\n\n[![Tests](https://github.com/transientlunatic/asimov-bayeswave/actions/workflows/tests.yml/badge.svg)](https://github.com/transientlunatic/asimov-bayeswave/actions/workflows/tests.yml)\n[![Documentation Status](https://readthedocs.org/projects/asimov-bayeswave/badge/?version=latest)](https://asimov-bayeswave.readthedocs.io/en/latest/?badge=latest)\n[![PyPI version](https://badge.fury.io/py/asimov-bayeswave.svg)](https://badge.fury.io/py/asimov-bayeswave)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n\nBayesWave pipeline integration for [Asimov](https://git.ligo.org/asimov/asimov).\n\nThis package provides a plugin for Asimov 0.7+ that enables integration with the BayesWave parameter estimation pipeline for gravitational wave data analysis.\n\n## Features\n\n- 🔌 **Plugin Architecture**: Seamlessly integrates with Asimov via entry points\n- 📊 **PSD Generation**: Automatic power spectral density estimation and collection\n- 🔄 **Format Conversion**: Converts PSDs to XML format for use with other pipelines\n  (where `convert_psd_ascii2xml` is available — see \"Operational notes\" below)\n- 🚀 **Scheduler-agnostic**: Automated DAG generation and job submission via Asimov's\n  HTCondor/Slurm scheduler API\n- 📈 **Result Collection**: Automatic collection of megaplot outputs and visualizations\n- 🎯 **PSD Suppression**: Support for suppressing frequency bands in PSDs\n- 🧪 **Well Tested**: Unit tests plus a genuine end-to-end test (real `bayeswave_pipe` DAG\n  generation and HTCondor execution — `BayesWave`, `BayesWavePost`, `megaplot.py` — against\n  real GW150914 H1 GWOSC strain, waiting for a real, parseable\n  `glitch_median_PSD_forLI_H1.dat`, not a smoke test)\n\n## Installation\n\n### Via Asimov (Recommended)\n\nIf you have asimov 0.7+, you can install gravitational wave pipelines including bayeswave with:\n\n```bash\npip install asimov[gw]\n```\n\nThis will automatically install asimov-bayeswave and other GW analysis plugins.\n\n### From PyPI (when released)\n\n```bash\npip install asimov-bayeswave\n```\n\n### From Source\n\n```bash\ngit clone https://github.com/transientlunatic/asimov-bayeswave.git\ncd asimov-bayeswave\npip install -e .\n```\n\n### For Development\n\n```bash\npip install -e \".[docs,test]\"\n```\n\n## Quick Start\n\nOnce installed, the BayesWave pipeline is automatically available in Asimov. \nTo add a new bayeswave analysis you can create a blueprint YAML file like the following:\n\n```yaml\nkind: analysis\npipeline: bayeswave\ncomment: PSD generation with BayesWave\nlikelihood:\n  sample rate: 2048\n  segment length: 8\ndata:\n  channels:\n    H1: H1:GDS-CALIB_STRAIN\n    L1: L1:GDS-CALIB_STRAIN\nquality:\n  minimum frequency:\n    H1: 20\n    L1: 20\n```\n\n## Usage\n\n### Via Asimov CLI\n\n```bash\n# Build the DAG\nasimov manage build --production Prod0\n\n# Submit the job\nasimov manage submit --production Prod0\n\n# Monitor progress\nasimov manage monitor\n```\n\n### Via Python API\n\n```python\nfrom asimov_bayeswave import BayesWave\n\n# Create pipeline instance\npipeline = BayesWave(production)\n\n# Build and submit\npipeline.build_dag()\npipeline.submit_dag()\n\n# Collect results after completion\nassets = pipeline.collect_assets()\npsds = assets[\"psds\"]\nxml_psds = assets[\"xml psds\"]\n```\n\n## Requirements\n\n- Python >= 3.9\n- asimov >= 0.7.0\n- numpy\n- BayesWave (must be installed separately) — via conda-forge:\n  ```bash\n  conda install -c conda-forge bayeswave bayeswaveutils\n  ```\n  `bayeswave` ships the compiled samplers (`BayesWave`, `BayesWavePost`, ...);\n  `bayeswave_pipe` (the DAG-generation script this plugin's `build_dag()` shells out to)\n  and `megaplot.py`/`megasky.py` come from the separate `bayeswaveutils` package. Unlike\n  the sibling `asimov-lalinference` plugin, no `numpy<2` pin is needed — the current\n  conda-forge `bayeswaveutils` build's `megaplot.py` has already been patched for numpy\n  2.0.\n\n## Operational notes\n\n### `convert_psd_ascii2xml` is not available from public conda-forge packages\n\n`after_completion()` tries to convert each ascii-format PSD to XML via a\n`convert_psd_ascii2xml` executable. As of this writing that tool is not shipped by any\ncurrent public conda-forge package — `bayeswave`, `bayeswaveutils`, `lalinference` and\n`lalapps` were all checked while building this plugin's end-to-end test, and none of them\nprovide it (it may only exist in older or IGWN-internal environments). `bayeswave` does\nship a `BayesWaveToLALPSD` executable that looks like a plausible modern replacement, but\nits calling convention (positional run name, requires `--gnuplot` output enabled during\nthe original run, reads specific paths under `waveforms/`) is substantially different and\nhas not been validated here.\n\nThis is handled gracefully rather than worked around: `after_completion()` catches the\nresulting `PipelineException`, logs it, and continues on to store the ascii-format PSD via\n`store_assets()` regardless (see `collect_assets()[\"psds\"]`). If your environment does\nhave a working `convert_psd_ascii2xml`, XML-format PSD conversion and storage will work as\ndocumented above with no changes needed. If not, downstream pipelines that specifically\nneed an XML-format PSD (rather than the ascii format) won't get one from this plugin until\nsomeone wires up `BayesWaveToLALPSD` (or an equivalent) as a real replacement.\n\n## Documentation\n\nFull documentation is available at [asimov-bayeswave.readthedocs.io](https://asimov-bayeswave.readthedocs.io).\n\n### Building Documentation Locally\n\n```bash\ncd docs\nmake html\n```\n\nThe built documentation will be in `docs/build/html/`.\n\n## Testing\n\nRun the unit test suite with:\n\n```bash\npytest\n```\n\nFor coverage reporting:\n\n```bash\npytest --cov=asimov_bayeswave --cov-report=html\n```\n\n### End-to-end test\n\n`.github/workflows/e2e.yml` runs a genuine end-to-end test on real GitHub Actions\ninfrastructure: a real `bayeswave_pipe` DAG (`BayesWave` clean run -> `BayesWavePost` ->\n`megaplot.py`), submitted to and run by a real (disposable, in-container) HTCondor pool,\nagainst real (trimmed, ~32s) GW150914 H1 GWOSC strain vendored into\n`tests/test_data/frames/`. It waits for and validates a genuine, parseable\n`glitch_median_PSD_forLI_H1.dat` — the same file `detect_completion()`/`collect_assets()`\nthemselves look for — not just \"the DAG was submitted\", and separately checks that a\nproduction reaches a genuinely finished/uploaded state and that the missing\n`convert_psd_ascii2xml` tool (see \"Operational notes\" above) is handled gracefully. It's\nwhat found several of the real bugs described in `CHANGELOG.md`.\n\n## Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n1. Fork the repository\n2. Create your feature branch (`git checkout -b feature/amazing-feature`)\n3. Commit your changes (`git commit -m 'Add some amazing feature'`)\n4. Push to the branch (`git push origin feature/amazing-feature`)\n5. Open a Pull Request\n\nPlease ensure:\n- All tests pass\n- New features include tests\n- Documentation is updated\n- Code follows PEP 8 style guidelines\n\n## Migration from Asimov 0.6\n\nIf you're upgrading from Asimov 0.6 which included BayesWave support natively:\n\n1. Install this plugin: `pip install asimov-bayeswave`\n2. The plugin will be automatically discovered by Asimov 0.7+\n3. No changes to your configuration files are required\n\n## License\n\nThis project is licensed under the MIT License - see the [LICENSE](https://github.com/etive-io/asimov-bayeswave/blob/HEAD/LICENSE) file for details.\n\n## Authors\n\n- Daniel Williams (daniel.williams@ligo.org)\n\n## Acknowledgments\n\n- The LIGO Scientific Collaboration\n- The BayesWave development team\n- The Asimov development team\n\n## Citation\n\nIf you use this software in your research, please cite:\n\n```bibtex\n@software{asimov_bayeswave,\n  author = {Williams, Daniel},\n  title = {asimov-bayeswave: BayesWave integration for Asimov},\n  url = {https://github.com/transientlunatic/asimov-bayeswave},\n  year = {2026}\n}\n```\n\n## Support\n\nFor issues, questions, or contributions, please use the [GitHub issue tracker](https://github.com/transientlunatic/asimov-bayeswave/issues).\n",
+          "url": "https://github.com/etive-io/asimov-bayeswave/blob/HEAD/README.md"
+        }
+      },
+      "pypi": {
+        "name": "asimov-bayeswave",
+        "version": "0.2.0",
+        "released": "2026-08-17",
+        "summary": "BayesWave pipeline integration for Asimov",
+        "requires_python": ">=3.9",
+        "license": null,
+        "status": "Beta",
+        "url": "https://pypi.org/project/asimov-bayeswave/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "bayeswave"
+          ]
+        }
+      ],
+      "summary": "BayesWave pipeline integration for Asimov",
+      "install": "pip install asimov-bayeswave",
+      "latest_version": "0.2.0",
+      "latest_released": "2026-08-17"
+    },
+    {
+      "name": "asimov-pyomicron",
+      "slug": "asimov-pyomicron",
+      "repo": "transientlunatic/asimov-pyomicron",
+      "repo_url": "https://github.com/transientlunatic/asimov-pyomicron",
+      "category": "data",
+      "category_label": "Data & noise characterisation",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-pyomicron\n\nAn Asimov plugin for running PyOmicron event trigger generation on HTCondor clusters.\n\n## Overview\n\nThis plugin enables [Asimov](https://github.com/etive-io/asimov) to submit and manage `omicron-process` jobs for gravitational wave event trigger generation. It provides:\n\n- **Configuration templating**: Generates `omicron-process` config files using Liquid templates with dynamic field population from analysis metadata\n- **HTCondor integration**: Submits jobs to HTCondor schedulers with appropriate resource requests and output transfer\n- **Status tracking**: Monitors job completion via output file detection\n- **Asset management**: Collects trigger files, logs, and other artifacts\n\n## Installation\n\nYou can install `asimov-pyomicron` using pip:\n\n```bash\npip install asimov-pyomicron\n```\n\nOr install from source:\n\n```bash\ngit clone https://github.com/transientlunatic/asimov-pyomicron.git\ncd asimov-pyomicron\npip install .\n```\n\n## Usage\n\nOnce installed, the `pyomicron` pipeline will be automatically registered with Asimov through the entry point system.\n\n### Configuration\n\nIn your Asimov ledger or production configuration, you can specify PyOmicron-specific settings in the metadata:\n\n```yaml\nproductions:\n  - name: omicron-analysis\n    pipeline: pyomicron\n    comment: Omicron event trigger generation\n    meta:\n      data:\n        channel names:\n          H1: \"H1:GDS-CALIB_STRAIN\"\n          L1: \"L1:GDS-CALIB_STRAIN\"\n        frametype: \"H1_HOFT_C00\"\n        gps-start-time: 1234567890\n        gps-end-time: 1234568890\n      omicron:\n        chunk_duration: 124\n        segment_duration: 64\n        overlap_duration: 4\n        frequency_range: \"4.0 8192.0\"\n        q_range: \"3.3166 150\"\n        mismatch_max: 0.2\n        snr_threshold: 5\n        sample_frequency: 16384\n        state_flag: \"H1:DMT-CALIBRATED:1\"\n      scheduler:\n        accounting group: \"ligo.prod.o4.detchar.transient.omicron\"\n        cpus: 1\n        memory: \"4096MB\"\n        disk: \"4096MB\"\n```\n\n### Configuration Parameters\n\n#### Data Parameters\n- `channel names`: Dictionary mapping IFO codes to channel names (e.g., `{\"H1\": \"H1:GDS-CALIB_STRAIN\"}`)\n- `frametype`: Frame type name for data files\n- `gps-start-time`: GPS start time for processing\n- `gps-end-time`: GPS end time for processing\n\n#### Omicron Parameters\n- `chunk_duration`: Duration of data (seconds) for PSD estimation (default: 124)\n- `segment_duration`: Duration of data (seconds) for FFT (default: 64)\n- `overlap_duration`: Overlap (seconds) between neighbouring segments and chunks (default: 4)\n- `frequency_range`: Low and high frequency limits for the search (default: \"4.0 8192.0\")\n- `q_range`: Low and high Q-factor limits for the search (default: \"3.3166 150\")\n- `mismatch_max`: Maximum distance between (Q, f) tiles (optional)\n- `snr_threshold`: Minimum SNR for recorded triggers (optional)\n- `sample_frequency`: Sample frequency in Hz (optional)\n- `state_flag`: Data-quality flag defining active state segments (optional)\n\nAlternative state definition (if not using `state_flag`):\n- `state_channel`: Name of data channel defining active state\n- `state_frametype`: Frame type name for the state channel\n- `state_bits`: Comma-separated list of bit numbers that define active state\n\n## Dependencies\n\n- `asimov>=0.5`\n- `pyomicron>=2.0`\n- `liquid>=4.0`\n- Python >= 3.9\n\n## Contributing\n\nContributions are welcome! Please submit issues or pull requests to the [repository](https://github.com/transientlunatic/asimov-pyomicron).\n\n## Related Projects\n\n- [Asimov](https://github.com/etive-io/asimov) - The main workflow management system\n- [PyOmicron](https://github.com/gwpy/pyomicron) - Python utilities for the Omicron event trigger generator\n- [asimov-pycbc](https://github.com/etive-io/asimov-pycbc) - Asimov plugin for PyCBC Inference\n- [asimov-gwdata](https://github.com/etive-io/asimov-gwdata) - Asimov utilities for gravitational wave data management\n\n## License\n\nThis project follows the licensing of the parent Asimov project.\n",
+          "url": "https://github.com/transientlunatic/asimov-pyomicron/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "pyomicron"
+          ]
+        }
+      ],
+      "summary": "Asimov plugin for PyOmicron",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-pyomicron",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-ptadata",
+      "slug": "asimov-ptadata",
+      "repo": "transientlunatic/asimov-ptadata",
+      "repo_url": "https://github.com/transientlunatic/asimov-ptadata",
+      "category": "data",
+      "category_label": "Data & noise characterisation",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-ptadata\n\nPulsar timing array data acquisition and reduction, usable standalone via the\n`ptadata` CLI or as an [Asimov](https://git.ligo.org/asimov/asimov) pipeline\nplugin.\n\n`ptadata` locates a pulsar's `.par`/`.tim` files within a pinned checkout of a\nPTA data release - either a known release cloned automatically by name, or a\nlocal checkout you already have - then uses\n[PINT](https://github.com/nanograv/PINT) to validate and reduce them:\nflagging outlier TOAs, checking for clock/ephemeris/binary-model warnings,\noptionally running a basic timing-model refit, and writing cleaned\n`.par`/`.tim` files plus a machine-readable QC report.\n\n## Standalone use\n\n```console\n$ ptadata list-releases\n$ ptadata fetch --pulsar J1909-3744 --release-name ipta-dr2 --outdir ./staged\n$ ptadata reduce --par ./staged/J1909-3744/J1909-3744.IPTADR2.TDB.par \\\n    --tim ./staged/J1909-3744/J1909-3744.IPTADR2.tim --outdir ./reduced\n```\n\nor against a data release you already have a local checkout of:\n\n```console\n$ ptadata fetch --pulsar J1713+0747 --release /path/to/release/checkout --outdir ./staged\n```\n\n`ptadata reduce` exits non-zero if the QC report's status isn't `pass`, so it\ncomposes into shell pipelines / CI.\n\n`fetch` copies a pulsar's whole directory when the release lays data out\nper-pulsar (checked against a live IPTA DR2 clone: a top-level `.tim` file\ncommonly `INCLUDE`s per-backend files from a `tims/` subdirectory by relative\npath, so that subdirectory has to move with it, not be flattened). When more\nthan one `.par` candidate is found - real releases often ship a plain file\nalongside a unit-conversion variant - the manifest's `\"par candidates\"` lists\nall of them and `\"par\"` prefers a TDB-convention file, since PINT refuses to\nload `UNITS TCB` par files outright (the plainer-looking filename may be the\none that fails).\n\n## As an Asimov pipeline\n\nInstalling with the `asimov` extra (`pip install asimov-ptadata[asimov]`)\nregisters a `ptadata` entry in the `asimov.pipelines` group. A production\nusing it is driven by a settings file rendered from `production.meta`:\n\n```yaml\nkind: analysis\nname: reduce\npipeline: ptadata\nstatus: ready\ndata:\n  release name: ipta-dr2   # or: release root: /path/to/release/checkout\nreduction:\n  sigma threshold: 5.0\n  refit: true\n```\n\nThe plugin submits a single `ptadata run --settings <file>` job through\nAsimov's scheduler-agnostic `JobDescription` interface (works with both the\nHTCondor and Slurm schedulers), and on completion exposes the reduced\n`.par`/`.tim` files and QC report as production assets - `qc_report.yml`'s\n`status` field (`pass` / `needs-review`) is written to the production's\n`review status` metadata as a review gate ahead of any downstream noise/GWB\nanalysis.\n\n## Known releases\n\n`ptadata list-releases` prints the current registry (`asimov_ptadata/sources.py`).\nIPTA DR2, EPTA DR2, and InPTA DR2 are git repositories and fetched with a\nshallow clone. Every URL was checked reachable with `git ls-remote` and the\nIPTA DR2 entry checked against a real clone while building this - but\ncollaborations do restructure/move these between releases, so treat the\nregistry as a convenience starting point and check the collaboration's own\ndata page if a lookup starts failing.\n\n**Not yet supported**: NANOGrav's data sets are Zenodo archives, not git\nrepositories (e.g. the 15yr set, DOI `10.5281/zenodo.16051178`, is a single\n~640MB tarball served via the Zenodo REST API), so they need a\ndownload-and-extract path rather than `clone_release`. Not implemented yet.\n\n## Status\n\nReal IPTA DR2 data (`J1909-3744`, 11,483 TOAs across 11 backends) fetches\nand reduces successfully end-to-end, including a real T2-to-ELL1 binary\nmodel conversion correctly landing the QC status on `needs-review`. Notably\nnot yet solved: NANOGrav/Zenodo fetching (above), a `--version`/combination\nselector for releases that ship parallel data combinations (IPTA DR2 has\n`VersionA`/`VersionB` - point `--release` at the specific one you want), and\npre-staging clock correction files for HPC worker nodes without outbound\ninternet access (PINT will otherwise try to fetch missing clock files from\nthe IPTA clock-corrections repository on first use).\n",
+          "url": "https://github.com/transientlunatic/asimov-ptadata/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "ptadata",
+            "ptadata-gwb",
+            "ptadata-noise"
+          ]
+        }
+      ],
+      "summary": "Pulsar timing array data acquisition and reduction, with an Asimov pipeline plugin",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-ptadata",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-pycwb",
+      "slug": "asimov-pycwb",
+      "repo": "transientlunatic/asimov-pycwb",
+      "repo_url": "https://github.com/transientlunatic/asimov-pycwb",
+      "category": "search",
+      "category_label": "Searches & burst analyses",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-pycwb\n\nAn [asimov](https://pypi.org/project/asimov/) pipeline plugin wrapping\n[pycWB](https://github.com/PycWB/pycwb) — a Python implementation of the\nCoherent WaveBurst (cWB) gravitational-wave burst analysis pipeline.\n\n## Design decision: targeted follow-up, not the all-sky search\n\nasimov orchestrates *per-candidate* analysis jobs: for each `Production`\n(one analysis of one event) it asks a `Pipeline` subclass to build a\nconfig, submit an HTCondor job/DAG, detect completion, and collect result\nassets. This is the same abstraction used for parameter-estimation\npipelines such as bilby, RIFT, or pyRing.\n\ncWB/pycWB, however, is primarily a **continuous, all-sky search** pipeline:\nit scans a long stretch of data across all times and directions looking for\ntriggers. That mode has no per-candidate structure at all, and doesn't map\nonto asimov's data model — there's no single \"Production\" it corresponds\nto.\n\npycWB also supports a **targeted/single-candidate reconstruction mode**,\nhowever: a short segment of data centred on a *known* trigger time, run\nthrough the same search-configuration machinery, to produce a sky\nlocalisation and waveform reconstruction for that one candidate. This is\nthe mode used for burst follow-up of a known event (see\n[`examples/GW190521_search/user_parameters.yaml`](https://github.com/PycWB/pycwb/blob/main/examples/GW190521_search/user_parameters.yaml)\nin the pycWB repository, and pycWB's `gps_center`/`time_left`/`time_right`\nconfig keys in `pycwb.modules.job_segment.job_segment`).\n\n**This plugin targets that single-candidate mode only.** It is a\ndeliberate scope decision, not an oversight: a full all-sky search doesn't\nfit asimov's per-candidate `Production` model, so there is no sensible way\nfor this plugin to expose it. If you want to run pycWB's continuous\nsearch, use pycWB's own CLI (`pycwb run` / `pycwb batch-runner`) directly,\noutside of asimov.\n\n## Usage\n\nAdd an analysis to an event using a blueprint like:\n\n```yaml\nkind: analysis\npipeline: pycwb\nname: pycwb-followup\ncomment: A pycWB targeted single-candidate reconstruction\n```\n\n```\n$ asimov apply -f pycwb-followup.yaml -e GW150914_095045\n```\n\nThe plugin reads the following keys from the production's metadata\n(`production.meta`, the same dictionary populated by asimov blueprints and\ndata-fetching pipelines such as `asimov-gwdata`):\n\n| Key | Used for |\n| --- | --- |\n| `interferometers` | `ifo` list |\n| `event time` | `gps_center` (the trigger time to follow up) |\n| `scheduler.accounting group` | HTCondor `accounting_group` (**required**) |\n| `scheduler.n proc`, `.conda environment`, `.request memory`, `.request disk` | job submission parameters |\n| `scheduler.strip oauth credentials` | strips pycWB's hardcoded `use_oauth_services = scitokens` submit-file requirement (see below) — **only** for test/local pools with no SciTokens credmon; leave unset for real deployments |\n| `scheduler.inherit environment` | prepends this process's own `pycwb`-resolving directory onto `PATH` inside each generated job script (see below) — **only** for test/local pools with no CVMFS; leave unset for real deployments |\n| `data.channels` | `channelNamesRaw` |\n| `data.data files` | `frFiles` (a generated per-IFO frame-cache list file, written from whichever frame path(s) `asimov-gwdata` or similar provides — string or list, one frame path per line) |\n| `data.segment length`, `.time before`, `.time after` | the `time_left`/`time_right` follow-up window around `event time` |\n| `likelihood.minimum frequency`, `.maximum frequency` | `fLow`/`fHigh` |\n| `reference ifo` | `refIFO` (defaults to the first interferometer) |\n\nEverything else in the generated `user_parameters.yaml` — cWB's threshold\nand regulator parameters (`bpp`, `subnet`, `netRHO`, `netCC`, `segLen`,\netc.) — is a **fixed, untuned default**, copied from pycWB's own example\nconfiguration. See the comments in\n[`asimov_pycwb/templates/user_parameters.yaml.liquid`](https://github.com/transientlunatic/asimov-pycwb/blob/HEAD/asimov_pycwb/templates/user_parameters.yaml.liquid)\nfor the full list.\n\n### Escape hatch: pre-seeding a real config\n\nThe template above deliberately doesn't cover everything pycWB can do (for\nexample, injections into synthetic noise, or hand-tuned thresholds). If a\nfile named `<production name>.yaml` already exists in the event\nrepository's `analyses/` directory (asimov's own `general.calibration_directory`\nconfig value, `analyses` by default) when `build_dag` runs, it's used\ndirectly instead of being rendered from the template — the same \"pre-seed\na real config\" convention other asimov pipelines use for a `.ini` file via\n`event.repository.find_prods()` (this plugin can't reuse that helper\ndirectly, since it hardcodes a `.ini` extension). This is how this\nplugin's own end-to-end test (see below) exercises a real pycWB config\nthat the template doesn't yet support.\n\n## End-to-end test\n\n[`.github/workflows/e2e.yml`](https://github.com/transientlunatic/asimov-pycwb/blob/HEAD/github/workflows/e2e.yml) runs a real pycWB\nanalysis against a real HTCondor pool (in a `htcondor/mini` container,\nusing the same `etive-io/actions` reusable actions as the sibling\n`asimov-pycbc`/`asimov-pesummary` plugins): a genuine `asimov apply` +\n`asimov manage build submit`, building and submitting a real DAG, then\nwaiting for pycWB's real merge step to produce a real, readable\n`catalog.parquet`.\n\nThe test production's config is pre-seeded (see above), using pycWB's\nbuilt-in synthetic Gaussian noise generation and a single sine-Gaussian\nburst injection (`injection.noise` / `injection.parameters` — see\n`pycwb.modules.job_segment.job_segment`), rather than real strain data, so\nthe whole run is self-contained and fast. This needed two things this\nplugin didn't otherwise need to know about, both worth flagging clearly:\n\n- **pycWB on PyPI (`pip install pycWB`, this plugin's declared dependency)\n  cannot actually be installed in an ordinary CI environment.** It\n  unconditionally tries to build a compiled `cwb-core` C++ extension\n  against ROOT + healpix-cxx (confirmed directly: a plain `pip install\n  pycWB` fails outright without them). pycWB's unreleased `main` branch has\n  a pure-Python install path instead (`PYCWB_DISABLE_WAT=1` skips the C++\n  wavelet extension — see `pycwb/setup.py` and\n  `envs/Dockerfile.ci-native` upstream), which is what\n  `.github/actions/setup-pycwb-env` uses to install a real, working pycWB\n  with no ROOT/cwb-core at all. Switch this to a plain PyPI install once a\n  release ships with that flag.\n- **pycWB downloads a small (~54 MB), public, Git-LFS-hosted wavelet\n  cross-talk catalog on first use** (`pycwb.modules.xtalk`, from\n  `github.com/PycWB/xtalk-data`). This is unrelated to the ROOT/cwb-core\n  extension above and needs no credentials, and it downloads and validates\n  correctly in CI (confirmed by the workflow's own runs).\n- **pycWB's `HTCondor.create()` unconditionally writes a SciTokens\n  requirement (`use_oauth_services = scitokens`) into every node's submit\n  file, with no config option to skip it** (confirmed directly against\n  `pycwb.modules.condor.condor` — there is no parameter, environment\n  variable, or config key that disables this). On a real IGWN pool with a\n  working SciTokens credmon, that's exactly what real frame-data access\n  needs; this minimal test pool has no credmon at all, so every node job\n  held forever with `Job credentials are not available` until this\n  plugin's `build_dag()` learned to strip those lines back out when\n  `scheduler.strip oauth credentials` is set (see the metadata table\n  above) — opt-in, and only meant for credmon-less test/local pools like\n  this one.\n- **pycWB's generated job scripts (`run.sh`, `simulation_summary.sh`,\n  `merge.sh`) each start by sourcing a hardcoded\n  `/cvmfs/software.igwn.org/conda/etc/profile.d/conda.sh`.** A real IGWN\n  pool provides that path via CVMFS; this minimal test pool has no CVMFS\n  at all, so that `source` fails (silently — the script has no `set -e`)\n  and the job then fails with `pycwb: command not found`, since HTCondor's\n  vanilla-universe jobs don't inherit the submitting shell's `PATH` by\n  default. Setting the submit file's own `environment = PATH=...`\n  attribute directly turned out not to fix this reliably either: DAGMan\n  submits each node job itself (\"direct job submission\"), so a node's\n  environment comes from resolving *DAGMan's own* process, not the\n  Python process that originally submitted the DAG. `scheduler.inherit\n  environment` (see the metadata table above) instead has `build_dag()`\n  patch the job scripts directly — prepending the directory this\n  plugin's own process resolves `pycwb` from onto each script's `PATH`,\n  before pycWB's own CVMFS-dependent activation attempt — which\n  sidesteps that ambiguity entirely. Deliberately not `getenv = True`:\n  many shared pools disable blanket environment forwarding outright, and\n  it would still be the wrong process's environment here. Again opt-in,\n  and only meant for CVMFS-less test/local pools.\n- **This test's segment is much shorter than pycWB's own internal\n  defaults assume.** Getting a real analysis to run over a segment this\n  short surfaced two of pycWB's own consistency checks, both fixed in the\n  seeded config (see the \"Seed the pycWB config fixture\" step in\n  `e2e.yml`): `whiteWindow` defaults to a fixed 60s window for whitening,\n  which doesn't fit inside a segment this short at all (`whiteWindow: 0`\n  tells pycWB to use the segment's own duration instead, per its own\n  schema); and `segEdge` (the padding around the analysis window) must be\n  more than 1.5x the wavelet filter length pycWB computes from\n  `levelR`/`l_low`/`l_high`, which is larger than this test's original\n  edge padding.\n\nThis workflow is green: a real DAG is submitted to a real HTCondor pool,\nthe batch analysis job and merge node both run for real over synthetic\nnoise, and the resulting `catalog/catalog.parquet` is a real, readable\ncWB trigger table (confirmed with real column names — `rho`, `net_cc`,\n`hrss_H1`, `sky_error_regions`, etc. — not a stub). Getting there took\nmany rounds of CI-driven fixes (see the PR history for the full trail):\na broken `pip install`, missing pycWB injection-parameter fields, a\n`submit_dag()` signature mismatch, a `pathlib.Path` htcondor2 rejected,\npycWB's `prepare_job_runs()` leaving the process's working directory\nchanged after it returns, DAGMan being unable to resolve its own nodes'\nrelative submit-file paths when submitted from the wrong working\ndirectory (`submit_dag()` now runs from the DAG's own directory), the\nscitokens/CVMFS/PATH gaps above, and finally the `whiteWindow`/`segEdge`\nconfig issues. One diagnostic dead end worth naming: pycWB's own\n`processor_wrapper()` re-initializes logging *inside each worker\nprocess* to a separate per-job file (`log/job_<index>.log`), not the\n`.out`/`.err` HTCondor (or any direct invocation) captures — every real\nerror from a failing batch run shows up there, not in stdout/stderr,\nwhich is why several of the fixes above took multiple rounds to\ndiagnose. One thing the test deliberately does *not* assert: whether\nthe injected sine-Gaussian burst actually clears cWB's detection\nthresholds (a question of amplitude tuning, not of the plugin's\ncorrectness) — a real, non-empty merge is the completion criterion; a\nnonzero trigger count is a bonus signal the workflow logs but doesn't\nrequire.\n\n## What's implemented\n\n- `build_dag`: if a `<production name>.yaml` already exists in the event\n  repository's `analyses/` directory, uses it as-is; otherwise renders\n  `user_parameters.yaml` from the template above. Either way it then calls\n  pycWB's `prepare_job_runs` + `HTCondor(...).create(..., submit=False)` to\n  generate a real HTCondor DAGMan workflow (`condor/*.dag`) without\n  submitting it.\n- `submit_dag`: submits the pre-built DAG via asimov's configured\n  `scheduler.submit_dag()`, and records the returned cluster ID as\n  `production.job_id`.\n- `detect_completion`: checks for `catalog/progress.parquet`, which pycWB's\n  DAG `merge` node writes once the batch job has recorded real per-lag\n  progress (`catalog/catalog.parquet` exists from much earlier — pycWB\n  creates it, empty, while `build_dag` is still constructing the DAG — so\n  it isn't a reliable completion signal on its own).\n- `collect_assets`: returns the merged catalog, any per-trigger\n  `skymap_statistics.json` files, and any unmerged per-job waveform\n  reconstruction files (`output/wave_*.h5`).\n\n## Known limitations / TODOs\n\nThis is a first-pass scaffold. `build_dag`/`submit_dag`/`detect_completion`\nare now verified against a real pycWB run on a real HTCondor pool (see\n\"End-to-end test\" above); the rest of this list is still unverified against\na real run:\n\n- **Only run/segment/IFO/data fields are templated.** cWB's analysis\n  thresholds and regulators are fixed defaults; there's no blueprint-level\n  way to tune them yet.\n- **Data-quality/veto files (`DQF`) are not templated at all** — the\n  generated config always sets `DQF: []`. Asimov's veto-file metadata\n  conventions vary across pipelines, and this needs a deliberate design\n  decision rather than a guess.\n- **No FITS skymap.** pycWB writes sky-localisation output as a per-trigger\n  `skymap_statistics.json` file, not a FITS file. Asimov's base\n  `Pipeline.store_results()` expects a `{production.name}_skymap.fits`\n  file — a natural fit for cWB's sky map, in principle — but converting\n  the JSON output into an actual FITS skymap (e.g. via `ligo.skymap` or\n  `healpy`) is not implemented.\n- **Waveform reconstruction files aren't merged.** The DAG built by\n  `build_dag` only runs `pycwb merge` for the catalog and progress files\n  (matching what pycWB's own `condor.py` generates); per-job\n  `output/wave_*.h5` files are left unmerged. Merging them would need an\n  extra `pycwb merge --wave` DAG node or an `after_completion()` hook.\n- **`collect_assets` is best-effort.** It's based on reading pycWB's\n  merge/output code, but unlike `detect_completion` (verified against a\n  real merge via `catalog/progress.parquet`), the e2e test doesn't exercise\n  its skymap/waveform paths (the tiny test config doesn't reliably\n  guarantee a detected trigger, and its DAG doesn't merge waveforms at all\n  — see below) — those may still need adjusting.\n- **No GraceDB upload integration.** pycWB has `pycwb.modules.gracedb` for\n  this; it isn't wired up here.\n- **Re-running `build_dag` is destructive.** pycWB's `HTCondor.create()`\n  interactively confirms before touching an existing `condor/` directory,\n  which would hang a non-interactive asimov run, and pycWB's own\n  `prepare_job_runs(..., overwrite=True)` is a resume feature that reuses\n  any existing catalog/progress/trigger/output rather than starting fresh\n  — which would otherwise let `detect_completion()` see stale state from a\n  previous run. So `build_dag()` removes `condor/`, `catalog/`, `trigger/`,\n  `output/`, `job_status/`, and `log/` itself before regenerating the DAG\n  (leaving the downloaded `wdmXTalk/` catalog in place). This means calling\n  `build_dag()` again after a production has already been submitted (or\n  has run) will discard its existing results.\n\n## Development\n\n```\npip install -e .[test]\npytest\n```\n\nThe unit test suite only covers config-template rendering and the\npre-seeded-config lookup (`PyCWB._render_config`/`_find_existing_config`,\nvia `asimov.pipeline.Pipeline`), since that only depends on `asimov` and\n`liquidpy`. `build_dag`/`submit_dag`'s pycWB-calling code isn't unit\ntested — it's covered instead by the end-to-end workflow described above,\nwhich runs a real pycWB installation against a real HTCondor pool.\n\n### Installing pycWB\n\n`pip install asimov-pycwb` does **not** pull in pycWB itself: `pip install\npycWB` unconditionally tries to build a compiled `cwb-core` C++ extension\nagainst ROOT + healpix-cxx, which fails outright without them (there's no\nmanylinux wheel), so making it an unconditional dependency would break\ninstallation for anyone without a ROOT-enabled environment already. Install\npycWB separately, using whichever of these fits your environment:\n\n- **A ROOT-enabled conda environment** (see\n  [pycWB's own README](https://github.com/PycWB/pycwb#installation) for the\n  `conda install ... root=6 healpix_cxx=3 ...` recipe), then\n  `pip install asimov-pycwb[pycwb]` to also record the dependency; or\n- **pycWB's pure-Python install path** (no ROOT/cwb-core at all):\n  `PYCWB_DISABLE_WAT=1 pip install \"pycwb @ git+https://github.com/PycWB/pycwb.git\"`\n  — this is what `.github/actions/setup-pycwb-env` uses for this plugin's\n  own end-to-end test, since that flag isn't in any released PyPI version\n  yet (see `pycwb/setup.py` upstream).\n",
+          "url": "https://github.com/transientlunatic/asimov-pycwb/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "pycwb"
+          ]
+        }
+      ],
+      "summary": "An asimov pipeline plugin wrapping pycWB's targeted single-candidate reconstruction mode",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-pycwb",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-pesummary",
+      "slug": "asimov-pesummary",
+      "repo": "etive-io/asimov-pesummary",
+      "repo_url": "https://github.com/etive-io/asimov-pesummary",
+      "category": "post-processing",
+      "category_label": "Post-processing & results",
+      "maintenance": "official",
+      "featured": true,
+      "deprecated": null,
+      "docs": "https://etive-io.github.io/asimov-pesummary/",
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-pesummary\n\nPESummary pipeline integration for [Asimov](https://git.ligo.org/asimov/asimov).\n\nThis package provides a plugin for Asimov 0.7+ that enables integration with PESummary for post-processing and visualization of parameter estimation results.\n\n## Features\n\n- 🔌 **Plugin Architecture**: Seamlessly integrates with Asimov via entry points\n- 📊 **Result Summarization**: Automatic generation of summary pages from PE results\n- 🎨 **Visualization**: Automated plot generation and result presentation\n- 📈 **Multi-analysis Support**: Combine results from multiple analyses\n- 🚀 **HTCondor Integration**: Automated job submission for large-scale post-processing\n- 🧪 **Well Tested**: Comprehensive unit test coverage\n\n## Installation\n\n### Via Asimov (Recommended)\n\nIf you have asimov 0.7+, you can install gravitational wave pipelines including PESummary with:\n\n```bash\npip install asimov[gw]\n```\n\nThis will automatically install asimov-pesummary and other GW analysis plugins.\n\n### From PyPI (when released)\n\n```bash\npip install asimov-pesummary\n```\n\n### From Source\n\n```bash\ngit clone https://git.ligo.org/asimov/asimov-pesummary.git\ncd asimov-pesummary\npip install -e .\n```\n\n### For Development\n\n```bash\npip install -e \".[docs,test]\"\n```\n\n## Quick Start\n\nOnce installed, the PESummary pipeline is automatically available in Asimov for post-processing parameter estimation results.\n\n## Requirements\n\n- Python >= 3.9\n- asimov >= 0.7.0\n- pesummary\n\n## License\n\nMIT License - see LICENSE file for details.\n\n## Contributing\n\nContributions are welcome! Please see CONTRIBUTING.md for guidelines.\n",
+          "url": "https://github.com/etive-io/asimov-pesummary/blob/HEAD/README.md"
+        }
+      },
+      "pypi": {
+        "name": "asimov-pesummary",
+        "version": "0.2.0",
+        "released": "2026-09-15",
+        "summary": "PESummary pipeline integration for Asimov",
+        "requires_python": ">=3.9",
+        "license": null,
+        "status": "Beta",
+        "url": "https://pypi.org/project/asimov-pesummary/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "pesummary"
+          ]
+        }
+      ],
+      "summary": "PESummary pipeline integration for Asimov",
+      "install": "pip install asimov-pesummary",
+      "latest_version": "0.2.0",
+      "latest_released": "2026-09-15"
+    },
+    {
+      "name": "asimov-pastro",
+      "slug": "asimov-pastro",
+      "repo": "transientlunatic/asimov-pastro",
+      "repo_url": "https://github.com/transientlunatic/asimov-pastro",
+      "category": "post-processing",
+      "category_label": "Post-processing & results",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-pastro\n\nAn Asimov pipeline plugin for computing the astrophysical probability (p_astro) of gravitational wave candidates.\n\n## Overview\n\nThis pipeline implements the Bayesian framework described in:\n- [arXiv:1909.11872](https://arxiv.org/abs/1909.11872) - Gravitational wave detection without boot straps: a Bayesian approach\n- [arXiv:2006.05039](https://arxiv.org/abs/2006.05039) - The astrophysical odds of GW151216\n\nThe pipeline computes p_astro, the probability that a gravitational wave candidate is of astrophysical origin (vs. terrestrial noise), using:\n1. **Posterior samples** from parameter estimation (PE) analyses\n2. **Signal coherence** across multiple detectors\n3. **Glitch characterization** from Omicron triggers (optional)\n4. **Bayesian odds calculation** comparing astrophysical and terrestrial hypotheses\n\n## Key Features\n\n- **PE-tool agnostic**: Works with posterior samples from any PE pipeline\n  - bilby / bilby_pipe\n  - pycbc_inference\n  - RIFT\n  - LALInference\n  - Any tool that outputs standard formats (HDF5, JSON)\n\n- **Omicron integration**: Can incorporate instrumental glitch information from asimov-pyomicron\n\n- **Scalable**: Integrates with Asimov's workflow management for processing many events\n\n- **Multi-event support**: Can be used with Asimov's ProjectAnalysis for population-level studies\n\n## Installation\n\n```bash\n# Clone the repository\ncd /path/to/asimov-pipelines/asimov-pastro\n\n# Install in development mode\npip install -e .\n```\n\nThe pipeline will automatically register with Asimov via entry points.\n\n## Quick Start\n\n### 1. Set up your Asimov project\n\n```bash\nmkdir my_pastro_project\ncd my_pastro_project\nasimov init \"P_astro Analysis\"\n```\n\n### 2. Add an event and PE analysis\n\nFirst, run your parameter estimation analysis (e.g., with bilby_pipe or pycbc_inference):\n\n```yaml\n# In your ledger file\nproductions:\n  - name: \"GW150914_bilby_pe\"\n    pipeline: \"bilby\"\n    status: \"complete\"\n    # ... PE configuration ...\n```\n\n### 3. Add p_astro analysis\n\nAdd a new production that depends on the PE analysis:\n\n```yaml\nproductions:\n  - name: \"GW150914_pastro\"\n    pipeline: \"pastro\"\n    needs:\n      - \"GW150914_bilby_pe\"  # PE analysis dependency\n    interferometers:\n      - H1\n      - L1\n    scheduler:\n      request_memory: \"2GB\"\n      request_disk: \"1GB\"\n      accounting_group: \"ligo.dev.o4.cbc.pe.bayesian\"\n```\n\n### 4. Run the analysis\n\n```bash\nasimov apply\n```\n\nThe pipeline will:\n1. Find posterior samples from the dependent PE analysis\n2. Compute signal coherence across detectors\n3. Calculate p_astro\n4. Store results in `pastro_results.json`\n\n## Architecture\n\n### Pipeline Flow\n\n```\nInput: PE Posterior Samples + (Optional) Omicron Triggers\n        ↓\nStep 1: Load samples (format-agnostic reader)\n        ↓\nStep 2: Compute signal coherence\n        ↓\nStep 3: Characterize noise environment\n        ↓\nStep 4: Compute Bayesian odds ratio\n        ↓\nOutput: p_astro value + diagnostics\n```\n\n### Integration with Other Pipelines\n\n```\nEvent Detection\n    ↓\ngwdata (Frame files, PSDs, Calibration)\n    ↓\n[Optional] asimov-pyomicron (Glitch triggers) ──┐\n    ↓                                             │\nPE Pipeline (bilby/pycbc/RIFT/etc.)             │\n    ↓                                             │\nPosterior Samples                                │\n    ↓                                             │\nasimov-pastro ←──────────────────────────────────┘\n    ↓\np_astro Classification\n```\n\n## Output Format\n\nThe pipeline produces `pastro_results.json`:\n\n```json\n{\n  \"pastro\": 0.95,\n  \"coherence\": {\n    \"time_delay_consistency\": 0.98,\n    \"amplitude_consistency\": 0.92,\n    \"phase_consistency\": 0.89,\n    \"network_snr\": 23.4\n  },\n  \"samples_info\": {\n    \"n_samples\": 10000,\n    \"parameters\": [\"mass_1\", \"mass_2\", \"luminosity_distance\", ...]\n  }\n}\n```\n\nThe p_astro value is also stored in the production metadata for easy access:\n\n```python\nproduction.meta['pastro']  # Access in Python\n```\n\n## Configuration Options\n\n### Required Metadata\n\n- `interferometers`: List of detectors (e.g., `[\"H1\", \"L1\", \"V1\"]`)\n- `needs`: Dependency on PE analysis that provides posterior samples\n\n### Optional Metadata\n\n- `scheduler.request_memory`: Memory allocation (default: \"2GB\")\n- `scheduler.request_disk`: Disk space (default: \"1GB\")\n- `scheduler.accounting_group`: HTCondor accounting group\n\n### Advanced Configuration\n\nFor custom coherence calculations or noise models, you can extend the `PastroCalculator` class:\n\n```python\nfrom asimov_pastro.calculator import PastroCalculator\n\nclass CustomPastroCalculator(PastroCalculator):\n    def compute_coherence(self, samples):\n        # Custom coherence implementation\n        pass\n\n    def compute_pastro(self, samples, coherence, glitch_info):\n        # Custom p_astro calculation\n        pass\n```\n\n## Development Status\n\n### Implemented ✓\n\n- [x] Asimov pipeline interface\n- [x] Format-agnostic sample reader (HDF5, JSON)\n- [x] Omicron trigger ingestion\n- [x] HTCondor job submission\n- [x] Results collection and metadata storage\n\n### In Progress / TODO\n\n- [ ] **Coherence calculations**\n  - [ ] Time delay consistency across IFOs\n  - [ ] Amplitude consistency given antenna patterns\n  - [ ] Phase relationship verification\n  - [ ] Network SNR computation\n\n- [ ] **Bayesian odds calculation**\n  - [ ] Astrophysical signal likelihood model\n  - [ ] Terrestrial noise likelihood model\n  - [ ] Prior on astrophysical rate\n  - [ ] Integration over parameters\n\n- [ ] **Noise characterization**\n  - [ ] Glitch parameterization from Omicron triggers\n  - [ ] Time-frequency glitch modeling\n  - [ ] Detector-specific noise profiles\n\n- [ ] **Validation and testing**\n  - [ ] Unit tests for all components\n  - [ ] Integration tests with real PE outputs\n  - [ ] Comparison with published p_astro values\n\n- [ ] **Documentation**\n  - [ ] Mathematical derivation documentation\n  - [ ] API reference\n  - [ ] Tutorial notebooks\n\n## Contributing\n\nThis is an active development project. Contributions are welcome!\n\n### Priority Areas\n\n1. **Coherence calculations**: Implement the methods from arXiv:1909.11872\n2. **Bayesian framework**: Full implementation of the odds ratio calculation\n3. **Validation**: Test against known results (GW150914, GW151216, etc.)\n4. **Documentation**: Mathematical background and usage examples\n\n### Development Setup\n\n```bash\n# Install with development dependencies\npip install -e \".[dev]\"\n\n# Run tests\npytest\n\n# Run tests with coverage\npytest --cov=asimov_pastro --cov-report=html\n```\n\n## References\n\n- Ashton, G., & Thrane, E. (2019). *Gravitational wave detection without boot straps: a Bayesian approach*. [arXiv:1909.11872](https://arxiv.org/abs/1909.11872)\n- Ashton, G., & Thrane, E. (2020). *The astrophysical odds of GW151216*. [arXiv:2006.05039](https://arxiv.org/abs/2006.05039)\n\n## License\n\nThis project follows the licensing of the parent Asimov project.\n\n## Contact\n\nFor questions or issues, please open an issue on the repository or contact the developers.\n",
+          "url": "https://github.com/transientlunatic/asimov-pastro/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "pastro"
+          ]
+        }
+      ],
+      "summary": "Asimov plugin for computing astrophysical probability (p_astro) of gravitational wave candidates",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-pastro",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "minke",
+      "slug": "minke",
+      "repo": "transientlunatic/minke",
+      "repo_url": "https://github.com/transientlunatic/minke",
+      "category": "simulation",
+      "category_label": "Simulation & injections",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "rst",
+          "text": "=================================\nMinke: Making Gravitational Waves\n=================================\n\n.. image:: https://zenodo.org/badge/53331163.svg\n   :target: https://zenodo.org/badge/latestdoi/53331163\n\n.. image:: https://img.shields.io/pypi/v/minke.svg\n   :target: https://pypi.python.org/pypi/minke\n   :alt: PyPI version\n\n.. image:: https://github.com/transientlunatic/minke/actions/workflows/docs.yml/badge.svg\n   :target: https://github.com/transientlunatic/minke/actions/workflows/docs.yml\n   :alt: Documentation build status\n\n.. image:: https://code.daniel-williams.co.uk/minke/_images/minke.png\n   :alt: Project Minke Logo\n\n\nMinke is a Python package to create simulated gravitational-wave signals for a number of different sources, including compact binaries, supernovae, and other burst and ringdown morphologies, and to inject them into detector data or hardware-injection pipelines.\n\n* Free software: ISC license\n* Source code: https://github.com/transientlunatic/minke\n* Documentation: https://code.daniel-williams.co.uk/minke/\n\nFeatures\n--------\n\n* Produces compact binary coalescence (CBC) waveforms using LALSimulation approximants, selectable by name at runtime\n* Produces burst MDCs with Gaussian, SineGaussian, and White Noise Burst ad-hoc waveforms\n* Produces ringdown waveforms for MDCs\n* Produces numerical relativity burst MDCs for supernovae, including hyperbolic encounters and long-duration searches\n* Generates injections directly from `bagpuss <https://github.com/transientlunatic/bagpuss>`_ catalogues\n* Specifies injections either by physical parameters or by a target network signal-to-noise ratio (SNR)\n* Produces coloured detector noise for a range of known detector PSDs\n* Produces GWF frame files, matching frame caches, and GravEn-format log files for MDCs\n* Produces hardware-injection ready data files\n* Produces SimBurstTable XML files for MDCs\n* Integrates with `asimov <https://asimov.docs.ligo.org/asimov/>`_ for automated analysis pipelines, including generating asimov event blueprints from injections\n",
+          "url": "https://github.com/transientlunatic/minke/blob/HEAD/README.rst"
+        }
+      },
+      "pypi": {
+        "name": "minke",
+        "version": "2.2.0",
+        "released": "2026-07-22",
+        "summary": "A package to make generating gravitational waveforms easier.",
+        "requires_python": ">=3.7",
+        "license": "MIT",
+        "status": null,
+        "url": "https://pypi.org/project/minke/"
+      },
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "minke"
+          ]
+        }
+      ],
+      "summary": "A package to make generating gravitational waveforms easier.",
+      "install": "pip install minke",
+      "latest_version": "2.2.0",
+      "latest_released": "2026-07-22"
+    },
+    {
+      "name": "asimov-gracedb",
+      "slug": "asimov-gracedb",
+      "repo": "etive-io/asimov-gracedb",
+      "repo_url": "https://github.com/etive-io/asimov-gracedb",
+      "category": "integration",
+      "category_label": "Services & integrations",
+      "maintenance": "official",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# Asimov GraceDB\n\nGraceDB integration for [asimov](https://git.ligo.org/asimov/asimov). Moved out of asimov\ncore so that `ligo-gracedb` (and the GraceDB REST API it talks to) is no longer a hard\ndependency of the base package — asimov core has no knowledge of GraceDB beyond the\n`asimov.hooks.applicator` and `asimov.hooks.filesource` plugin interfaces this package\nimplements.\n\n## Installation\n\n```bash\npip install asimov-gracedb\n```\n\n## Usage\n\n### Creating an event from GraceDB\n\n```bash\n$ asimov apply -p gracedb -e S200316bj      # superevent\n$ asimov apply -p gracedb -e G123456        # event GID\n```\n\nThis registers an `asimov.hooks.applicator` plugin named `gracedb`, following the same\npattern as the `cbcflow` applicator: `Applicator(ledger).run(identifier)` looks up the\nsuperevent or event on GraceDB, creates an `Event` populated with its interferometers,\nGPS time, and preferred-event GID, and adds it to the ledger.\n\n### Fetching files for an existing event\n\nOnce installed, `asimov-gracedb` is also picked up automatically by asimov core's\n`Event.get_gracedb()` (e.g. the coinc.xml fallback used by the RIFT pipeline) via the\n`asimov.hooks.filesource` entry point named `gracedb`. No separate configuration is\nneeded beyond a `[gracedb]` section with a `url` option in your asimov config, e.g.:\n\n```ini\n[gracedb]\nurl = https://gracedb.ligo.org/api/\n```\n\n## Testing\n\n```bash\npython3 -m pytest tests/\n```\n",
+          "url": "https://github.com/etive-io/asimov-gracedb/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.hooks.applicator",
+          "label": "Applicator hook",
+          "names": [
+            "gracedb"
+          ]
+        },
+        {
+          "group": "asimov.hooks.filesource",
+          "label": "File source",
+          "names": [
+            "gracedb"
+          ]
+        }
+      ],
+      "summary": "GraceDB integration for Asimov",
+      "install": "pip install git+https://github.com/etive-io/asimov-gracedb",
+      "latest_version": null,
+      "latest_released": null
+    },
+    {
+      "name": "asimov-exoplanet",
+      "slug": "asimov-exoplanet",
+      "repo": "transientlunatic/asimov-exoplanet",
+      "repo_url": "https://github.com/transientlunatic/asimov-exoplanet",
+      "category": "other-domains",
+      "category_label": "Beyond gravitational waves",
+      "maintenance": "community",
+      "featured": false,
+      "deprecated": null,
+      "docs": null,
+      "source": {
+        "readme": {
+          "format": "markdown",
+          "text": "# asimov-exoplanet\n\nAn [Asimov](https://github.com/etive-io/asimov) pipeline plugin for searching\nstellar photometry (e.g. Kepler/K2/TESS light curves) for transiting\nexoplanets, registered via the `asimov.pipelines` entry point in the same\nway as `asimov-bilby`, `asimov-lalinference`, `asimov-pesummary`, and\n`asimov-gracedb`.\n\nSee [`DESIGN.md`](https://github.com/transientlunatic/asimov-exoplanet/blob/HEAD/DESIGN.md) for the full design and phased roadmap.\n\n## Status\n\nThis package has completed **Phases 1 through 3** of the roadmap in\n`DESIGN.md`: real MAST/`lightkurve` ingestion, detrending, a Box Least\nSquares transit search, odd/even and secondary-eclipse vetting checks, and\nan interactive per-target HTML report are implemented and wired into\n`BLSTransitSearch`, with a worked single-target blueprint at\n`examples/kepler-10.yaml`. Catalog-scale campaigns (`ProjectAnalysis`) are\nalso supported -- an HTCondor DAG per campaign (one job per target plus a\ndependent aggregation job) and an aggregate candidate report -- with a\nworked multi-target blueprint at `examples/koi-catalog.yaml`. Slurm catalog\nsubmission has a known limitation: see \"Open questions\" in `DESIGN.md`.\n\n## Installation\n\n```bash\npip install -e \".[test]\"\n```\n\nThe `photometry` extra (`astropy`, `lightkurve`, `astroquery`) is required\nfor `BLSTransitSearch` and is pulled in automatically by `[test]`; the\ndependency-free `DummyTransitSearchPipeline` doesn't need it.\n\n## Running the tests\n\n```bash\npytest\n```\n\n## Trying it against a real target\n\n```bash\nasimov apply -f examples/kepler-10.yaml\nasimov manage build\nasimov manage submit\n```\n\n## Trying it against a small catalog campaign\n\n```bash\nasimov apply -f examples/koi-catalog.yaml\nasimov manage build\nasimov manage submit\n```\n\n## Package layout\n\n```\nasimov_exoplanet/\n  pipeline.py            # BLSTransitSearch + DummyTransitSearchPipeline - the asimov.pipelines entry points\n  filesource.py          # MAST/Kepler asimov.hooks.filesource entry point\n  photometry.py          # detrend()/search() - plain functions, unit-testable without Asimov\n  vetting.py             # odd/even + secondary-eclipse checks - plain functions, same pattern\n  cli.py                 # asimov-exoplanet-bls / asimov-exoplanet-bls-catalog-report console scripts\n  config_template.toml   # liquid-templated pipeline config\n  report.py              # per-target (Phase 2) and per-catalog (Phase 3) interactive HTML reports\n```\n",
+          "url": "https://github.com/transientlunatic/asimov-exoplanet/blob/HEAD/README.md"
+        }
+      },
+      "pypi": null,
+      "conda": null,
+      "entry_points": [
+        {
+          "group": "asimov.hooks.filesource",
+          "label": "File source",
+          "names": [
+            "mast"
+          ]
+        },
+        {
+          "group": "asimov.pipelines",
+          "label": "Pipeline",
+          "names": [
+            "photometry-bls"
+          ]
+        }
+      ],
+      "summary": "An Asimov pipeline plugin for searching stellar photometry for transiting exoplanets.",
+      "install": "pip install git+https://github.com/transientlunatic/asimov-exoplanet",
+      "latest_version": null,
+      "latest_released": null
+    }
+  ]
+}

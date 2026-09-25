@@ -1,0 +1,140 @@
+# The asimov plugin registry.
+#
+# This is the ONLY hand-maintained list of ecosystem packages. To list a new
+# plugin, open a pull request adding an entry below. Everything else on the
+# site -- description, version, licence, Python support, the asimov entry
+# points the package registers, conda-forge availability, README and releases
+# -- is fetched automatically from PyPI and the repository when the site is
+# built (scripts/build-registry.py). Keep your package metadata up to date
+# there, not here.
+#
+# Fields
+#   name         (required) display name; usually the PyPI name
+#   repo         (required) "owner/name" on GitHub, or a full https URL for
+#                a GitLab instance (e.g. https://git.ligo.org/group/project)
+#   category     (required) core | parameter-estimation | data | search |
+#                post-processing | population | simulation | integration |
+#                other-domains
+#   pypi         PyPI name if it differs from `name`; `null` if not on PyPI
+#   conda        conda-forge name if it differs from the PyPI name
+#   maintenance  official (asimov team) | community   [default: community]
+#   docs         documentation URL (defaults to the repository homepage)
+#   summary      one-line override if the PyPI/repository description is poor
+#   featured     true to show on the homepage
+#   deprecated   short reason, shown as a warning (archived repos are
+#                flagged automatically)
+
+- name: asimov
+  repo: etive-io/asimov
+  category: core
+  maintenance: official
+  summary: Workflow infrastructure for automated, recorded and reproducible scientific analysis.
+  docs: https://asimov.docs.ligo.org/asimov/
+
+# Parameter estimation ------------------------------------------------------
+
+- name: bilby_pipe
+  repo: https://git.ligo.org/lscsoft/bilby_pipe
+  category: parameter-estimation
+  docs: https://lscsoft.docs.ligo.org/bilby_pipe/master/
+  summary: Bilby's pipeline for gravitational-wave parameter estimation; ships its own asimov integration.
+  featured: true
+
+- name: RIFT
+  repo: https://git.ligo.org/rapidpe-rift/rift
+  category: parameter-estimation
+  summary: Rapid iterative fitting for gravitational-wave parameter estimation; ships its own asimov integration.
+
+- name: asimov-pycbc
+  repo: etive-io/asimov-pycbc
+  category: parameter-estimation
+  maintenance: official
+  featured: true
+
+- name: asimov-cogwheel
+  repo: etive-io/asimov-cogwheel
+  category: parameter-estimation
+  maintenance: official
+  featured: true
+
+- name: asimov-jim
+  repo: transientlunatic/asimov-jim
+  category: parameter-estimation
+  pypi: null
+
+- name: asimov-simplepe
+  repo: transientlunatic/asimov-simplepe
+  category: parameter-estimation
+  pypi: null
+  docs: https://transientlunatic.github.io/asimov-simplepe/
+
+- name: asimov-lalinference
+  repo: etive-io/asimov-lalinference
+  category: parameter-estimation
+  maintenance: official
+  docs: https://etive-io.github.io/asimov-lalinference/
+  deprecated: LALInference is a legacy pipeline; use it for cross-checks and reproducing older analyses, not for new work.
+
+# Data and noise characterisation ------------------------------------------
+
+- name: asimov-gwdata
+  repo: etive-io/asimov-gwdata
+  category: data
+  maintenance: official
+  featured: true
+
+- name: asimov-bayeswave
+  repo: etive-io/asimov-bayeswave
+  category: data
+  maintenance: official
+  docs: https://etive-io.github.io/asimov-bayeswave/
+  featured: true
+
+- name: asimov-pyomicron
+  repo: transientlunatic/asimov-pyomicron
+  category: data
+
+- name: asimov-ptadata
+  repo: transientlunatic/asimov-ptadata
+  category: data
+  pypi: null
+
+# Searches ------------------------------------------------------------------
+
+- name: asimov-pycwb
+  repo: transientlunatic/asimov-pycwb
+  category: search
+  pypi: null
+
+# Post-processing -----------------------------------------------------------
+
+- name: asimov-pesummary
+  repo: etive-io/asimov-pesummary
+  category: post-processing
+  maintenance: official
+  docs: https://etive-io.github.io/asimov-pesummary/
+  featured: true
+
+- name: asimov-pastro
+  repo: transientlunatic/asimov-pastro
+  category: post-processing
+
+# Simulation ----------------------------------------------------------------
+
+- name: minke
+  repo: transientlunatic/minke
+  category: simulation
+
+# Services and integrations -------------------------------------------------
+
+- name: asimov-gracedb
+  repo: etive-io/asimov-gracedb
+  category: integration
+  maintenance: official
+
+# Beyond gravitational waves ------------------------------------------------
+
+- name: asimov-exoplanet
+  repo: transientlunatic/asimov-exoplanet
+  category: other-domains
+  pypi: null

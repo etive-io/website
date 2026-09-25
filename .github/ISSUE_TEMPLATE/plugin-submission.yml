@@ -1,0 +1,51 @@
+name: List a plugin
+description: Ask for an asimov plugin to be added to the registry at etive.io/plugins.
+title: "Registry: add <package name>"
+labels: ["registry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The quickest route is a pull request adding a short entry to `registry.yml`
+        (see the comments at the top of that file). If you'd rather not, fill this in
+        and a maintainer will add it. You don't need to write a description or page:
+        the site reads your README, PyPI metadata and asimov entry points directly.
+  - type: input
+    id: name
+    attributes:
+      label: Package name
+      description: Usually the PyPI name.
+      placeholder: asimov-mycode
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      placeholder: https://github.com/my-org/asimov-mycode
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - parameter-estimation
+        - data
+        - search
+        - post-processing
+        - population
+        - simulation
+        - integration
+        - other-domains
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: The package registers at least one `asimov.*` entry point (e.g. `asimov.pipelines`) in its packaging metadata.
+          required: true
+        - label: The repository is public and has a README.
+          required: true
