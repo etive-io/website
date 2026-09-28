@@ -1,6 +1,30 @@
 {
   "releases": [
     {
+      "title": "etive-io/asimov: asimov 0.5.15 [eol]",
+      "doi": "10.5281/zenodo.22953607",
+      "created": "2026-09-25T07:24:38.554508+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22953607"
+      }
+    },
+    {
+      "title": "etive-io/asimov: asimov 0.6.2 [eol]",
+      "doi": "10.5281/zenodo.22953577",
+      "created": "2026-09-25T07:22:01.960848+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22953577"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.22930617",
+      "created": "2026-09-24T05:01:41.869217+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22930617"
+      }
+    },
+    {
       "title": "Asimov: A framework for coordinating parameter estimation workflows",
       "doi": "10.5281/zenodo.22829410",
       "created": "2026-09-18T11:16:42.401642+00:00",
@@ -177,5 +201,5 @@
       }
     }
   ],
-  "last_updated": "2026-09-21T07:20:08.692434Z"
+  "last_updated": "2026-09-28T07:49:34.953842Z"
 }
