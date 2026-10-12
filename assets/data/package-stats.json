@@ -3,12 +3,12 @@
     "name": "asimov",
     "github_repo": "etive-io/asimov",
     "github_stars": 8,
-    "latest_release": "v0.7.1",
-    "release_date": "2026-09-18T11:16:34Z",
-    "pypi_downloads_week": 0,
-    "pypi_downloads_month": 0,
-    "conda_forge_downloads_total": 31229,
-    "last_updated": "2026-10-05T07:48:15.357770Z"
+    "latest_release": "v0.8.0",
+    "release_date": "2026-10-06T11:39:11Z",
+    "pypi_downloads_week": 1548,
+    "pypi_downloads_month": 5343,
+    "conda_forge_downloads_total": 31709,
+    "last_updated": "2026-10-12T08:10:03.670099Z"
   },
   {
     "name": "asimov-pycbc",
@@ -19,7 +19,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:16.432266Z"
+    "last_updated": "2026-10-12T08:10:05.191071Z"
   },
   {
     "name": "asimov-cogwheel",
@@ -27,10 +27,10 @@
     "github_stars": 0,
     "latest_release": "v0.1.1",
     "release_date": "2025-04-03T08:43:47Z",
-    "pypi_downloads_week": 11,
+    "pypi_downloads_week": 2,
     "pypi_downloads_month": 19,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:17.361339Z"
+    "last_updated": "2026-10-12T08:10:06.089435Z"
   },
   {
     "name": "asimov-lalinference",
@@ -38,10 +38,10 @@
     "github_stars": 0,
     "latest_release": "v0.1.0",
     "release_date": "2026-08-17T07:34:12Z",
-    "pypi_downloads_week": 10,
+    "pypi_downloads_week": 2,
     "pypi_downloads_month": 30,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:18.349348Z"
+    "last_updated": "2026-10-12T08:10:07.000633Z"
   },
   {
     "name": "asimov-gwdata",
@@ -49,10 +49,10 @@
     "github_stars": 0,
     "latest_release": null,
     "release_date": null,
-    "pypi_downloads_week": 0,
-    "pypi_downloads_month": 0,
-    "conda_forge_downloads_total": 30936,
-    "last_updated": "2026-10-05T07:48:19.380882Z"
+    "pypi_downloads_week": 968,
+    "pypi_downloads_month": 2440,
+    "conda_forge_downloads_total": 31267,
+    "last_updated": "2026-10-12T08:10:07.760173Z"
   },
   {
     "name": "asimov-bayeswave",
@@ -60,10 +60,10 @@
     "github_stars": 0,
     "latest_release": "v0.3.0",
     "release_date": "2026-09-30T09:38:04Z",
-    "pypi_downloads_week": 508,
-    "pypi_downloads_month": 1413,
+    "pypi_downloads_week": 632,
+    "pypi_downloads_month": 1465,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:20.391467Z"
+    "last_updated": "2026-10-12T08:10:08.652511Z"
   },
   {
     "name": "asimov-pyomicron",
@@ -74,7 +74,7 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:21.376726Z"
+    "last_updated": "2026-10-12T08:10:09.476458Z"
   },
   {
     "name": "asimov-pesummary",
@@ -82,10 +82,10 @@
     "github_stars": 0,
     "latest_release": "v0.2.0",
     "release_date": "2026-09-15T15:33:39Z",
-    "pypi_downloads_week": 208,
-    "pypi_downloads_month": 724,
+    "pypi_downloads_week": 375,
+    "pypi_downloads_month": 774,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:22.364117Z"
+    "last_updated": "2026-10-12T08:10:10.252499Z"
   },
   {
     "name": "minke",
@@ -93,10 +93,10 @@
     "github_stars": 9,
     "latest_release": "v2.3.0",
     "release_date": "2026-10-02T13:30:10Z",
-    "pypi_downloads_week": 199,
-    "pypi_downloads_month": 233,
+    "pypi_downloads_week": 17,
+    "pypi_downloads_month": 235,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:23.328850Z"
+    "last_updated": "2026-10-12T08:10:10.949595Z"
   },
   {
     "name": "asimov-gracedb",
@@ -107,6 +107,6 @@
     "pypi_downloads_week": 0,
     "pypi_downloads_month": 0,
     "conda_forge_downloads_total": 0,
-    "last_updated": "2026-10-05T07:48:24.272426Z"
+    "last_updated": "2026-10-12T08:10:11.641907Z"
   }
 ]
