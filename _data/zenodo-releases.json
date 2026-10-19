@@ -1,4 +1,205 @@
 {
-  "releases": [],
-  "last_updated": "2026-10-12T08:10:22.044354Z"
+  "releases": [
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.23103543",
+      "created": "2026-10-02T13:06:43.449536+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/23103543"
+      }
+    },
+    {
+      "title": "etive-io/asimov: asimov 0.5.15 [eol]",
+      "doi": "10.5281/zenodo.22953607",
+      "created": "2026-09-25T07:24:38.554508+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22953607"
+      }
+    },
+    {
+      "title": "etive-io/asimov: asimov 0.6.2 [eol]",
+      "doi": "10.5281/zenodo.22953577",
+      "created": "2026-09-25T07:22:01.960848+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22953577"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.22930617",
+      "created": "2026-09-24T05:01:41.869217+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22930617"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.22829410",
+      "created": "2026-09-18T11:16:42.401642+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22829410"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.22814300",
+      "created": "2026-09-17T14:05:27.718724+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/22814300"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.21976337",
+      "created": "2026-08-17T08:22:07.114332+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/21976337"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.20495576",
+      "created": "2026-06-01T17:21:20.335563+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/20495576"
+      }
+    },
+    {
+      "title": "etive-io/asimov: v0.7.0-alpha.2",
+      "doi": "10.5281/zenodo.18377162",
+      "created": "2026-01-26T14:15:44.897800+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/18377162"
+      }
+    },
+    {
+      "title": "etive-io/asimov: v0.7.0-alpha.1",
+      "doi": "10.5281/zenodo.18341753",
+      "created": "2026-01-22T17:52:41.984702+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/18341753"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.6.1",
+      "doi": "10.5281/zenodo.17945091",
+      "created": "2025-12-15T21:48:05.696177+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945091"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.6.0",
+      "doi": "10.5281/zenodo.17945085",
+      "created": "2025-12-15T21:46:57.893899+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945085"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.10",
+      "doi": "10.5281/zenodo.17945078",
+      "created": "2025-12-15T21:45:34.040485+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945078"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.9",
+      "doi": "10.5281/zenodo.17945070",
+      "created": "2025-12-15T21:44:23.825719+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/17945070"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.5.8",
+      "doi": "10.5281/zenodo.13992299",
+      "created": "2024-10-25T13:30:33.664085+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/13992299"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.7",
+      "doi": "10.5281/zenodo.13329517",
+      "created": "2024-08-16T07:45:49.794651+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/13329517"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.6",
+      "doi": "10.5281/zenodo.10547146",
+      "created": "2024-01-21T19:55:14.984107+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/10547146"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.5",
+      "doi": "10.5281/zenodo.10518178",
+      "created": "2024-01-16T11:17:10.857214+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/10518178"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.4",
+      "doi": "10.5281/zenodo.10124824",
+      "created": "2023-11-14T13:54:48.223693+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/10124824"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.3 [reviewed]",
+      "doi": "10.5281/zenodo.8383529",
+      "created": "2023-09-27T13:42:26.427391+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/8383529"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: asimov 0.5.2",
+      "doi": "10.5281/zenodo.8383526",
+      "created": "2023-09-27T13:42:02.251735+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/8383526"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: Asimov 0.5.0",
+      "doi": "10.5281/zenodo.8208786",
+      "created": "2023-08-02T16:02:04.703274+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/8208786"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.4.0",
+      "doi": "10.5281/zenodo.7843573",
+      "created": "2023-04-18T18:26:58.971388+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/7843573"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.3.4",
+      "doi": "10.5281/zenodo.7079685",
+      "created": "2022-09-14T15:59:47.256357+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/7079685"
+      }
+    },
+    {
+      "title": "transientlunatic/asimov: v0.3.2",
+      "doi": "10.5281/zenodo.5142601",
+      "created": "2021-07-28T16:56:22.550698+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/5142601"
+      }
+    }
+  ],
+  "last_updated": "2026-10-19T07:01:55.996467Z"
 }
