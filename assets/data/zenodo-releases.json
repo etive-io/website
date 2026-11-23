@@ -2,6 +2,14 @@
   "releases": [
     {
       "title": "Asimov: A framework for coordinating parameter estimation workflows",
+      "doi": "10.5281/zenodo.24346021",
+      "created": "2026-11-18T15:24:56.308959+00:00",
+      "links": {
+        "html": "https://zenodo.org/record/24346021"
+      }
+    },
+    {
+      "title": "Asimov: A framework for coordinating parameter estimation workflows",
       "doi": "10.5281/zenodo.23924567",
       "created": "2026-11-03T16:38:32.194038+00:00",
       "links": {
@@ -191,15 +199,7 @@
       "links": {
         "html": "https://zenodo.org/record/7843573"
       }
-    },
-    {
-      "title": "transientlunatic/asimov: v0.3.4",
-      "doi": "10.5281/zenodo.7079685",
-      "created": "2022-09-14T15:59:47.256357+00:00",
-      "links": {
-        "html": "https://zenodo.org/record/7079685"
-      }
     }
   ],
-  "last_updated": "2026-11-16T08:42:06.910222Z"
+  "last_updated": "2026-11-23T09:54:41.893232Z"
 }
